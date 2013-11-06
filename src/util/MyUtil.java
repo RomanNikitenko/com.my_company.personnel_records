@@ -8,6 +8,7 @@ import java.io.RandomAccessFile;
 import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.StringTokenizer;
 
 
 
@@ -91,7 +92,6 @@ public class MyUtil {
 		 *            String - первое ключевое слово
 		 * @param keyWord2
 		 *            String - второе ключевое слово
-
 		 * @return String - подстрока, которая заключена между ключевых слов
 		 */
 		public static String returnStrAfterKeyWord(String strForAnalysis, String keyWord) {
@@ -102,6 +102,27 @@ public class MyUtil {
 		}// returnStrAfterKeyWord
 
 // ******************************************************
+		/**
+		 * Метод разбивает подстроку, которая стоит после ключевого слова, на токены
+		 * и возвращает их в виде массива
+		 * @param strForAnalysis String - строка для анализа
+		 * @param keyWord String - ключевое слово
+		 * @return String[] - массив токенов, полученных из подстроки, которая стоит после ключевого слова.
+		 */
+		public static String [] returnArrTokenAfterKeyWord (String strForAnalysis, String keyWord) {
+			
+			ArrayList<String> arrListTokens = new ArrayList<String>();
+			int indexKeyWord = strForAnalysis.indexOf(keyWord);
+			String subStr = strForAnalysis.substring(indexKeyWord+keyWord.length()).trim();
+			
+			StringTokenizer strToken = new StringTokenizer(subStr, " :,\t\n\r\f");
+			while (strToken.hasMoreTokens()) {
+				arrListTokens.add(strToken.nextToken());
+			}//while
+			
+		return arrListTokens.toArray(new String [arrListTokens.size()]);
+		}//returnStrAfterKeyWord()
+	
 //*******************************************************
 		/**
 		 * Метод поллучает на вход массив String [] и количество генераций.

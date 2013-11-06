@@ -32,13 +32,11 @@ public class Test {
 	 * @return String [] - массив сгенерированных фамилий, имен и отчеств 
 	 * @throws Exception
 	 */
-	public static String[] generationEmployeeDataAndFiling (int amountEmployee, String pathFileWithRoots,
-			String pathFileWithCompletions, String pathFileWithNames, String pathFileWithMiddlenames,
-			String pathFileOut)	throws Exception {
+	public static String[] generationEmployeeDataAndFiling (int amountEmployee, 
+															String pathFileOut)	throws Exception {
 		
 		//√енерируем последовательность фамилий, имен и отчеств
-		String [] arrSurnameNameMiddlename = generationRandomSurnameNameMiddlename(amountEmployee, pathFileWithRoots,
-											pathFileWithCompletions, pathFileWithNames,pathFileWithMiddlenames);
+		String [] arrSurnameNameMiddlename = generationRandomSurnameNameMiddlename(amountEmployee);
 		
 		// генерируем массив random-data Education
 		String [] arrRandomDataEducation = MyUtil.generationRandomCellsOfArray(arrEducation, amountEmployee);
@@ -106,32 +104,61 @@ public class Test {
 	}//generationEmployeeDataAndFiling
 
 //**************************************************************
-		/**ћетод, генерирует  случайным образом ѕќ—Ћ≈ƒќ¬ј“≈Ћ№Ќќ—“№ фамилий, имен и отчеств.
+		/**ћетод: 1. —читывает из файла "InputForTest.in" (лежит в корне проекта) корни фамилий, окончани€ фамилий,
+		 * имена и отчества; 2. √енерирует  случайным образом ѕќ—Ћ≈ƒќ¬ј“≈Ћ№Ќќ—“№ фамилий, имен и отчеств.
 		 * ¬ыбираетс€ случайным образом корень фамилии(генерируетс€ его номер методом некст»нт()),
 		 * потом аналогично выбираетс€ окончание некст»нт() и объедин€ютс€ в фамилию.
 		 * »мена считываютс€ из файла, генерируетс€ случайный номер имени.
 		 * ќтчество - аналогично имени.
 		 * √рамматичека€ правильность последовательности не важна.
-		 * @param pathFileWithRoots String - путь к файлу с корн€ми фамилий
-		 * @param pathFileWithCompletions String - путь к файлу с окончани€ми фамилий
-		 * @param pathFileWithNames String - путь к файлу с именами
-		 * @param pathFileWithMiddlenames String - путь к файлу с отчествами
+		 * 
+		 * @param amountGeneration int - количество необходимых генераций
 		 * @return String [] - массив сгенерированных фамилий, имен и отчеств 
 		 * @throws Exception
 		 */
-	public static String[] generationRandomSurnameNameMiddlename(int amountGeneration, String pathFileWithRoots,
-			String pathFileWithCompletions, String pathFileWithNames, String pathFileWithMiddlenames)
-			throws Exception {
-
-		// √енерируем фамилии в массив строк (случайно корень + случайно окончание)
-		String[] arrRandomDataSurnames = generationRandomSurnames (amountGeneration, pathFileWithRoots, pathFileWithCompletions);
-
-		// считываем из файла »ћ≈Ќј в массив строк
-		String[] arrNames = MyUtil.readFile(pathFileWithNames);
+	public static String [] generationRandomSurnameNameMiddlename (int amountGeneration) throws Exception {
 		
-		// считываем из файла ќ“„≈—“¬ј в массив строк
-		String[] arrMiddlenames = MyUtil.readFile(pathFileWithMiddlenames);
-
+		//—читываем файл, который содержит корни фамилий, окончани€ фамилий, имена и отчества
+		String [] arrStrFromFile = MyUtil.readFile("InputForTest.in");
+		
+		String [] arrRootsSurnames = null;
+		String [] arrSurnameCompletions = null;
+		String [] arrNames = null;
+		String [] arrMiddlenames = null;
+		
+		for (int i = 0; i < arrStrFromFile.length; i++) {
+			String buf = arrStrFromFile[i];
+			int indexKeyword1 = buf.indexOf("RootsOfSurnames:");
+			int indexKeyword2 = buf.indexOf("CompletionsOfSurnames:");
+			int indexKeyword3 = buf.indexOf("Names:");
+			int indexKeyword4 = buf.indexOf("Middlenames:");
+			if (indexKeyword1 != -1) {
+				//считываем из файла  ќ–Ќ» фамилий в массив строк
+				arrRootsSurnames = MyUtil.returnArrTokenAfterKeyWord(buf, "RootsOfSurnames:");
+			}//if
+			else if (indexKeyword2 != -1) {
+				//считываем из файла ќ ќЌ„јЌ»я фамилий в массив строк
+				arrSurnameCompletions = MyUtil.returnArrTokenAfterKeyWord(buf, "CompletionsOfSurnames:");
+			}//if
+			else if (indexKeyword3 != -1) {
+				//считываем из файла »ћ≈Ќј в массив строк
+				arrNames = MyUtil.returnArrTokenAfterKeyWord(buf, "Names:");
+			}//if
+			else if (indexKeyword4 != -1) {
+				//считываем из файла ќ“„≈—“¬ј в массив строк
+				arrMiddlenames = MyUtil.returnArrTokenAfterKeyWord(buf, "Middlenames:");
+			}//if
+		}//for
+		
+		//генерируем массив номеров  ќ–Ќя фамилий
+		int [] rootsNum = MyUtil.createArrRandomNum(amountGeneration, 0, arrRootsSurnames.length);
+		
+		//генерируем массив номеров ќ ќЌ„јЌ»… фамилий
+		int [] numComplet = MyUtil.createArrRandomNum(amountGeneration, 0, arrSurnameCompletions.length);
+		
+		//склеиваем корень фамилии с окончанием и запоминаем в массив
+		String [] arrRandomDataSurnames = MyUtil.glueCellsArrays(arrRootsSurnames, rootsNum, arrSurnameCompletions, numComplet);
+		
 		// генерируем массив random-data »ћ≈Ќ
 		String [] arrRandomDataNames = MyUtil.generationRandomCellsOfArray(arrNames, amountGeneration);
 
@@ -140,45 +167,12 @@ public class Test {
 
 		//—клеиваем массив фамилий с массивом имен и массивом отчеств в один массив
 		String[] arrResult = MyUtil.glueCellsArrays(arrRandomDataSurnames, arrRandomDataNames, arrRandomDataMiddlenames, " ");
-		
-		return arrResult;
-	}// generationRandomSurnameNameMiddlename ()
 
-//**************************************************************
-	/**ћетод, генерирует  случайным образом ѕќ—Ћ≈ƒќ¬ј“≈Ћ№Ќќ—“№ фамилий от корней с помощью окончаний.
-	 * ¬ыбираетс€ случайным образом корень (генерируетс€ его номер методом некст»нт()),
-	 * потом аналогично выбираетс€ окончание некст»нт() и объедин€ютс€ в фамилию.
-	 * √рамматичека€ правильность фамилии не важна.
-	 * @param pathFileWithRoots String - путь к файлу с корн€ми фамилий
-	 * @param pathFileWithCompletions String - путь к файлу с окончани€ми фамилий
-	 * @return String [] - массив сгенерированных фамилий 
-	 * @throws Exception
-	 */
-	public static String [] generationRandomSurnames (int amountGeneration, String pathFileWithRoots, 
-													  String pathFileWithCompletions) throws Exception {
-		
-		//считываем из файла  ќ–Ќ» фамилий в массив строк
-		String [] arrRootsSurnames = MyUtil.readFile(pathFileWithRoots);
-		
-		//считываем из файла ќ ќЌ„јЌ»я фамилий в массив строк
-		String [] arrNameCompletions = MyUtil.readFile(pathFileWithCompletions);
-		
-		//генерируем массив номеров  ќ–Ќя фамилий
-		int [] rootsNum = MyUtil.createArrRandomNum(amountGeneration, 0, arrRootsSurnames.length);
-		
-		//генерируем массив номеров ќ ќЌ„јЌ»… фамилий
-		int [] numComplet = MyUtil.createArrRandomNum(amountGeneration, 0, arrNameCompletions.length);
-		
-		//склеиваем корень фамилии с окончанием и запоминаем в массив
-		String [] arrSurnames = MyUtil.glueCellsArrays(arrRootsSurnames, rootsNum, arrNameCompletions, numComplet);
-		
-		return arrSurnames;
-	}//generationRandomSurnames ()
+		return arrResult;
+	}//generationRandomSurnameNameMiddlename ()
 //**************************************************************
 	public static void main(String[] args) throws Exception {
 //***********************************************************		
-		generationEmployeeDataAndFiling(50, "C:\\PersonnelRecordsTest\\RootsOfSurnames.in", "C:\\PersonnelRecordsTest\\CompletionsOfnames.in",
-				"C:\\PersonnelRecordsTest\\Names.in", "C:\\PersonnelRecordsTest\\Middlename.in", "TestListEmployee.out");
 	}//main
 
 }//class
