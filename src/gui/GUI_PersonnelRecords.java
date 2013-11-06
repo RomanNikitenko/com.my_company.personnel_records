@@ -1,55 +1,33 @@
 package gui;
 
 import java.awt.BorderLayout;
-import java.awt.Checkbox;
-import java.awt.Color;
-import java.awt.Component;
-import java.awt.Container;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
-import java.awt.Font;
-import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import java.awt.GridLayout;
-import java.awt.Insets;
-import java.awt.LayoutManager;
-import java.awt.Panel;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.IOException;
-import java.util.Set;
+import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
-import javax.swing.ButtonGroup;
-import javax.swing.JButton;
-import javax.swing.JComboBox;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JList;
 import javax.swing.JPanel;
-import javax.swing.JRadioButton;
-import javax.swing.JScrollPane;
 import javax.swing.JTable;
-import javax.swing.JTextField;
-import javax.swing.RootPaneContainer;
-import javax.swing.border.BevelBorder;
-import javax.swing.border.Border;
-import javax.swing.border.TitledBorder;
-import javax.swing.table.AbstractTableModel;
-import javax.swing.table.TableModel;
 
-import employee.Employee;
+import util.MyUtil;
 
 
 public class GUI_PersonnelRecords extends JFrame implements ActionListener {
 	
 //********Ѕлок инициализации*********************
+	private ArrayList<ArrayList<String>> arrListDataEmployees;
 	
 //******* онструктор******************************
 	public GUI_PersonnelRecords () throws Exception {
 
+		//считываем данные по сотрудникам из файла
+		arrListDataEmployees = MyUtil.readDataEmployeeFromFile("C:\\PersonnelRecordsTest\\TestListEmployee.out");
+		
 //*******//главна€ панель//*******
 		JPanel mainPanel = new JPanel(new GridBagLayout()); //создаем главную панель, задаем менеджер размещени€
 		mainPanel.setPreferredSize(new Dimension(900, 410));//устанавливаем размер
@@ -96,6 +74,10 @@ public class GUI_PersonnelRecords extends JFrame implements ActionListener {
 	public static void main(String[] args) throws Exception {
 		new GUI_PersonnelRecords(); 
 	}//main
+	
+	
+	
+	
 	
 	@Override
 	public void actionPerformed(ActionEvent evt) {

@@ -1,6 +1,7 @@
 package employee;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 
 import util.MyUtil;
 
@@ -34,9 +35,5 @@ public abstract class Employee {
 	
 	//проверка: возраст не отрицателен, фамилия - только буквы
 
-	public static void main(String[] args) throws Exception {
-	String [][] mass = MyUtil.readDataEmployeeFromFile("C:\\PersonnelRecordsTest\\TestListEmployee.out");
-	int a = 0;
-	}//main
 
 }//class

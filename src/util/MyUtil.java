@@ -6,6 +6,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.text.NumberFormat;
+import java.util.ArrayList;
 import java.util.Random;
 
 
@@ -13,14 +14,14 @@ import java.util.Random;
 public class MyUtil {
 //***************************************************************************	
 	/**
-	 * ћетод может читает данные по сотрудникам из файла и заносит в двумерный массив строк. –абота метода
+	 * ћетод может читает данные по сотрудникам из файла и заносит в ArrayList<ArrayList<String>>. –абота метода
 	 * основана на считывании инфо, котора€ идет после ключевого слова
 	 * @param pathFileIn
 	 *            String - путь к файлу
-	 * @return String[][] - массив считанных данных
+	 * @return ArrayList<ArrayList<String>> - считанные данные
 	 * @throws Exception
 	 */
-	public static String[][] readDataEmployeeFromFile(String pathFileIn) throws Exception {
+	public static ArrayList<ArrayList<String>> readDataEmployeeFromFile(String pathFileIn) throws Exception {
 
 		RandomAccessFile raf = new RandomAccessFile(pathFileIn, "r");
 		/*
@@ -28,7 +29,7 @@ public class MyUtil {
 		 * в байтах
 		 */
 		int[] massPosNoneEmptyStr = countStrInFile(pathFileIn);
-		String[][] matrixDataEmployees = new String[massPosNoneEmptyStr.length][9];
+		ArrayList<ArrayList<String>> arrListDataEmployees = new ArrayList<ArrayList<String>>(); 
 
 		// *******//читаем построчно файл, делаем анализ инфо и заполн€ем массив данных
 		while (raf.getFilePointer() < raf.length()) {
@@ -42,22 +43,22 @@ public class MyUtil {
 				 * перекодировку - избавл€емс€ от различного рода пробелов
 				 * вначале и конце строки
 				 */
-				String buf = new String(raf.readLine().getBytes("ISO-8859-1"),
-						"Cp1251".trim());
-
-				matrixDataEmployees[j][0] = returnStrBetweenKeyWords(buf, "Personal Number:", 			"surname/Name/Middlename:");
-				matrixDataEmployees[j][1] = returnStrBetweenKeyWords(buf, "surname/Name/Middlename:", 	"department:");
-				matrixDataEmployees[j][2] = returnStrBetweenKeyWords(buf, "department:", 				"post:");
-				matrixDataEmployees[j][3] = returnStrBetweenKeyWords(buf, "post:", 						"averageSalary:");
-				matrixDataEmployees[j][4] = returnStrBetweenKeyWords(buf, "averageSalary:", 			"taxIdentifNum:");
-				matrixDataEmployees[j][5] = returnStrBetweenKeyWords(buf, "taxIdentifNum:", 			"Education:");
-				matrixDataEmployees[j][6] = returnStrBetweenKeyWords(buf, "Education:", 				"Passport:");
-				matrixDataEmployees[j][7] = returnStrBetweenKeyWords(buf, "Passport:", 					"Residance:");
-				matrixDataEmployees[j][8] = returnStrAfterKeyWord   (buf, "Residance:");
+				String buf = new String(raf.readLine().getBytes("ISO-8859-1"), "Cp1251".trim());
+				ArrayList<String> row = new ArrayList<String>();
+					row.add(returnStrBetweenKeyWords(buf, "Personal Number:", 			"surname/Name/Middlename:"));
+					row.add(returnStrBetweenKeyWords(buf, "surname/Name/Middlename:", 	"department:"));
+					row.add(returnStrBetweenKeyWords(buf, "department:", 				"post:"));
+					row.add(returnStrBetweenKeyWords(buf, "post:", 						"averageSalary:"));
+					row.add(returnStrBetweenKeyWords(buf, "averageSalary:", 			"taxIdentifNum:"));
+					row.add(returnStrBetweenKeyWords(buf, "taxIdentifNum:", 			"Education:"));
+					row.add(returnStrBetweenKeyWords(buf, "Education:", 				"Passport:"));
+					row.add(returnStrBetweenKeyWords(buf, "Passport:", 					"Residance:"));
+					row.add(returnStrAfterKeyWord   (buf, "Residance:"));
+				arrListDataEmployees.add(row);
 			}// for
 		}// while
 		raf.close();
-		return matrixDataEmployees;
+		return arrListDataEmployees;
 	}// readDataEmployeeFromFile()
 //*****************************************************************************************************
 	/**
