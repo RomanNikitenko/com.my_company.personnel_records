@@ -178,7 +178,7 @@ public class Test {
 	public static void main(String[] args) throws Exception {
 //***********************************************************		
 		generationEmployeeDataAndFiling(50, "C:\\PersonnelRecordsTest\\RootsOfSurnames.in", "C:\\PersonnelRecordsTest\\CompletionsOfnames.in",
-				"C:\\PersonnelRecordsTest\\Names.in", "C:\\PersonnelRecordsTest\\Middlename.in", "C:\\PersonnelRecordsTest\\TestListEmployee.out");
+				"C:\\PersonnelRecordsTest\\Names.in", "C:\\PersonnelRecordsTest\\Middlename.in", "TestListEmployee.out");
 	}//main
 
 }//class

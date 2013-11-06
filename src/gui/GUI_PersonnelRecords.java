@@ -12,7 +12,11 @@ import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.ScrollPaneConstants;
+import javax.swing.table.AbstractTableModel;
+import javax.swing.table.TableModel;
 
 import util.MyUtil;
 
@@ -20,16 +24,38 @@ import util.MyUtil;
 public class GUI_PersonnelRecords extends JFrame implements ActionListener {
 	
 //********Блок инициализации*********************
-	private ArrayList<ArrayList<String>> arrListDataEmployees;
+	public static ArrayList<ArrayList<String>> arrListDataEmployees;
+	public static String [] columnNames = {"<html><center>Personal<br>Number", "Surname/Name/Middlename", "Department",
+									"Post", "<html><center>Average<br>Salary", "<html><center>Tax <br>IdentifNum", "Education", "Passport", "Residance"};
+	public JTable dataTable;
 	
 //*******Конструктор******************************
 	public GUI_PersonnelRecords () throws Exception {
 
 		//считываем данные по сотрудникам из файла
-		arrListDataEmployees = MyUtil.readDataEmployeeFromFile("C:\\PersonnelRecordsTest\\TestListEmployee.out");
+		arrListDataEmployees = MyUtil.readDataEmployeeFromFile("TestListEmployee.out");
 		
+		//создаем таблицу на основе нашей модели
+		JTable dataTable = new JTable(new MyTableModel());
+		dataTable.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+		
+		//Создаем панель прокрутки и включаем в ее состав нашу таблицу
+        JScrollPane jscrlp = new JScrollPane(dataTable, ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
+        
+        //Устаналиваем размеры прокручиваемой области
+//        dataTable.setPreferredScrollableViewportSize(new Dimension(250, 100));
+        //Задаем размер столбцов
+        dataTable.getColumnModel().getColumn(0).setPreferredWidth(55);
+        dataTable.getColumnModel().getColumn(1).setPreferredWidth(200);
+        dataTable.getColumnModel().getColumn(2).setPreferredWidth(150);
+        dataTable.getColumnModel().getColumn(3).setPreferredWidth(120);
+        dataTable.getColumnModel().getColumn(4).setPreferredWidth(80);
+        dataTable.getColumnModel().getColumn(5).setPreferredWidth(80);
+        dataTable.getColumnModel().getColumn(6).setPreferredWidth(100);
+        dataTable.getColumnModel().getColumn(7).setPreferredWidth(220);
+        dataTable.getColumnModel().getColumn(8).setPreferredWidth(300);
 //*******//главная панель//*******
-		JPanel mainPanel = new JPanel(new GridBagLayout()); //создаем главную панель, задаем менеджер размещения
+		JPanel mainPanel = new JPanel(); //создаем главную панель, задаем менеджер размещения
 		mainPanel.setPreferredSize(new Dimension(900, 410));//устанавливаем размер
 		mainPanel.setBorder(BorderFactory.createRaisedBevelBorder());//устанавливаем бордюр
 		
@@ -60,13 +86,15 @@ public class GUI_PersonnelRecords extends JFrame implements ActionListener {
 		JPanel panelTable = new JPanel(new BorderLayout());
 		panelTable.setPreferredSize(new Dimension (mainPanel.getWidth()-panelButEdit.getWidth()-10, mainPanel.getHeight()-10));
 		panelTable.setBorder(BorderFactory.createTitledBorder(BorderFactory.createRaisedBevelBorder(), "Table Data"));
+		
+		//Добавляем в на панель прокрути jscrlp вместе с таблицей
+		panelTable.add(jscrlp);
 		panelEmployeeFixSalary.add(panelTable,BorderLayout.CENTER);
 
 		mainPanel.add(panelEmployeeFixSalary, BorderLayout.CENTER);
 		
-		//таблица
-		JTable dataTable = new JTable();
-		mainPanel.add(dataTable);
+		
+		
 
 			
 	}//конструктор
