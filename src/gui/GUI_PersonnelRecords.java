@@ -18,6 +18,7 @@ import javax.swing.ScrollPaneConstants;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.TableModel;
 
+import test.Test;
 import util.MyUtil;
 
 
@@ -31,7 +32,12 @@ public class GUI_PersonnelRecords extends JFrame implements ActionListener {
 	
 //******* онструктор******************************
 	public GUI_PersonnelRecords () throws Exception {
-
+		
+		new MyMenu();
+		
+		//генерируем random-data по сотрудникам
+		Test.generationEmployeeDataAndFiling(100, "TestListEmployee.out");
+		
 		//считываем данные по сотрудникам из файла
 		arrListDataEmployees = MyUtil.readDataEmployeeFromFile("TestListEmployee.out");
 		
@@ -60,6 +66,7 @@ public class GUI_PersonnelRecords extends JFrame implements ActionListener {
 		mainPanel.setBorder(BorderFactory.createRaisedBevelBorder());//устанавливаем бордюр
 		
 		add(mainPanel);//добавл€ем главную панель к фрейму
+		this.setJMenuBar(MyMenu.menuBar);//устанавливаем меню
 		setTitle("PersonnelRecord"); //устанавливаем заголовок окна
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);//завершение работы приложени€ по закрытию главного окна
 //		setLocationRelativeTo(null); //расположение окна - левый верхний угол по центру экрана
@@ -79,7 +86,7 @@ public class GUI_PersonnelRecords extends JFrame implements ActionListener {
 		JPanel panelButEdit = new JPanel();
 		panelButEdit.setLayout(new BoxLayout(panelButEdit, BoxLayout.Y_AXIS));
 		panelButEdit.setPreferredSize(new Dimension (100, mainPanel.getHeight()-10));
-		panelButEdit.setBorder(BorderFactory.createTitledBorder(BorderFactory.createRaisedBevelBorder(), "Button Edit"));
+		panelButEdit.setBorder(BorderFactory.createTitledBorder(BorderFactory.createRaisedBevelBorder(), "Buttons Edit"));
 		panelEmployeeFixSalary.add(panelButEdit, BorderLayout.WEST);
 		
 		//панель дл€ таблицы
