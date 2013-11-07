@@ -13,6 +13,7 @@ import javax.swing.JMenuItem;
 import javax.swing.JRadioButtonMenuItem;
 import javax.swing.JSeparator;
 import javax.swing.KeyStroke;
+import javax.swing.border.BevelBorder;
 
 
 public class MyMenu extends JFrame{
@@ -29,6 +30,7 @@ public class MyMenu extends JFrame{
 	   //создаем подменю Employee With Fix Salary
 	   JMenu menuEmployeeFixSal = new JMenu("<html><center>Employee With <br> Fix Salary");
 	   menuEmployeeFixSal.setPreferredSize(new Dimension(100, 40));
+	   menuEmployeeFixSal.setBorder(new BevelBorder(BevelBorder.RAISED));
 	   
 	   //добав. пункт "New"
 	   JMenuItem submenuEmplFixSal = new JMenuItem("New");
@@ -67,6 +69,7 @@ public class MyMenu extends JFrame{
 	   //создаем подменю Employee With hourly wages
 	   JMenu menuEmployeeHourlyWages = new JMenu("<html><center>Employee With <br> Hourly Wages");
 	   menuEmployeeHourlyWages.setPreferredSize(new Dimension(100, 40));
+	   menuEmployeeHourlyWages.setBorder(new BevelBorder(BevelBorder.RAISED));
 	   
 	   //добав. пункт "New"
 	   JMenuItem submenuEmplHourlyWages = new JMenuItem("New");
@@ -93,6 +96,7 @@ public class MyMenu extends JFrame{
 	   //создаем подменю Test Mode
 	   JMenu menuTestMode = new JMenu("Test Mode");
 	   menuTestMode.setPreferredSize(new Dimension(80, 40));
+	   menuTestMode.setBorder(new BevelBorder(BevelBorder.RAISED));
 	   
 	   //добав. пункт "Generate Employees"
 	   JMenu submenuGenerateEmpl = new JMenu("Generate Employees");

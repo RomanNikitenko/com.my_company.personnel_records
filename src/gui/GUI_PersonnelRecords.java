@@ -34,8 +34,7 @@ public class GUI_PersonnelRecords extends JFrame implements ActionListener {
 	
 //********Блок инициализации*********************
 	public static ArrayList<ArrayList<String>> arrListDataEmployees;
-	public static String [] columnNames = {"<html><center>Personal<br>Number", "Surname/Name/Middlename", "Department",
-									"Post", "<html><center>Average<br>Salary", "<html><center>Tax <br>IdentifNum", "Education", "Passport", "Residance"};
+	
 	public JTable dataTable;
 	
 //*******Конструктор******************************
@@ -44,10 +43,10 @@ public class GUI_PersonnelRecords extends JFrame implements ActionListener {
 		new MyMenu();
 		
 		//генерируем random-data по сотрудникам в файл "TestListEmployee.out"
-		Test.generationEmployeeDataAndFiling(100, "TestListEmployee.out");
+		Test.generationEmployeeDataAndFiling(100, "EmployeeFixedSalary.out");
 		
 		//считываем данные по сотрудникам из файла
-		arrListDataEmployees = MyUtil.readDataEmployeeFromFile("TestListEmployee.out");
+		arrListDataEmployees = MyUtil.readDataEmployeeFromFile("EmployeeFixedSalary.out");
 		
 		//получаем размер экрана
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
@@ -68,9 +67,10 @@ public class GUI_PersonnelRecords extends JFrame implements ActionListener {
         dataTable.getColumnModel().getColumn(3).setPreferredWidth(120);
         dataTable.getColumnModel().getColumn(4).setPreferredWidth(80);
         dataTable.getColumnModel().getColumn(5).setPreferredWidth(80);
-        dataTable.getColumnModel().getColumn(6).setPreferredWidth(100);
-        dataTable.getColumnModel().getColumn(7).setPreferredWidth(220);
-        dataTable.getColumnModel().getColumn(8).setPreferredWidth(300);
+        dataTable.getColumnModel().getColumn(6).setPreferredWidth(80);
+        dataTable.getColumnModel().getColumn(7).setPreferredWidth(100);
+        dataTable.getColumnModel().getColumn(8).setPreferredWidth(220);
+        dataTable.getColumnModel().getColumn(9).setPreferredWidth(300);
         
 //*******//главная панель//*******
         

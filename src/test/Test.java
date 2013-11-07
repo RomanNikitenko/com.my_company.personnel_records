@@ -5,8 +5,8 @@ import util.MyUtil;
 public class Test {
 
 	
-	private static String [] arrEducation = {"Высшее", "Незаконченное высшее",
-									"Среднее", "Средне-специальное"};
+	private static String [] arrEducation = {"Средне-специальное", "Высшее", "Незаконченное высшее",
+											"Среднее"};
 	private static String [] arrPost = 	  {"Управляющий", "Инженер", "Слесарь", "Менеджер",
 									"Технический директор", "Офис-менеджер", "Сисадмин",
 									"Обслуживающий персонал"};
@@ -18,16 +18,11 @@ public class Test {
 	
 	
 //**************************************************************
-	/**Метод, генерирует   random-данные по сотрудникам и записывает их в файл.
+	/**Метод, генерирует   random-данные по общим полям EmployeeFixedSalary и EmployeeHourlyWages.
 	 * Для генерации случайных данных использовано два источника:
 	 * -  массивы класса Test
 	 * -  файлы с данными.
 	 * @param amountEmployee int - количество генерируемых сотрудников
-	 * @param pathFileWithRoots String - путь к файлу с корнями фамилий
-	 * @param pathFileWithCompletions String - путь к файлу с окончаниями фамилий
-	 * @param pathFileWithNames String - путь к файлу с именами
-	 * @param pathFileWithMiddlenames String - путь к файлу с отчествами
-	 * @param pathFileOut String - путь к файлу, в который будет записана
 	 *  сгенерированная последовательность фамилий, имен и отчеств
 	 * @return String [] - массив сгенерированных фамилий, имен и отчеств 
 	 * @throws Exception
@@ -83,20 +78,44 @@ public class Test {
 		// генерируем массив random-data табельный номер сотрудника
 		int [] arrRandomDataPersonalNum = MyUtil.createArrRandomNum(amountEmployee, 1, 10000);
 		
-		/* Подготовка для записи в файл - соединяем записи в массив строк,
-		 * при этом перед актуальной инфо ставим ключевое слово
-		 */
+		/*В моей упрощенной модели список полей классов EmployeeHourlyWages и EmployeeFixedSalary
+		*отличается только полями hourlyRate и monthlyPayment. Соответственно данный метод сможет генерировать данные
+		* по обеим классам сотрудников. Для этого делаем проверку: 
+		* - если название файла, в который будет произведена запись содержит "EmployeeFixedSalary",
+		* то генерируем поле "monthlyPayment" и записываем random-data в файл
+		* - если название файла, в который будет произведена запись содержит "EmployeeHourlyWages",
+		* то генерируем поле "hourlyRate" и записываем random-data в файл
+		*/ 
 		String [] arrEmployeeData = new String [arrSurnameNameMiddlename.length];
 		
-		for (int i = 0; i < arrEmployeeData.length; i++) {
-			arrEmployeeData[i] = "Personal Number: " + arrRandomDataPersonalNum[i] +  "   surname/Name/Middlename: " +  arrSurnameNameMiddlename[i] +
-					 "   department: " +  arrRandomDataDepartment[i] +  "   post: " + arrRandomDataPost[i] +  "   averageSalary: " +  arrRandomDataAverageSalary[i] +
-					 "   taxIdentifNum: " + arrRandomDataTaxIdentifNum[i] + "   Education: " + arrRandomDataEducation[i] + "   Passport: " + arrRandomDataNumPassport[i] +
-					 ", выдан " + arrRandomDataDatePassport[i] + ", " + arrRandomDataOffPassport[i] + " " + arrRandomDataCityPassport[i] + "   Residance: " + 
-					 arrRandomDataZip[i] + ", " + arrRandomDataCityResidence[i] + ", " + arrRandomDataStreet[i] + " " + arrRandomDataNumHouse[i] + ", кв. " + 
-					 arrRandomDataNumApprtment[i];
-		}//for
+		if (pathFileOut.indexOf("EmployeeFixedSalary") != (-1)) {
+			int [] arrRandomDataMonthlyPayment = MyUtil.createArrRandomNum(amountEmployee, 2000, 10000);
+			
+			/* Подготовка для записи в файл - соединяем записи в массив строк,
+			 * при этом перед актуальной инфо ставим ключевое слово
+			 */
+			for (int i = 0; i < arrEmployeeData.length; i++) {
+				arrEmployeeData[i] = "Personal Number: " + arrRandomDataPersonalNum[i] +  "   surname/Name/Middlename: " +  arrSurnameNameMiddlename[i] +
+						 "   department: " +  arrRandomDataDepartment[i] +  "   post: " + arrRandomDataPost[i] +  "   averageSalary: " +  arrRandomDataAverageSalary[i] +
+						 "   monthlyPayment: " + arrRandomDataMonthlyPayment[i] + "   taxIdentifNum: " + arrRandomDataTaxIdentifNum[i] + 
+						 "   Education: " + arrRandomDataEducation[i] + "   Passport: " + arrRandomDataNumPassport[i] + ", выдан " + arrRandomDataDatePassport[i] + ", " +
+						 arrRandomDataOffPassport[i] + " " + arrRandomDataCityPassport[i] + "   Residance: " + arrRandomDataZip[i] + ", " + arrRandomDataCityResidence[i] +
+						 ", " + arrRandomDataStreet[i] + " " + arrRandomDataNumHouse[i] + ", кв. " + arrRandomDataNumApprtment[i];
+			}//for
+		}//
+		else if (pathFileOut.indexOf("EmployeeHourlyWages") != (-1)) {
+			int [] arrRandomDataHourlyRate = MyUtil.createArrRandomNum(amountEmployee, 13, 63);
 		
+			for (int i = 0; i < arrEmployeeData.length; i++) {
+				arrEmployeeData[i] = "Personal Number: " + arrRandomDataPersonalNum[i] +  "   surname/Name/Middlename: " +  arrSurnameNameMiddlename[i] +
+						 "   department: " +  arrRandomDataDepartment[i] +  "   post: " + arrRandomDataPost[i] +  "   averageSalary: " +  arrRandomDataAverageSalary[i] +
+						 "   hourlyRate: " + arrRandomDataHourlyRate [i] + "   taxIdentifNum: " + arrRandomDataTaxIdentifNum[i] + 
+						 "   Education: " + arrRandomDataEducation[i] + "   Passport: " + arrRandomDataNumPassport[i] + ", выдан " + arrRandomDataDatePassport[i] + ", " +
+						 arrRandomDataOffPassport[i] + " " + arrRandomDataCityPassport[i] + "   Residance: " + arrRandomDataZip[i] + ", " + arrRandomDataCityResidence[i] +
+						 ", " + arrRandomDataStreet[i] + " " + arrRandomDataNumHouse[i] + ", кв. " + arrRandomDataNumApprtment[i];
+			}//for
+
+		}//
 		//Записываем сформированный массив результата в файл
 		MyUtil.recMassStr(pathFileOut, arrEmployeeData);
 		

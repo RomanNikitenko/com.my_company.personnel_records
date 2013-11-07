@@ -50,12 +50,28 @@ public class MyUtil {
 					row.add(returnStrBetweenKeyWords(buf, "surname/Name/Middlename:", 	"department:"));
 					row.add(returnStrBetweenKeyWords(buf, "department:", 				"post:"));
 					row.add(returnStrBetweenKeyWords(buf, "post:", 						"averageSalary:"));
-					row.add(returnStrBetweenKeyWords(buf, "averageSalary:", 			"taxIdentifNum:"));
 					row.add(returnStrBetweenKeyWords(buf, "taxIdentifNum:", 			"Education:"));
 					row.add(returnStrBetweenKeyWords(buf, "Education:", 				"Passport:"));
 					row.add(returnStrBetweenKeyWords(buf, "Passport:", 					"Residance:"));
 					row.add(returnStrAfterKeyWord   (buf, "Residance:"));
-				arrListDataEmployees.add(row);
+
+					/*¬ моей упрощенной модели список полей классов EmployeeHourlyWages и EmployeeFixedSalary
+					*отличаетс€ только пол€ми hourlyRate и monthlyPayment. —оответственно данный метод сможет читать данные
+					* по обеим классам сотрудников. ƒл€ этого провер€ем какое ключевое слово (monthlyPayment или hourlyRate)
+					* присутствует в файле дл€ чтени€ и считываем нужное поле
+					*/
+					int indexKeyword1 = buf.indexOf("monthlyPayment");
+					int indexKeyword2 = buf.indexOf("hourlyRate");
+					
+					if (indexKeyword1 != (-1)) {
+						row.add(4, returnStrBetweenKeyWords(buf, "averageSalary:", 			"monthlyPayment:"));
+						row.add(5, returnStrBetweenKeyWords(buf, "monthlyPayment:", 			"taxIdentifNum:"));
+					}//
+					else if (indexKeyword2 != (-1)) {
+						row.add(4, returnStrBetweenKeyWords(buf, "averageSalary:", 			"hourlyRate:"));
+						row.add(5, returnStrBetweenKeyWords(buf, "hourlyRate:", 			"taxIdentifNum:"));
+					}//
+					arrListDataEmployees.add(row);
 			}// for
 		}// while
 		raf.close();

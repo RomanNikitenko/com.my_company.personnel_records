@@ -3,10 +3,13 @@ package gui;
 import javax.swing.table.AbstractTableModel;
 
 public class MyTableModel extends AbstractTableModel{
+	
+	private static String [] columnNames = {"<html><center>Personal<br>Number", "Surname/Name/Middlename", "Department",
+		"Post", "<html><center>Average<br>Salary", "<html><center> Monthly <br>Payment", "<html><center>Tax <br>IdentifNum", "Education", "Passport", "Residance"};
 
 	@Override
 	public int getColumnCount() {
-		return GUI_PersonnelRecords.columnNames.length;
+		return columnNames.length;
 	}
 
 	@Override
@@ -33,7 +36,7 @@ public class MyTableModel extends AbstractTableModel{
 	
 	@Override
 	public String getColumnName(int column) {
-		return GUI_PersonnelRecords.columnNames[column];
+		return columnNames[column];
 	}
 	
 	@Override
