@@ -10,6 +10,7 @@ public class EmployeeFixedSalary extends Employee{
 	
 	private BigDecimal monthlyPayment; //мес€чный оклад
 	
+	
 //*********************************************************************************************
 	public EmployeeFixedSalary (int personalNumber,
 			String surnameNameMiddlename, String department, String post,  
@@ -50,11 +51,12 @@ public class EmployeeFixedSalary extends Employee{
 				String department = dataEmplFixSal.get(j).get(2);
 				String post = dataEmplFixSal.get(j).get(3);
 				BigDecimal averageSalary = new BigDecimal(dataEmplFixSal.get(j).get(4));
-				long taxIdentifNum = Long.valueOf(dataEmplFixSal.get(j).get(5));
-				String education = dataEmplFixSal.get(j).get(6);
-				String passport = dataEmplFixSal.get(j).get(7);
-				String residence = dataEmplFixSal.get(j).get(8);
-				BigDecimal monthlyPayment = new BigDecimal(dataEmplFixSal.get(j).get(9));
+				BigDecimal monthlyPayment = new BigDecimal(dataEmplFixSal.get(j).get(5));
+				long taxIdentifNum = Long.valueOf(dataEmplFixSal.get(j).get(6));
+				String education = dataEmplFixSal.get(j).get(7);
+				String passport = dataEmplFixSal.get(j).get(8);
+				String residence = dataEmplFixSal.get(j).get(9);
+				
 								
 				arrayListObjEmplFixSal.add(new EmployeeFixedSalary(personalNumber, surnameNameMiddlename, department, post,
 						averageSalary, taxIdentifNum, education, passport, residence, monthlyPayment));
@@ -62,9 +64,7 @@ public class EmployeeFixedSalary extends Employee{
 		return arrayListObjEmplFixSal;
 	}//createArrayListObjEmplFixSalFromFile
 //**************************************************************************************************
-
-
-	public static void main(String[] args) {
+	public static void main(String[] args) throws Exception {
 
 	}//main
 

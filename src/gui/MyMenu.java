@@ -4,6 +4,7 @@ import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.util.ArrayList;
 
 import javax.swing.ButtonGroup;
 import javax.swing.JFrame;
@@ -15,10 +16,26 @@ import javax.swing.JSeparator;
 import javax.swing.KeyStroke;
 import javax.swing.border.BevelBorder;
 
+import employee.EmployeeFixedSalary;
+
+import test.Test;
+import util.MyUtil;
+
 
 public class MyMenu extends JFrame{
 	
 	public static JMenuBar menuBar;
+	public static JMenu menuEmployeeFixSal;
+	public static JMenuItem submenuEmplFixSal;
+	public static JMenu menuEmployeeHourlyWages;
+	public static JMenuItem submenuEmplHourlyWages;
+	public static JMenu menuTestMode;
+	public static JMenu submenuGenerateEmpl;
+	public static JRadioButtonMenuItem radioMenuGenerEmplFixSal;
+	public static JRadioButtonMenuItem radioMenuGenerEmplHourlyWages;
+	public static ButtonGroup rbGroup;
+	
+	
 	
 	public MyMenu(){
 		
@@ -28,12 +45,12 @@ public class MyMenu extends JFrame{
 //*******Employee With Fix Salary*******//
 	   
 	   //создаем подменю Employee With Fix Salary
-	   JMenu menuEmployeeFixSal = new JMenu("<html><center>Employee With <br> Fix Salary");
+	   menuEmployeeFixSal = new JMenu("<html><center>Employee With <br> Fix Salary");
 	   menuEmployeeFixSal.setPreferredSize(new Dimension(100, 40));
 	   menuEmployeeFixSal.setBorder(new BevelBorder(BevelBorder.RAISED));
 	   
 	   //добав. пункт "New"
-	   JMenuItem submenuEmplFixSal = new JMenuItem("New");
+	   submenuEmplFixSal = new JMenuItem("New");
 	   submenuEmplFixSal.setAccelerator
 	   (KeyStroke.getKeyStroke(KeyEvent.VK_N, ActionEvent.CTRL_MASK));
 	   menuEmployeeFixSal.add(submenuEmplFixSal);
@@ -67,12 +84,12 @@ public class MyMenu extends JFrame{
 //*******Employee with hourly wages*******//
 	 
 	   //создаем подменю Employee With hourly wages
-	   JMenu menuEmployeeHourlyWages = new JMenu("<html><center>Employee With <br> Hourly Wages");
+	   menuEmployeeHourlyWages = new JMenu("<html><center>Employee With <br> Hourly Wages");
 	   menuEmployeeHourlyWages.setPreferredSize(new Dimension(100, 40));
 	   menuEmployeeHourlyWages.setBorder(new BevelBorder(BevelBorder.RAISED));
 	   
 	   //добав. пункт "New"
-	   JMenuItem submenuEmplHourlyWages = new JMenuItem("New");
+	   submenuEmplHourlyWages = new JMenuItem("New");
 	   submenuEmplHourlyWages.setAccelerator
 	   (KeyStroke.getKeyStroke(KeyEvent.VK_N, ActionEvent.ALT_MASK));
 	   menuEmployeeHourlyWages.add(submenuEmplHourlyWages);
@@ -94,16 +111,16 @@ public class MyMenu extends JFrame{
 //*******Test Mode*******//
 		 
 	   //создаем подменю Test Mode
-	   JMenu menuTestMode = new JMenu("Test Mode");
+	   menuTestMode = new JMenu("Test Mode");
 	   menuTestMode.setPreferredSize(new Dimension(80, 40));
 	   menuTestMode.setBorder(new BevelBorder(BevelBorder.RAISED));
 	   
 	   //добав. пункт "Generate Employees"
-	   JMenu submenuGenerateEmpl = new JMenu("Generate Employees");
+	   submenuGenerateEmpl = new JMenu("Generate Employees");
 	   
 	   
 	 //добав. радио-меню "Generation Employee with fix salary"
-	   JRadioButtonMenuItem radioMenuGenerEmplFixSal = 
+	   radioMenuGenerEmplFixSal = 
 			   new JRadioButtonMenuItem("Generation Employee with fix salary");
 	   submenuGenerateEmpl.add(radioMenuGenerEmplFixSal);
 	   radioMenuGenerEmplFixSal.addActionListener(new TestModeListener ());
@@ -111,7 +128,7 @@ public class MyMenu extends JFrame{
 	   (KeyStroke.getKeyStroke(KeyEvent.VK_G, ActionEvent.CTRL_MASK));
 	   
 	 //добав. радио-меню "Generation Employee with hourly wages"
-	   JRadioButtonMenuItem radioMenuGenerEmplHourlyWages = 
+	   radioMenuGenerEmplHourlyWages = 
 			   new JRadioButtonMenuItem("Generation Employee with hourly wages");
 	   submenuGenerateEmpl.add(radioMenuGenerEmplHourlyWages);
 	   radioMenuGenerEmplHourlyWages.addActionListener(new TestModeListener ());
@@ -119,7 +136,7 @@ public class MyMenu extends JFrame{
 	   (KeyStroke.getKeyStroke(KeyEvent.VK_G, ActionEvent.ALT_MASK));
 	   
 	   //добав радио батоны в Ѕаттон√рупп
-	   ButtonGroup rbGroup = new ButtonGroup();
+	   rbGroup = new ButtonGroup();
 	   rbGroup.add(radioMenuGenerEmplFixSal);
 	   rbGroup.add(radioMenuGenerEmplHourlyWages);
 	   
@@ -152,13 +169,29 @@ class EmployeeHourlyWagesListener implements ActionListener {
 	public void actionPerformed(ActionEvent event) {
 		System.out.println("EmployeeHourlyWagesListener нажат пункт:" + event.getActionCommand());
 	}//actionPerformed
-
 }//class EmployeeHourlyWagesListener
 
 class TestModeListener implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent event) {
-		System.out.println("EmployeeHourlyWagesListener пункт:" + event.getActionCommand());
+		if (event.getActionCommand().equals(MyMenu.radioMenuGenerEmplFixSal.getActionCommand())) {
+			
+			
+			try {
+				//генерируем random-data по сотрудникам в файл "EmployeeFixedSalary.out"
+				Test.generationEmployeeDataAndFiling(100, "EmployeeFixedSalary.out");
+				
+				//создаем объекты сотрудников
+				EmplFixSalTableModel.arrListObjEmplFixSal = 
+						EmployeeFixedSalary.createArrayListObjEmplFixSalFromFile("EmployeeFixedSalary.out");
+				
+				//вызываем метод создани€ таблицы
+				GUI_PersonnelRecords.createTable();
+			
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}//if
 	}//actionPerformed
 }//class TestModeListener

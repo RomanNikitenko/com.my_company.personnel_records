@@ -50,11 +50,12 @@ public class EmployeeHourlyWages extends Employee{
 			String department = dataEmplHourlyWages.get(j).get(2);
 			String post = dataEmplHourlyWages.get(j).get(3);
 			BigDecimal averageSalary = new BigDecimal(dataEmplHourlyWages.get(j).get(4));
-			long taxIdentifNum = Long.valueOf(dataEmplHourlyWages.get(j).get(5));
-			String education = dataEmplHourlyWages.get(j).get(6);
-			String passport = dataEmplHourlyWages.get(j).get(7);
-			String residence = dataEmplHourlyWages.get(j).get(8);
-			BigDecimal hourlyRate = new BigDecimal(dataEmplHourlyWages.get(j).get(9));
+			BigDecimal hourlyRate = new BigDecimal(dataEmplHourlyWages.get(j).get(5));
+			long taxIdentifNum = Long.valueOf(dataEmplHourlyWages.get(j).get(6));
+			String education = dataEmplHourlyWages.get(j).get(7);
+			String passport = dataEmplHourlyWages.get(j).get(8);
+			String residence = dataEmplHourlyWages.get(j).get(9);
+			
 
 			arrayListObjEmplHourlyWages.add(new EmployeeHourlyWages(personalNumber,
 					surnameNameMiddlename, department, post, averageSalary,
@@ -66,7 +67,7 @@ public class EmployeeHourlyWages extends Employee{
 
 	public static void main(String[] args) {
 		
-
+		
 	}//main
 
 }//class

@@ -23,6 +23,7 @@ public abstract class Employee {
 	
 	
 	
+	
 //**********************************************************************************
 	public Employee(int personalNumber, String surnameNameMiddlename,
 			String department, String post, BigDecimal averageSalary, long taxIdentifNum,

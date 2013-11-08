@@ -18,13 +18,14 @@ public class Test {
 	
 	
 //**************************************************************
-	/**Метод, генерирует   random-данные по общим полям EmployeeFixedSalary и EmployeeHourlyWages.
+	/**Метод, генерирует   random-данные по полям EmployeeFixedSalary и EmployeeHourlyWages 
+	 * и записывает их в файл.
 	 * Для генерации случайных данных использовано два источника:
 	 * -  массивы класса Test
-	 * -  файлы с данными.
+	 * -  файл с данными.
 	 * @param amountEmployee int - количество генерируемых сотрудников
-	 *  сгенерированная последовательность фамилий, имен и отчеств
-	 * @return String [] - массив сгенерированных фамилий, имен и отчеств 
+	 * @param pathFileOut String - путь к файлу, в который будет произведена запись сгенерированных данных
+	 * @return String [] - массив сгенерированных данных 
 	 * @throws Exception
 	 */
 	public static String[] generationEmployeeDataAndFiling (int amountEmployee, 
