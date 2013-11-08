@@ -177,9 +177,11 @@ class TestModeListener implements ActionListener {
 			
 			EmplFixSalTableModel emplFixSalTableModel = new EmplFixSalTableModel();
 			try {
+				//получаем из диалогового окна количество генерируемых сотрудников
+				int amountEmployee = GUI_PersonnelRecords.showInputDialog();
 				
 				//генерируем random-data по сотрудникам в файл "EmployeesFixedSalary.out"
-				Test.generationEmployeeDataAndFiling(100, "EmployeesFixedSalary.out");
+				Test.generationEmployeeDataAndFiling(amountEmployee, "EmployeesFixedSalary.out");
 				
 				//создаем объекты сотрудников
 				EmplFixSalTableModel.arrListObjEmplFixSal = 
@@ -197,8 +199,11 @@ class TestModeListener implements ActionListener {
 			EmplHourlyWagesTableModel emplHourlyWagesTableModel = new EmplHourlyWagesTableModel();
 			
 			try {
+				//получаем из диалогового окна количество генерируемых сотрудников
+				int amountEmployee = GUI_PersonnelRecords.showInputDialog();
+				
 				//генерируем random-data по сотрудникам в файл "EmployeesHourlyWages.out"
-				Test.generationEmployeeDataAndFiling(100, "EmployeesHourlyWages.out");
+				Test.generationEmployeeDataAndFiling(amountEmployee, "EmployeesHourlyWages.out");
 				
 				//создаем объекты сотрудников
 				EmplHourlyWagesTableModel.arrListObjEmplHourlyWages = 

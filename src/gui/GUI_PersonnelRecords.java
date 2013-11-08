@@ -7,8 +7,10 @@ import java.awt.Toolkit;
 import java.util.Comparator;
 
 import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -141,7 +143,22 @@ public class GUI_PersonnelRecords extends JFrame {
 		
 	}//createTable ()
 //***********************************************************
+	public static int showInputDialog () {
+		
+				int numGeneration = Integer.valueOf((String) JOptionPane.showInputDialog(
+						null,
+						"Enter the number Employee",
+						"Number Employee",
+						JOptionPane.QUESTION_MESSAGE,
+						new ImageIcon(),
+						null,  
+						null	
+						));
+		return numGeneration;
+	}
+//***********************************************************
 	public static void main(String[] args) throws Exception {
 		new GUI_PersonnelRecords(); 
+		
 	}//main
 }//class
