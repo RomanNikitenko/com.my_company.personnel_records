@@ -13,6 +13,9 @@ public class EmplFixSalTableModel extends AbstractTableModel{
 		"Education", "Passport", "Residance"};
 	public static ArrayList<EmployeeFixedSalary> arrListObjEmplFixSal;
 	
+	
+	 
+	
 	@Override
 	public int getColumnCount() {
 		return columnNames.length;

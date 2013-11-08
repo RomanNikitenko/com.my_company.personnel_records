@@ -4,7 +4,6 @@ import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
-import java.util.ArrayList;
 
 import javax.swing.ButtonGroup;
 import javax.swing.JFrame;
@@ -17,9 +16,9 @@ import javax.swing.KeyStroke;
 import javax.swing.border.BevelBorder;
 
 import employee.EmployeeFixedSalary;
+import employee.EmployeeHourlyWages;
 
 import test.Test;
-import util.MyUtil;
 
 
 public class MyMenu extends JFrame{
@@ -34,8 +33,6 @@ public class MyMenu extends JFrame{
 	public static JRadioButtonMenuItem radioMenuGenerEmplFixSal;
 	public static JRadioButtonMenuItem radioMenuGenerEmplHourlyWages;
 	public static ButtonGroup rbGroup;
-	
-	
 	
 	public MyMenu(){
 		
@@ -172,26 +169,47 @@ class EmployeeHourlyWagesListener implements ActionListener {
 }//class EmployeeHourlyWagesListener
 
 class TestModeListener implements ActionListener {
-
+	
+	
 	@Override
 	public void actionPerformed(ActionEvent event) {
 		if (event.getActionCommand().equals(MyMenu.radioMenuGenerEmplFixSal.getActionCommand())) {
 			
-			
+			EmplFixSalTableModel emplFixSalTableModel = new EmplFixSalTableModel();
 			try {
-				//генерируем random-data по сотрудникам в файл "EmployeeFixedSalary.out"
-				Test.generationEmployeeDataAndFiling(100, "EmployeeFixedSalary.out");
+				
+				//генерируем random-data по сотрудникам в файл "EmployeesFixedSalary.out"
+				Test.generationEmployeeDataAndFiling(100, "EmployeesFixedSalary.out");
 				
 				//создаем объекты сотрудников
 				EmplFixSalTableModel.arrListObjEmplFixSal = 
-						EmployeeFixedSalary.createArrayListObjEmplFixSalFromFile("EmployeeFixedSalary.out");
+						EmployeeFixedSalary.createArrayListObjEmplFixSalFromFile("EmployeesFixedSalary.out");
 				
 				//вызываем метод создания таблицы
-				GUI_PersonnelRecords.createTable();
-			
+				GUI_PersonnelRecords.createTable(emplFixSalTableModel);
+
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		}//if
+		else if (event.getActionCommand().equals(MyMenu.radioMenuGenerEmplHourlyWages.getActionCommand())) {
+			
+			EmplHourlyWagesTableModel emplHourlyWagesTableModel = new EmplHourlyWagesTableModel();
+			
+			try {
+				//генерируем random-data по сотрудникам в файл "EmployeesHourlyWages.out"
+				Test.generationEmployeeDataAndFiling(100, "EmployeesHourlyWages.out");
+				
+				//создаем объекты сотрудников
+				EmplHourlyWagesTableModel.arrListObjEmplHourlyWages = 
+						EmployeeHourlyWages.createArrayListObjEmplHourlyWagesFromFile("EmployeesHourlyWages.out");
+				
+				//вызываем метод создания таблицы
+				GUI_PersonnelRecords.createTable(emplHourlyWagesTableModel);
+			
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}//if 
 	}//actionPerformed
 }//class TestModeListener

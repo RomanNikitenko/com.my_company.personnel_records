@@ -13,21 +13,21 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.border.TitledBorder;
+import javax.swing.table.AbstractTableModel;
 
 
 public class GUI_PersonnelRecords extends JFrame {
 	
-//********Блок инициализации*********************
+//*****************************
 	public static Dimension screenSize;
 	public static JTable dataTable;
 	public static JScrollPane jscrlp;
 	public static JPanel mainPanel;
-	public static JPanel panelEmployeeFixSalary;
+	public static JPanel panelEmployees;
 	public static JPanel panelButEdit;
 	public static JButton butAdd;
 	public static JButton butDelete;
-	public static JPanel panelTable;
-	
+	public static JPanel panelEmplTable;
 	
 //*******Конструктор******************************
 	public GUI_PersonnelRecords () throws Exception {
@@ -35,9 +35,8 @@ public class GUI_PersonnelRecords extends JFrame {
 		new MyMenu();
 		//получаем размер экрана
 		screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-        
+		
 //*******//главная панель//*******
-        
         mainPanel = new JPanel(); //создаем главную панель, задаем менеджер размещения
 		mainPanel.setPreferredSize(new Dimension(screenSize.width, screenSize.height-25));//устанавливаем размер
 		mainPanel.setBorder(BorderFactory.createRaisedBevelBorder());//устанавливаем бордюр
@@ -54,10 +53,10 @@ public class GUI_PersonnelRecords extends JFrame {
 		setVisible(true); // отображать окно
 		setExtendedState(MAXIMIZED_BOTH);//окно на весь экран
 		
-//*******//Панель Employee with fixed salary//*******
-		panelEmployeeFixSalary = new JPanel(new BorderLayout());
-		panelEmployeeFixSalary.setPreferredSize(new Dimension (mainPanel.getWidth()-10, mainPanel.getHeight()-10));
-		panelEmployeeFixSalary.setBorder(BorderFactory.createTitledBorder(BorderFactory.createRaisedBevelBorder(), "Employee With Fix Salary",
+//*******//Панель Employees//*******
+		panelEmployees = new JPanel(new BorderLayout());
+		panelEmployees.setPreferredSize(new Dimension (mainPanel.getWidth()-10, mainPanel.getHeight()-10));
+		panelEmployees.setBorder(BorderFactory.createTitledBorder(BorderFactory.createRaisedBevelBorder(), "Employees",
 				TitledBorder.CENTER, TitledBorder.TOP));
 		
 //*******//панель для кнопок EDIT
@@ -65,7 +64,7 @@ public class GUI_PersonnelRecords extends JFrame {
 //		panelButEdit.setLayout(new BoxLayout(panelButEdit, BoxLayout.Y_AXIS));
 		panelButEdit.setPreferredSize(new Dimension (100, mainPanel.getHeight()-10));
 		panelButEdit.setBorder(BorderFactory.createTitledBorder(BorderFactory.createRaisedBevelBorder(), "Buttons Edit"));
-		panelEmployeeFixSalary.add(panelButEdit, BorderLayout.WEST);
+		panelEmployees.add(panelButEdit, BorderLayout.WEST);
 		
 //*******//кнопоки EDIT
 		butAdd = new JButton("Add");
@@ -74,36 +73,24 @@ public class GUI_PersonnelRecords extends JFrame {
 		butDelete = new JButton("Delete");
 		panelButEdit.add(butDelete);
 		
-//*******//панель для таблицы
-		panelTable = new JPanel(new BorderLayout());
-		panelTable.setPreferredSize(new Dimension (mainPanel.getWidth()-panelButEdit.getWidth()-10, mainPanel.getHeight()-10));
-		panelTable.setBorder(BorderFactory.createTitledBorder(BorderFactory.createRaisedBevelBorder(), "Table Data"));
+//*******//панель для таблицы 
+		panelEmplTable = new JPanel(new BorderLayout());
+		panelEmplTable.setPreferredSize(new Dimension (mainPanel.getWidth()-panelButEdit.getWidth()-10, mainPanel.getHeight()-10));
 		
-		
-		
-		//Вкладываем панели
-		panelEmployeeFixSalary.add(panelTable,BorderLayout.CENTER);
-		mainPanel.add(panelEmployeeFixSalary, BorderLayout.CENTER);
-		
-		
-		
-
+		mainPanel.add(panelEmployees, BorderLayout.CENTER);
 			
 	}//конструктор
 //***********************************************************
-	public static void createTable () {
-		//*******//создаем таблицу на основе нашей модели
-		dataTable = new JTable(new EmplFixSalTableModel());
+	public static void createTable (AbstractTableModel tableModel) {
+		
+		//*******//создаем таблицу на основе нашей модели,
+		//переданной в параметре
+		dataTable = new JTable(tableModel);
 		dataTable.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-
-		// Создаем панель прокрутки и включаем в ее состав нашу таблицу
-		jscrlp = new JScrollPane(dataTable,
-				ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS,
-				ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
-
-		// Устаналиваем размеры прокручиваемой области
-		// dataTable.setPreferredScrollableViewportSize(new
-		// Dimension(screenSize.width-50, screenSize.height-50));
+		
+//		TableRowSorter<EmplFixSalTableModel> sorter = new TableRowSorter(tableModel);
+//		 dataTable.setRowSorter(sorter);
+		
 		// Задаем размер столбцов
 		dataTable.getColumnModel().getColumn(0).setPreferredWidth(55);
 		dataTable.getColumnModel().getColumn(1).setPreferredWidth(200);
@@ -116,9 +103,24 @@ public class GUI_PersonnelRecords extends JFrame {
 		dataTable.getColumnModel().getColumn(8).setPreferredWidth(220);
 		dataTable.getColumnModel().getColumn(9).setPreferredWidth(300);
 		
+		
+		// Создаем панель прокрутки и включаем в ее состав нашу таблицу
+		jscrlp = new JScrollPane(dataTable,
+						ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS,
+						ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
+		panelEmplTable.removeAll();
+
 		//Добавляем на панель jscrlp вместе с таблицей
-		panelTable.add(jscrlp);
-		panelTable.updateUI();
+		panelEmplTable.add(jscrlp);
+		if (tableModel instanceof EmplFixSalTableModel) {
+			panelEmplTable.setBorder(BorderFactory.createTitledBorder(BorderFactory.createRaisedBevelBorder(), "Employees With Fix Salary Data"));
+		}
+		else panelEmplTable.setBorder(BorderFactory.createTitledBorder(BorderFactory.createRaisedBevelBorder(), "Employees With Hourly Wages Data"));
+			
+		//Добавляем панель с таблицей
+		panelEmployees.add(panelEmplTable,BorderLayout.CENTER);
+		panelEmplTable.updateUI();
+		
 	}//createTable ()
 //***********************************************************
 	public static void main(String[] args) throws Exception {

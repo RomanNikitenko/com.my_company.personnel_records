@@ -82,14 +82,14 @@ public class Test {
 		/*¬ моей упрощенной модели список полей классов EmployeeHourlyWages и EmployeeFixedSalary
 		*отличаетс€ только пол€ми hourlyRate и monthlyPayment. —оответственно данный метод сможет генерировать данные
 		* по обеим классам сотрудников. ƒл€ этого делаем проверку: 
-		* - если название файла, в который будет произведена запись содержит "EmployeeFixedSalary",
+		* - если название файла, в который будет произведена запись содержит "EmployeesFixedSalary",
 		* то генерируем поле "monthlyPayment" и записываем random-data в файл
-		* - если название файла, в который будет произведена запись содержит "EmployeeHourlyWages",
+		* - если название файла, в который будет произведена запись содержит "EmployeesHourlyWages",
 		* то генерируем поле "hourlyRate" и записываем random-data в файл
 		*/ 
 		String [] arrEmployeeData = new String [arrSurnameNameMiddlename.length];
 		
-		if (pathFileOut.indexOf("EmployeeFixedSalary") != (-1)) {
+		if (pathFileOut.indexOf("EmployeesFixedSalary") != (-1)) {
 			int [] arrRandomDataMonthlyPayment = MyUtil.createArrRandomNum(amountEmployee, 2000, 10000);
 			
 			/* ѕодготовка дл€ записи в файл - соедин€ем записи в массив строк,
@@ -104,7 +104,7 @@ public class Test {
 						 ", " + arrRandomDataStreet[i] + " " + arrRandomDataNumHouse[i] + ", кв. " + arrRandomDataNumApprtment[i];
 			}//for
 		}//
-		else if (pathFileOut.indexOf("EmployeeHourlyWages") != (-1)) {
+		else if (pathFileOut.indexOf("EmployeesHourlyWages") != (-1)) {
 			int [] arrRandomDataHourlyRate = MyUtil.createArrRandomNum(amountEmployee, 13, 63);
 		
 			for (int i = 0; i < arrEmployeeData.length; i++) {
