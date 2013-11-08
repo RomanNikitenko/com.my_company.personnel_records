@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.Toolkit;
+import java.util.Comparator;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -14,6 +15,8 @@ import javax.swing.JTable;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.AbstractTableModel;
+import javax.swing.table.TableRowSorter;
+
 
 
 public class GUI_PersonnelRecords extends JFrame {
@@ -28,7 +31,7 @@ public class GUI_PersonnelRecords extends JFrame {
 	public static JButton butAdd;
 	public static JButton butDelete;
 	public static JPanel panelEmplTable;
-	
+		
 //*******Конструктор******************************
 	public GUI_PersonnelRecords () throws Exception {
 		
@@ -88,8 +91,23 @@ public class GUI_PersonnelRecords extends JFrame {
 		dataTable = new JTable(tableModel);
 		dataTable.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 		
-//		TableRowSorter<EmplFixSalTableModel> sorter = new TableRowSorter(tableModel);
-//		 dataTable.setRowSorter(sorter);
+		TableRowSorter<AbstractTableModel> sorter = new TableRowSorter<AbstractTableModel>(tableModel) {
+			
+			@Override
+			public Comparator<?> getComparator(int column) {
+			      // для нулевой строки
+			      if (column == 0 || column == 4 || column == 5 || column == 6 ) {
+			        return new Comparator<String>() {
+			          @Override
+			          public int compare(String s1,String s2) {
+			            return Integer.parseInt(s1) - Integer.parseInt(s2);
+			          }
+			        };
+			     }
+			      return super.getComparator(column);
+			}
+		};
+		dataTable.setRowSorter(sorter);
 		
 		// Задаем размер столбцов
 		dataTable.getColumnModel().getColumn(0).setPreferredWidth(55);
