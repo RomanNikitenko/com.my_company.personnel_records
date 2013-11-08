@@ -5,6 +5,8 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.Comparator;
 
 import javax.swing.BorderFactory;
@@ -21,7 +23,7 @@ import javax.swing.table.TableRowSorter;
 
 
 
-public class GUI_Frame extends JFrame {
+public class GUI_Frame extends JFrame implements ActionListener {
 	
 //*****************************
 	public static Dimension screenSize;
@@ -31,6 +33,7 @@ public class GUI_Frame extends JFrame {
 	public static JPanel panelEmployees;
 	public static JPanel panelButEdit;
 	public static JButton butAdd;
+	public static JButton butClean;
 	public static JButton butDelete;
 	public static JPanel panelEmplTable;
 	public static EmplFixSalTableModel emplFixSalTableModel;
@@ -75,10 +78,14 @@ public class GUI_Frame extends JFrame {
 //*******//кнопоки EDIT
 		butAdd = new JButton("Add");
 		panelButEdit.add(butAdd);
-		
+				
+		butClean = new JButton("<html><center>Clean<br>All");
+		butClean.addActionListener(this);
+		panelButEdit.add(butClean);
+
 		butDelete = new JButton("Delete");
 		panelButEdit.add(butDelete);
-		
+
 //*******//панель для таблицы 
 		panelEmplTable = new JPanel(new BorderLayout());
 		panelEmplTable.setPreferredSize(new Dimension (mainPanel.getWidth()-panelButEdit.getWidth()-10, mainPanel.getHeight()-10));
@@ -148,4 +155,11 @@ public class GUI_Frame extends JFrame {
 		
 	}//createTable ()
 //***********************************************************
+	@Override
+	public void actionPerformed(ActionEvent event) {
+		if (butClean == event.getSource()) {
+			panelEmplTable.removeAll();
+			panelEmplTable.updateUI();
+		}//if
+	}//actionPerformed
 }//class
