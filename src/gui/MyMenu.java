@@ -4,16 +4,21 @@ import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.io.File;
 
 import javax.swing.ButtonGroup;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JRadioButtonMenuItem;
 import javax.swing.JSeparator;
 import javax.swing.KeyStroke;
+import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.border.BevelBorder;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 import employee.EmployeeFixedSalary;
 import employee.EmployeeHourlyWages;
@@ -54,7 +59,7 @@ public class MyMenu extends JFrame{
 	   submenuEmplFixSal.addActionListener(new EmployeeFixSalListener());
 	   
 	   //добав. пункт меню - "Open List Employee"   
-	   submenuEmplFixSal = new JMenuItem("Open List Employee");
+	   submenuEmplFixSal = new JMenuItem("Open List Employees");
 	   submenuEmplFixSal.setAccelerator
 	   (KeyStroke.getKeyStroke(KeyEvent.VK_O, ActionEvent.CTRL_MASK));
 	   menuEmployeeFixSal.add(submenuEmplFixSal);
@@ -93,7 +98,7 @@ public class MyMenu extends JFrame{
 	   submenuEmplHourlyWages.addActionListener(new EmployeeHourlyWagesListener());
 	   
 	   //добав. пункт меню - "Open List Employee"   
-	   submenuEmplHourlyWages = new JMenuItem("Open List Employee");
+	   submenuEmplHourlyWages = new JMenuItem("Open List Employees");
 	   submenuEmplHourlyWages.setAccelerator
 	   (KeyStroke.getKeyStroke(KeyEvent.VK_O, ActionEvent.ALT_MASK));
 	   menuEmployeeHourlyWages.add(submenuEmplHourlyWages);
@@ -143,52 +148,151 @@ public class MyMenu extends JFrame{
 	   menuBar.add(menuTestMode);
 	   
 	}//конструктор
-	
-	/**
-	 * @param args
-	 */
+//*******************************************************************************
+	public static void openFileEmployeesData (String mark) throws ClassNotFoundException, InstantiationException,
+	IllegalAccessException, UnsupportedLookAndFeelException {
+
+		JFileChooser fileOpen = new JFileChooser();
+		
+		fileOpen.getFileSelectionMode();
+		fileOpen.getFileView();
+		fileOpen.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
+		
+		fileOpen.setDialogTitle("Open File with Employees Data");
+		fileOpen.setDragEnabled(true);
+		fileOpen.setDialogType(JFileChooser.OPEN_DIALOG);
+		
+		FileNameExtensionFilter filter = new FileNameExtensionFilter
+				("Текстовые файлы *.ehw *.efs *.txt *.in *.doc"  , "ehw", "efs", "txt", "in", "doc");
+		fileOpen.addChoosableFileFilter(filter);
+		fileOpen.setMultiSelectionEnabled(true);
+		
+		int res = fileOpen.showDialog(null,null);
+		
+		if (res == JFileChooser.APPROVE_OPTION) {
+			File file = fileOpen.getSelectedFile();
+			
+			//Проверка, 
+			if (file.getAbsolutePath().indexOf(".efs") != (-1) &&
+					mark.equals("FixSal")) {
+				try {
+					//создаем объекты сотрудников
+					EmplFixSalTableModel.arrListObjEmplFixSal = 
+							EmployeeFixedSalary.createArrayListObjEmplFixSalFromFile("EmployeesFixedSalary.efs");
+					
+					//вызываем метод создания таблицы
+					GUI_Frame.createTable(GUI_Frame.emplFixSalTableModel);
+				} catch (Exception exception) {
+					exception.printStackTrace();
+				}
+			}// else
+			else if (file.getAbsolutePath().indexOf(".ehw") != (-1) &&
+					mark.equals("HourlyWages")) {
+				try {
+					//создаем объекты сотрудников
+					EmplHourlyWagesTableModel.arrListObjEmplHourlyWages = 
+							EmployeeHourlyWages.createArrayListObjEmplHourlyWagesFromFile("EmployeesHourlyWages.ehw");
+					
+					//вызываем метод создания таблицы
+					GUI_Frame.createTable(GUI_Frame.emplHourlyWagesTableModel);
+				} catch (Exception exception) {
+					exception.printStackTrace();
+				}
+			} 
+			else JOptionPane.showMessageDialog(null, "Name of the file is not correctly", "Error", JOptionPane.ERROR_MESSAGE);
+		}//if
+//		else if (res == JFileChooser.CANCEL_OPTION) {
+//				System.out.println("Cancel");
+//		}//if
+	}//openFile ()
+//*******************************************************************************
+	public static int showInputDialog () {
+			
+		try {
+			int numGeneration = Integer.valueOf((String) JOptionPane.showInputDialog(
+								null,
+								"Enter the number Employee",
+								"Number Employee",
+								JOptionPane.QUESTION_MESSAGE
+								//new ImageIcon(),
+								//null,  
+								//null	
+								));
+				return numGeneration;
+				} catch (NumberFormatException ex) {
+				  JOptionPane.showMessageDialog(null, "Field 'amount Employees' requires an integer value", "Error", JOptionPane.ERROR_MESSAGE);
+				  return 0;
+				}
+	}//showInputDialog ()
+//*******//MAIN//****************************************************************	
 	public static void main(String[] args) {
 		new MyMenu();
 	}//main
 }//JMenuTest
 
+//*******//class EmployeeFixSalListener//****************************************
+
 class EmployeeFixSalListener implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent event) {
-		System.out.println("EmployeeFixSalListener нажат пункт:" + event.getActionCommand());
+		if (event.getActionCommand().equals("Open List Employees")) {
+			try {
+				//т.к. метод, который открывает файлы, у меня читает оба формата
+				//файлов, то передаем в параметре метку, чтобы сообщить откуда вызван метод
+				// и какой тип файлов читать
+				MyMenu.openFileEmployeesData("FixSal");
+			} catch (ClassNotFoundException | InstantiationException
+					| IllegalAccessException | UnsupportedLookAndFeelException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}//catch
+		}//if
 	}//actionPerformed
 }//class EmployeeFixSalListener
+
+//*******//class EmployeeHourlyWagesListener//***********************************
 
 class EmployeeHourlyWagesListener implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent event) {
-		System.out.println("EmployeeHourlyWagesListener нажат пункт:" + event.getActionCommand());
+		if (event.getActionCommand().equals("Open List Employees")) {
+			try {
+				//т.к. метод, который открывает файлы, у меня читает оба формата
+				//файлов, то передаем в параметре метку, чтобы сообщить откуда вызван метод
+				// и какой тип файлов читать
+				MyMenu.openFileEmployeesData("HourlyWages");
+			} catch (ClassNotFoundException | InstantiationException
+					| IllegalAccessException | UnsupportedLookAndFeelException e) {
+				e.printStackTrace();
+			}//catch
+		}//if
 	}//actionPerformed
 }//class EmployeeHourlyWagesListener
 
+//*******//class TestModeListener//********************************************************************
+
 class TestModeListener implements ActionListener {
-	
 	
 	@Override
 	public void actionPerformed(ActionEvent event) {
 		if (event.getActionCommand().equals(MyMenu.radioMenuGenerEmplFixSal.getActionCommand())) {
 			
-			EmplFixSalTableModel emplFixSalTableModel = new EmplFixSalTableModel();
 			try {
 				//получаем из диалогового окна количество генерируемых сотрудников
-				int amountEmployee = GUI_PersonnelRecords.showInputDialog();
+				int amountEmployee = MyMenu.showInputDialog();
 				
-				//генерируем random-data по сотрудникам в файл "EmployeesFixedSalary.out"
-				Test.generationEmployeeDataAndFiling(amountEmployee, "EmployeesFixedSalary.out");
+				//генерируем random-data по сотрудникам в файл "EmployeesFixedSalary.efs"
+				//расширение .efs от EmployeesFixedSalary - это поможет мне распознать файл при считывании
+				Test.generationEmployeeDataAndFiling(amountEmployee, "EmployeesFixedSalary.efs");
 				
 				//создаем объекты сотрудников
 				EmplFixSalTableModel.arrListObjEmplFixSal = 
-						EmployeeFixedSalary.createArrayListObjEmplFixSalFromFile("EmployeesFixedSalary.out");
+						EmployeeFixedSalary.createArrayListObjEmplFixSalFromFile("EmployeesFixedSalary.efs");
 				
 				//вызываем метод создания таблицы
-				GUI_PersonnelRecords.createTable(emplFixSalTableModel);
+				GUI_Frame.createTable(GUI_Frame.emplFixSalTableModel);
 
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -196,21 +300,20 @@ class TestModeListener implements ActionListener {
 		}//if
 		else if (event.getActionCommand().equals(MyMenu.radioMenuGenerEmplHourlyWages.getActionCommand())) {
 			
-			EmplHourlyWagesTableModel emplHourlyWagesTableModel = new EmplHourlyWagesTableModel();
-			
 			try {
 				//получаем из диалогового окна количество генерируемых сотрудников
-				int amountEmployee = GUI_PersonnelRecords.showInputDialog();
+				int amountEmployee = MyMenu.showInputDialog();
 				
-				//генерируем random-data по сотрудникам в файл "EmployeesHourlyWages.out"
-				Test.generationEmployeeDataAndFiling(amountEmployee, "EmployeesHourlyWages.out");
+				//генерируем random-data по сотрудникам в файл "EmployeesHourlyWages.ehw"
+				//расширение .ehw - от EmployeesHourlyWages - это поможет мне распознать файл при считывании
+				Test.generationEmployeeDataAndFiling(amountEmployee, "EmployeesHourlyWages.ehw");
 				
 				//создаем объекты сотрудников
 				EmplHourlyWagesTableModel.arrListObjEmplHourlyWages = 
-						EmployeeHourlyWages.createArrayListObjEmplHourlyWagesFromFile("EmployeesHourlyWages.out");
+						EmployeeHourlyWages.createArrayListObjEmplHourlyWagesFromFile("EmployeesHourlyWages.ehw");
 				
 				//вызываем метод создания таблицы
-				GUI_PersonnelRecords.createTable(emplHourlyWagesTableModel);
+				GUI_Frame.createTable(GUI_Frame.emplHourlyWagesTableModel);
 			
 			} catch (Exception e) {
 				e.printStackTrace();

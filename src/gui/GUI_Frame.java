@@ -1,5 +1,6 @@
 package gui;
 
+
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.GridLayout;
@@ -7,7 +8,6 @@ import java.awt.Toolkit;
 import java.util.Comparator;
 
 import javax.swing.BorderFactory;
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -21,7 +21,7 @@ import javax.swing.table.TableRowSorter;
 
 
 
-public class GUI_PersonnelRecords extends JFrame {
+public class GUI_Frame extends JFrame {
 	
 //*****************************
 	public static Dimension screenSize;
@@ -33,11 +33,12 @@ public class GUI_PersonnelRecords extends JFrame {
 	public static JButton butAdd;
 	public static JButton butDelete;
 	public static JPanel panelEmplTable;
-		
+	public static EmplFixSalTableModel emplFixSalTableModel;
+	public static EmplHourlyWagesTableModel emplHourlyWagesTableModel;
+	
 //*******Конструктор******************************
-	public GUI_PersonnelRecords () throws Exception {
+	public GUI_Frame () throws Exception {
 		
-		new MyMenu();
 		//получаем размер экрана
 		screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		
@@ -81,6 +82,10 @@ public class GUI_PersonnelRecords extends JFrame {
 //*******//панель для таблицы 
 		panelEmplTable = new JPanel(new BorderLayout());
 		panelEmplTable.setPreferredSize(new Dimension (mainPanel.getWidth()-panelButEdit.getWidth()-10, mainPanel.getHeight()-10));
+
+//*******//Модели для таблицы
+		emplFixSalTableModel = new EmplFixSalTableModel();
+		emplHourlyWagesTableModel = new EmplHourlyWagesTableModel();
 		
 		mainPanel.add(panelEmployees, BorderLayout.CENTER);
 			
@@ -143,22 +148,4 @@ public class GUI_PersonnelRecords extends JFrame {
 		
 	}//createTable ()
 //***********************************************************
-	public static int showInputDialog () {
-		
-				int numGeneration = Integer.valueOf((String) JOptionPane.showInputDialog(
-						null,
-						"Enter the number Employee",
-						"Number Employee",
-						JOptionPane.QUESTION_MESSAGE,
-						new ImageIcon(),
-						null,  
-						null	
-						));
-		return numGeneration;
-	}
-//***********************************************************
-	public static void main(String[] args) throws Exception {
-		new GUI_PersonnelRecords(); 
-		
-	}//main
 }//class
