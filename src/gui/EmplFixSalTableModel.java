@@ -1,20 +1,28 @@
 package gui;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 
+import javax.swing.JOptionPane;
 import javax.swing.table.AbstractTableModel;
 
 import employee.EmployeeFixedSalary;
 
 public class EmplFixSalTableModel extends AbstractTableModel{
-	
-	public static String [] columnNames = {"<html><center>Personal<br>Number", "Surname/Name/Middlename", "Department",
+
+	protected static String [] columnNames = {"<html><center>Personal<br>Number", "Surname/Name/Middlename", "Department",
 		"Post", "<html><center>Average<br>Salary", "<html><center> Monthly <br>Payment", "<html><center>Tax <br>IdentifNum",
 		"Education", "Passport", "Residance"};
 	public static ArrayList<EmployeeFixedSalary> arrListObjEmplFixSal;
+
+//*************************************************************
+	public EmplFixSalTableModel() {
+		arrListObjEmplFixSal = new ArrayList<EmployeeFixedSalary>();
+		arrListObjEmplFixSal.add(new EmployeeFixedSalary(0, "", "", "", new BigDecimal(0), 0, "", "", "", new BigDecimal(0)));
+	}
+//*************************************************************
+
 	
-	
-	 
 	
 	@Override
 	public int getColumnCount() {
@@ -54,7 +62,30 @@ public class EmplFixSalTableModel extends AbstractTableModel{
 		return true;
 	}
 	@Override
-	public void setValueAt(Object aValue, int row, int column) {}
+	public void setValueAt(Object aValue, int row, int column) {
+		switch (column) {
+		case 0: arrListObjEmplFixSal.get(row).setPersonalNumber(Integer.valueOf((String) aValue));
+			break;
+		case 1: arrListObjEmplFixSal.get(row).setSurnameNameMiddlename((String) aValue);
+			break;
+		case 2: arrListObjEmplFixSal.get(row).setDepartment((String) aValue);
+			break;
+		case 3: arrListObjEmplFixSal.get(row).setPost((String) aValue);
+			break;
+		case 4: arrListObjEmplFixSal.get(row).setAverageSalary(new BigDecimal (aValue.toString()));
+			break;
+		case 5: arrListObjEmplFixSal.get(row).setMonthlyPayment(new BigDecimal (aValue.toString()));
+			break;
+		case 6: arrListObjEmplFixSal.get(row).setTaxIdentifNum(Long.valueOf(aValue.toString()));
+			break;
+		case 7: arrListObjEmplFixSal.get(row).setEducation((String) aValue);
+			break;
+		case 8: arrListObjEmplFixSal.get(row).setPassport((String) aValue);
+			break;
+		case 9: arrListObjEmplFixSal.get(row).setResidence((String) aValue);
+			break;
+		}//switch
+	}
 	
 //	@Override
 //	public Class getColumnClass(int c) {

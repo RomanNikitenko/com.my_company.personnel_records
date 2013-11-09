@@ -3,6 +3,8 @@ package employee;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 
+import javax.swing.JOptionPane;
+
 import util.MyUtil;
 
 public abstract class Employee {
@@ -45,7 +47,14 @@ public abstract class Employee {
 		return personalNumber;
 	}
 	public void setPersonalNumber(int personalNumber) {
-		this.personalNumber = personalNumber;
+		try {
+			this.personalNumber = personalNumber;
+			} catch (NumberFormatException ex) {
+				  JOptionPane.showMessageDialog(null, 
+						  "Field 'amount Employees' requires an integer value",
+						  "Error",
+						  JOptionPane.ERROR_MESSAGE);
+			}
 	}
 	public String getSurnameNameMiddlename() {
 		return surnameNameMiddlename;

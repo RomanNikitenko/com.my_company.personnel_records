@@ -5,6 +5,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.io.File;
+import java.util.ArrayList;
 
 import javax.swing.ButtonGroup;
 import javax.swing.JFileChooser;
@@ -177,11 +178,12 @@ public class MyMenu extends JFrame{
 					mark.equals("FixSal")) {
 				try {
 					//создаем объекты сотрудников
+					GUI_Frame.tableModel = new EmplFixSalTableModel(); 
 					EmplFixSalTableModel.arrListObjEmplFixSal = 
 							EmployeeFixedSalary.createArrayListObjEmplFixSalFromFile("EmployeesFixedSalary.efs");
 					
 					//вызываем метод создания таблицы
-					GUI_Frame.createTable(GUI_Frame.emplFixSalTableModel);
+					GUI_Frame.createTable();
 				} catch (Exception exception) {
 					exception.printStackTrace();
 				}
@@ -194,7 +196,7 @@ public class MyMenu extends JFrame{
 							EmployeeHourlyWages.createArrayListObjEmplHourlyWagesFromFile("EmployeesHourlyWages.ehw");
 					
 					//вызываем метод создания таблицы
-					GUI_Frame.createTable(GUI_Frame.emplHourlyWagesTableModel);
+					GUI_Frame.createTable();
 				} catch (Exception exception) {
 					exception.printStackTrace();
 				}
@@ -248,6 +250,19 @@ class EmployeeFixSalListener implements ActionListener {
 				e.printStackTrace();
 			}//catch
 		}//if
+		else if (event.getActionCommand().equals("New")) {
+			
+			try {
+				GUI_Frame.tableModel = new EmplFixSalTableModel ();
+				
+				//вызываем метод создания таблицы
+				GUI_Frame.createTable();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+
+
+		}//if
 	}//actionPerformed
 }//class EmployeeFixSalListener
 
@@ -277,22 +292,27 @@ class TestModeListener implements ActionListener {
 	
 	@Override
 	public void actionPerformed(ActionEvent event) {
+		
+		//получаем из диалогового окна количество генерируемых сотрудников
+		int amountEmployee = MyMenu.showInputDialog();
+
 		if (event.getActionCommand().equals(MyMenu.radioMenuGenerEmplFixSal.getActionCommand())) {
 			
 			try {
-				//получаем из диалогового окна количество генерируемых сотрудников
-				int amountEmployee = MyMenu.showInputDialog();
-				
+								
 				//генерируем random-data по сотрудникам в файл "EmployeesFixedSalary.efs"
 				//расширение .efs от EmployeesFixedSalary - это поможет мне распознать файл при считывании
 				Test.generationEmployeeDataAndFiling(amountEmployee, "EmployeesFixedSalary.efs");
+				
+				//создаем модель
+				GUI_Frame.tableModel = new EmplFixSalTableModel ();
 				
 				//создаем объекты сотрудников
 				EmplFixSalTableModel.arrListObjEmplFixSal = 
 						EmployeeFixedSalary.createArrayListObjEmplFixSalFromFile("EmployeesFixedSalary.efs");
 				
 				//вызываем метод создания таблицы
-				GUI_Frame.createTable(GUI_Frame.emplFixSalTableModel);
+				GUI_Frame.createTable();
 
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -301,19 +321,20 @@ class TestModeListener implements ActionListener {
 		else if (event.getActionCommand().equals(MyMenu.radioMenuGenerEmplHourlyWages.getActionCommand())) {
 			
 			try {
-				//получаем из диалогового окна количество генерируемых сотрудников
-				int amountEmployee = MyMenu.showInputDialog();
 				
 				//генерируем random-data по сотрудникам в файл "EmployeesHourlyWages.ehw"
 				//расширение .ehw - от EmployeesHourlyWages - это поможет мне распознать файл при считывании
 				Test.generationEmployeeDataAndFiling(amountEmployee, "EmployeesHourlyWages.ehw");
+				
+				//создаем модель
+				GUI_Frame.tableModel = new EmplHourlyWagesTableModel();
 				
 				//создаем объекты сотрудников
 				EmplHourlyWagesTableModel.arrListObjEmplHourlyWages = 
 						EmployeeHourlyWages.createArrayListObjEmplHourlyWagesFromFile("EmployeesHourlyWages.ehw");
 				
 				//вызываем метод создания таблицы
-				GUI_Frame.createTable(GUI_Frame.emplHourlyWagesTableModel);
+				GUI_Frame.createTable();
 			
 			} catch (Exception e) {
 				e.printStackTrace();

@@ -13,7 +13,5 @@ public class Run {
 		new MyMenu();
 		new GUI_Frame();
 		
-		
 	}
-
 }

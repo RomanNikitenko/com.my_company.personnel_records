@@ -7,19 +7,22 @@ import java.awt.GridLayout;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.math.BigDecimal;
 import java.util.Comparator;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.ListSelectionModel;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.TableRowSorter;
+
+import employee.EmployeeFixedSalary;
 
 
 
@@ -36,6 +39,7 @@ public class GUI_Frame extends JFrame implements ActionListener {
 	public static JButton butClean;
 	public static JButton butDelete;
 	public static JPanel panelEmplTable;
+	public static AbstractTableModel tableModel;
 	public static EmplFixSalTableModel emplFixSalTableModel;
 	public static EmplHourlyWagesTableModel emplHourlyWagesTableModel;
 	
@@ -77,6 +81,7 @@ public class GUI_Frame extends JFrame implements ActionListener {
 		
 //*******//кнопоки EDIT
 		butAdd = new JButton("Add");
+		butAdd.addActionListener(this);
 		panelButEdit.add(butAdd);
 				
 		butClean = new JButton("<html><center>Clean<br>All");
@@ -84,32 +89,31 @@ public class GUI_Frame extends JFrame implements ActionListener {
 		panelButEdit.add(butClean);
 
 		butDelete = new JButton("Delete");
+		butDelete.addActionListener(this);
 		panelButEdit.add(butDelete);
 
 //*******//панель для таблицы 
 		panelEmplTable = new JPanel(new BorderLayout());
 		panelEmplTable.setPreferredSize(new Dimension (mainPanel.getWidth()-panelButEdit.getWidth()-10, mainPanel.getHeight()-10));
 
-//*******//Модели для таблицы
-		emplFixSalTableModel = new EmplFixSalTableModel();
-		emplHourlyWagesTableModel = new EmplHourlyWagesTableModel();
-		
 		mainPanel.add(panelEmployees, BorderLayout.CENTER);
 			
 	}//конструктор
 //***********************************************************
-	public static void createTable (AbstractTableModel tableModel) {
+	public static void createTable () {
 		
 		//*******//создаем таблицу на основе нашей модели,
 		//переданной в параметре
 		dataTable = new JTable(tableModel);
 		dataTable.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+		dataTable.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
+		dataTable.setCellSelectionEnabled(true);
 		
 		TableRowSorter<AbstractTableModel> sorter = new TableRowSorter<AbstractTableModel>(tableModel) {
 			
 			@Override
 			public Comparator<?> getComparator(int column) {
-			      // для нулевой строки
+			      
 			      if (column == 0 || column == 4 || column == 5 || column == 6 ) {
 			        return new Comparator<String>() {
 			          @Override
@@ -145,10 +149,12 @@ public class GUI_Frame extends JFrame implements ActionListener {
 		//Добавляем на панель jscrlp вместе с таблицей
 		panelEmplTable.add(jscrlp);
 		if (tableModel instanceof EmplFixSalTableModel) {
-			panelEmplTable.setBorder(BorderFactory.createTitledBorder(BorderFactory.createRaisedBevelBorder(), "Employees With Fix Salary Data"));
+			panelEmplTable.setBorder(BorderFactory.createTitledBorder(BorderFactory.createRaisedBevelBorder(),
+					"Employees With Fix Salary Data"));
 		}
-		else panelEmplTable.setBorder(BorderFactory.createTitledBorder(BorderFactory.createRaisedBevelBorder(), "Employees With Hourly Wages Data"));
-			
+		else panelEmplTable.setBorder(BorderFactory.createTitledBorder(BorderFactory.createRaisedBevelBorder(),
+				"Employees With Hourly Wages Data"));
+		
 		//Добавляем панель с таблицей
 		panelEmployees.add(panelEmplTable,BorderLayout.CENTER);
 		panelEmplTable.updateUI();
@@ -159,7 +165,16 @@ public class GUI_Frame extends JFrame implements ActionListener {
 	public void actionPerformed(ActionEvent event) {
 		if (butClean == event.getSource()) {
 			panelEmplTable.removeAll();
+			dataTable.removeAll();
 			panelEmplTable.updateUI();
+		}//if
+		else if (butAdd == event.getSource()) {
+				if (tableModel instanceof EmplFixSalTableModel) {
+					EmplFixSalTableModel.arrListObjEmplFixSal.add(new EmployeeFixedSalary(0, "", "", "", new BigDecimal(0),
+																					0, "", "", "", new BigDecimal(0)));
+					dataTable.revalidate();
+					panelEmplTable.updateUI();
+				}//if
 		}//if
 	}//actionPerformed
 }//class
