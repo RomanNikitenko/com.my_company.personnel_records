@@ -23,6 +23,7 @@ import javax.swing.table.AbstractTableModel;
 import javax.swing.table.TableRowSorter;
 
 import employee.EmployeeFixedSalary;
+import employee.EmployeeHourlyWages;
 
 
 
@@ -175,6 +176,12 @@ public class GUI_Frame extends JFrame implements ActionListener {
 					dataTable.revalidate();
 					panelEmplTable.updateUI();
 				}//if
+				else if (tableModel instanceof EmplHourlyWagesTableModel) {
+						EmplHourlyWagesTableModel.arrListObjEmplHourlyWages.add(new EmployeeHourlyWages(0, "", "", "", new BigDecimal(0),
+																					0, "", "", "", new BigDecimal(0)));
+						dataTable.revalidate();
+						panelEmplTable.updateUI();
+					}//if
 		}//if
 	}//actionPerformed
 }//class

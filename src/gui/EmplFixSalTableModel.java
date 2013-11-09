@@ -10,7 +10,7 @@ import employee.EmployeeFixedSalary;
 
 public class EmplFixSalTableModel extends AbstractTableModel{
 
-	protected static String [] columnNames = {"<html><center>Personal<br>Number", "Surname/Name/Middlename", "Department",
+	private static String [] columnNames = {"<html><center>Personal<br>Number", "Surname/Name/Middlename", "Department",
 		"Post", "<html><center>Average<br>Salary", "<html><center> Monthly <br>Payment", "<html><center>Tax <br>IdentifNum",
 		"Education", "Passport", "Residance"};
 	public static ArrayList<EmployeeFixedSalary> arrListObjEmplFixSal;
@@ -85,12 +85,5 @@ public class EmplFixSalTableModel extends AbstractTableModel{
 		case 9: arrListObjEmplFixSal.get(row).setResidence((String) aValue);
 			break;
 		}//switch
-	}
-	
-//	@Override
-//	public Class getColumnClass(int c) {
-//		return (String.class);
-//	}
-//	
-
+	}//setValueAt
 }//class

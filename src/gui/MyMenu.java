@@ -283,6 +283,17 @@ class EmployeeHourlyWagesListener implements ActionListener {
 				e.printStackTrace();
 			}//catch
 		}//if
+		else if (event.getActionCommand().equals("New")) {
+			
+			try {
+				GUI_Frame.tableModel = new EmplHourlyWagesTableModel();
+				
+				//вызываем метод создания таблицы
+				GUI_Frame.createTable();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}//if
 	}//actionPerformed
 }//class EmployeeHourlyWagesListener
 

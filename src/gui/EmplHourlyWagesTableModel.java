@@ -1,18 +1,28 @@
 package gui;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 
 import javax.swing.table.AbstractTableModel;
 
-import employee.EmployeeFixedSalary;
 import employee.EmployeeHourlyWages;
 
 public class EmplHourlyWagesTableModel extends AbstractTableModel{
 	
-	public static String [] columnNames = {"<html><center>Personal<br>Number", "Surname/Name/Middlename", "Department",
+	private static String [] columnNames = {"<html><center>Personal<br>Number", "Surname/Name/Middlename", "Department",
 		"Post", "<html><center>Average<br>Salary", "<html><center> Hourly <br>Rate", "<html><center>Tax <br>IdentifNum",
 		"Education", "Passport", "Residance"};
+	
 	public static ArrayList<EmployeeHourlyWages> arrListObjEmplHourlyWages;
+
+//*************************************************************
+	public EmplHourlyWagesTableModel() {
+	
+		arrListObjEmplHourlyWages = new ArrayList<EmployeeHourlyWages>();
+		arrListObjEmplHourlyWages.add(new EmployeeHourlyWages(0, "", "", "", new BigDecimal(0), 0, "", "", "", new BigDecimal(0)));
+	}
+//*************************************************************
+	
 	
 	@Override
 	public int getColumnCount() {
@@ -52,12 +62,29 @@ public class EmplHourlyWagesTableModel extends AbstractTableModel{
 		return true;
 	}
 	@Override
-	public void setValueAt(Object aValue, int row, int column) {}
-	
-//	@Override
-//	public Class getColumnClass(int c) {
-//		return (String.class);
-//	}
-//	
-
+	public void setValueAt(Object aValue, int row, int column) {
+		
+		switch (column) {
+		case 0: arrListObjEmplHourlyWages.get(row).setPersonalNumber(Integer.valueOf((String) aValue));
+			break;
+		case 1: arrListObjEmplHourlyWages.get(row).setSurnameNameMiddlename((String) aValue);
+			break;
+		case 2: arrListObjEmplHourlyWages.get(row).setDepartment((String) aValue);
+			break;
+		case 3: arrListObjEmplHourlyWages.get(row).setPost((String) aValue);
+			break;
+		case 4: arrListObjEmplHourlyWages.get(row).setAverageSalary(new BigDecimal (aValue.toString()));
+			break;
+		case 5: arrListObjEmplHourlyWages.get(row).setHourlyRate(new BigDecimal (aValue.toString()));
+			break;
+		case 6: arrListObjEmplHourlyWages.get(row).setTaxIdentifNum(Long.valueOf(aValue.toString()));
+			break;
+		case 7: arrListObjEmplHourlyWages.get(row).setEducation((String) aValue);
+			break;
+		case 8: arrListObjEmplHourlyWages.get(row).setPassport((String) aValue);
+			break;
+		case 9: arrListObjEmplHourlyWages.get(row).setResidence((String) aValue);
+			break;
+		}//switch
+	}//setValueAt
 }//class
