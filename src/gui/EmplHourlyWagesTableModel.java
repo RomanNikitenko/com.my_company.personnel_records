@@ -8,21 +8,12 @@ import javax.swing.table.AbstractTableModel;
 import employee.EmployeeHourlyWages;
 
 public class EmplHourlyWagesTableModel extends AbstractTableModel{
-	
+
 	private static String [] columnNames = {"<html><center>Personal<br>Number", "Surname/Name/Middlename", "Department",
 		"Post", "<html><center>Average<br>Salary", "<html><center> Hourly <br>Rate", "<html><center>Tax <br>IdentifNum",
 		"Education", "Passport", "Residance"};
-	
-	public static ArrayList<EmployeeHourlyWages> arrListObjEmplHourlyWages;
+	public static ArrayList<EmployeeHourlyWages> arrListObjEmplHourlyWages = new ArrayList<EmployeeHourlyWages>();
 
-//*************************************************************
-	public EmplHourlyWagesTableModel() {
-	
-		arrListObjEmplHourlyWages = new ArrayList<EmployeeHourlyWages>();
-		arrListObjEmplHourlyWages.add(new EmployeeHourlyWages(0, "", "", "", new BigDecimal(0), 0, "", "", "", new BigDecimal(0)));
-	}
-//*************************************************************
-	
 	
 	@Override
 	public int getColumnCount() {
@@ -63,7 +54,6 @@ public class EmplHourlyWagesTableModel extends AbstractTableModel{
 	}
 	@Override
 	public void setValueAt(Object aValue, int row, int column) {
-		
 		switch (column) {
 		case 0: arrListObjEmplHourlyWages.get(row).setPersonalNumber(Integer.valueOf((String) aValue));
 			break;

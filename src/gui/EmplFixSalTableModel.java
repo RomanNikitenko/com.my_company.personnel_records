@@ -3,7 +3,6 @@ package gui;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 
-import javax.swing.JOptionPane;
 import javax.swing.table.AbstractTableModel;
 
 import employee.EmployeeFixedSalary;
@@ -13,16 +12,8 @@ public class EmplFixSalTableModel extends AbstractTableModel{
 	private static String [] columnNames = {"<html><center>Personal<br>Number", "Surname/Name/Middlename", "Department",
 		"Post", "<html><center>Average<br>Salary", "<html><center> Monthly <br>Payment", "<html><center>Tax <br>IdentifNum",
 		"Education", "Passport", "Residance"};
-	public static ArrayList<EmployeeFixedSalary> arrListObjEmplFixSal;
+	public static ArrayList<EmployeeFixedSalary> arrListObjEmplFixSal = new ArrayList<EmployeeFixedSalary>();
 
-//*************************************************************
-	public EmplFixSalTableModel() {
-		arrListObjEmplFixSal = new ArrayList<EmployeeFixedSalary>();
-		arrListObjEmplFixSal.add(new EmployeeFixedSalary(0, "", "", "", new BigDecimal(0), 0, "", "", "", new BigDecimal(0)));
-	}
-//*************************************************************
-
-	
 	
 	@Override
 	public int getColumnCount() {

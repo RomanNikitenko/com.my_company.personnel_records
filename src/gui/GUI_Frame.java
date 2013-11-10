@@ -2,6 +2,7 @@ package gui;
 
 
 import java.awt.BorderLayout;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.Toolkit;
@@ -140,7 +141,6 @@ public class GUI_Frame extends JFrame implements ActionListener {
 		dataTable.getColumnModel().getColumn(8).setPreferredWidth(220);
 		dataTable.getColumnModel().getColumn(9).setPreferredWidth(300);
 		
-		
 		// Создаем панель прокрутки и включаем в ее состав нашу таблицу
 		jscrlp = new JScrollPane(dataTable,
 						ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS,
@@ -164,24 +164,52 @@ public class GUI_Frame extends JFrame implements ActionListener {
 //***********************************************************
 	@Override
 	public void actionPerformed(ActionEvent event) {
-		if (butClean == event.getSource()) {
+		
+		switch (event.getActionCommand()) {
+		
+		case "<html><center>Clean<br>All":
+			
 			panelEmplTable.removeAll();
 			dataTable.removeAll();
 			panelEmplTable.updateUI();
-		}//if
-		else if (butAdd == event.getSource()) {
-				if (tableModel instanceof EmplFixSalTableModel) {
-					EmplFixSalTableModel.arrListObjEmplFixSal.add(new EmployeeFixedSalary(0, "", "", "", new BigDecimal(0),
-																					0, "", "", "", new BigDecimal(0)));
+			break;
+		
+		case "Add":
+			if (tableModel instanceof EmplFixSalTableModel) {
+				EmplFixSalTableModel.arrListObjEmplFixSal.add(0, 
+						new EmployeeFixedSalary(0, "", "", "", new BigDecimal(0), 0, "", "", "", new BigDecimal(0)));
+				tableModel.fireTableRowsInserted(0, 0);
+				dataTable.revalidate();
+				panelEmplTable.updateUI();
+			}//if
+			else if (tableModel instanceof EmplHourlyWagesTableModel) {
+					EmplHourlyWagesTableModel.arrListObjEmplHourlyWages.add(0, 
+							new EmployeeHourlyWages(0, "", "", "", new BigDecimal(0), 0, "", "", "", new BigDecimal(0)));
+					tableModel.fireTableRowsInserted(0, 0);
 					dataTable.revalidate();
 					panelEmplTable.updateUI();
-				}//if
-				else if (tableModel instanceof EmplHourlyWagesTableModel) {
-						EmplHourlyWagesTableModel.arrListObjEmplHourlyWages.add(new EmployeeHourlyWages(0, "", "", "", new BigDecimal(0),
-																					0, "", "", "", new BigDecimal(0)));
-						dataTable.revalidate();
-						panelEmplTable.updateUI();
-					}//if
-		}//if
+			}//else if
+			break;
+				
+		case "Delete":
+//			if (dataTable.getSelectedRow() == -1) {
+			if (tableModel instanceof EmplFixSalTableModel) {
+				EmplFixSalTableModel.arrListObjEmplFixSal.
+										remove(dataTable.convertRowIndexToModel(dataTable.getSelectedRow()));
+				tableModel.fireTableRowsDeleted(dataTable.convertRowIndexToModel(dataTable.getSelectedRow()),
+						dataTable.convertRowIndexToModel(dataTable.getSelectedRow()));
+				dataTable.revalidate();
+				panelEmplTable.updateUI();
+			}//if
+			else if (tableModel instanceof EmplHourlyWagesTableModel) {
+				EmplHourlyWagesTableModel.arrListObjEmplHourlyWages.
+										remove(dataTable.convertRowIndexToModel(dataTable.getSelectedRow()));
+				tableModel.fireTableRowsDeleted(dataTable.convertRowIndexToModel(dataTable.getSelectedRow()),
+						dataTable.convertRowIndexToModel(dataTable.getSelectedRow()));
+				dataTable.revalidate();
+				panelEmplTable.updateUI();
+			}//else if
+			break;
+		}//switch
 	}//actionPerformed
 }//class

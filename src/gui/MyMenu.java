@@ -5,6 +5,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.io.File;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 
 import javax.swing.ButtonGroup;
@@ -177,13 +178,17 @@ public class MyMenu extends JFrame{
 			if (file.getAbsolutePath().indexOf(".efs") != (-1) &&
 					mark.equals("FixSal")) {
 				try {
-					//создаем объекты сотрудников
+					
+					//создаем модель таблицы
 					GUI_Frame.tableModel = new EmplFixSalTableModel(); 
+					
+					//создаем объекты сотрудников
 					EmplFixSalTableModel.arrListObjEmplFixSal = 
-							EmployeeFixedSalary.createArrayListObjEmplFixSalFromFile("EmployeesFixedSalary.efs");
+							EmployeeFixedSalary.createArrayListObjEmplFixSalFromFile(file.getAbsolutePath());
 					
 					//вызываем метод создания таблицы
 					GUI_Frame.createTable();
+					
 				} catch (Exception exception) {
 					exception.printStackTrace();
 				}
@@ -191,12 +196,17 @@ public class MyMenu extends JFrame{
 			else if (file.getAbsolutePath().indexOf(".ehw") != (-1) &&
 					mark.equals("HourlyWages")) {
 				try {
+					
+					//создаем модель таблицы
+					GUI_Frame.tableModel = new EmplHourlyWagesTableModel();
+					
 					//создаем объекты сотрудников
 					EmplHourlyWagesTableModel.arrListObjEmplHourlyWages = 
-							EmployeeHourlyWages.createArrayListObjEmplHourlyWagesFromFile("EmployeesHourlyWages.ehw");
+							EmployeeHourlyWages.createArrayListObjEmplHourlyWagesFromFile(file.getAbsolutePath());
 					
 					//вызываем метод создания таблицы
 					GUI_Frame.createTable();
+					
 				} catch (Exception exception) {
 					exception.printStackTrace();
 				}
@@ -222,7 +232,8 @@ public class MyMenu extends JFrame{
 								));
 				return numGeneration;
 				} catch (NumberFormatException ex) {
-				  JOptionPane.showMessageDialog(null, "Field 'amount Employees' requires an integer value", "Error", JOptionPane.ERROR_MESSAGE);
+				  JOptionPane.showMessageDialog(null, "Field 'amount Employees' requires an integer value",
+						  "Error", JOptionPane.ERROR_MESSAGE);
 				  return 0;
 				}
 	}//showInputDialog ()
@@ -253,15 +264,22 @@ class EmployeeFixSalListener implements ActionListener {
 		else if (event.getActionCommand().equals("New")) {
 			
 			try {
+				//создаем для новой таблицы новый объект ArrayList<>()
+				EmplFixSalTableModel.arrListObjEmplFixSal = new ArrayList<>();
+				
+				//создаем модель таблицы
 				GUI_Frame.tableModel = new EmplFixSalTableModel ();
+				
+				//создаем новый объект сотрудника
+				EmplFixSalTableModel.arrListObjEmplFixSal.add( 
+						new EmployeeFixedSalary(0, "", "", "", new BigDecimal(0), 0, "", "", "", new BigDecimal(0)));
 				
 				//вызываем метод создания таблицы
 				GUI_Frame.createTable();
+				
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-
-
 		}//if
 	}//actionPerformed
 }//class EmployeeFixSalListener
@@ -286,10 +304,19 @@ class EmployeeHourlyWagesListener implements ActionListener {
 		else if (event.getActionCommand().equals("New")) {
 			
 			try {
+				//создаем для новой таблицы новый объект ArrayList<>()
+				EmplHourlyWagesTableModel.arrListObjEmplHourlyWages = new ArrayList<>();
+				
+				//создаем модель таблицы
 				GUI_Frame.tableModel = new EmplHourlyWagesTableModel();
+				
+				//создаем новый объект сотрудника
+				EmplHourlyWagesTableModel.arrListObjEmplHourlyWages.add( 
+						new EmployeeHourlyWages(0, "", "", "", new BigDecimal(0), 0, "", "", "", new BigDecimal(0)));
 				
 				//вызываем метод создания таблицы
 				GUI_Frame.createTable();
+				
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
