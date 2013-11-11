@@ -3,9 +3,11 @@ package gui;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 
+import javax.swing.JOptionPane;
 import javax.swing.table.AbstractTableModel;
 
 import employee.EmployeeHourlyWages;
+import exception.MyException;
 
 public class EmplHourlyWagesTableModel extends AbstractTableModel{
 
@@ -55,21 +57,73 @@ public class EmplHourlyWagesTableModel extends AbstractTableModel{
 	@Override
 	public void setValueAt(Object aValue, int row, int column) {
 		switch (column) {
-		case 0: arrListObjEmplHourlyWages.get(row).setPersonalNumber(Integer.valueOf((String) aValue));
+		case 0: 
+			try {
+				arrListObjEmplHourlyWages.get(row).setPersonalNumber(
+						Integer.valueOf((String) aValue));
+			} catch (NumberFormatException ex) {
+				JOptionPane.showMessageDialog(null,
+						"Field 'PersonalNumber' requires an integer value",
+						"Error", JOptionPane.ERROR_MESSAGE);
+			}
 			break;
-		case 1: arrListObjEmplHourlyWages.get(row).setSurnameNameMiddlename((String) aValue);
+		case 1: try {
+				arrListObjEmplHourlyWages.get(row).setSurnameNameMiddlename((String) aValue);
+			} catch (MyException e) {
+				JOptionPane.showMessageDialog(null,
+						"Incorrect value!",
+						"Error", JOptionPane.ERROR_MESSAGE);
+			}
 			break;
 		case 2: arrListObjEmplHourlyWages.get(row).setDepartment((String) aValue);
 			break;
-		case 3: arrListObjEmplHourlyWages.get(row).setPost((String) aValue);
+		case 3: try {
+				arrListObjEmplHourlyWages.get(row).setPost((String) aValue);
+			} catch (MyException e) {
+				JOptionPane.showMessageDialog(null,
+						"Incorrect value!",
+						"Error", JOptionPane.ERROR_MESSAGE);
+			}
 			break;
-		case 4: arrListObjEmplHourlyWages.get(row).setAverageSalary(new BigDecimal (aValue.toString()));
+		case 4: 
+			try {
+				arrListObjEmplHourlyWages.get(row).setAverageSalary(
+						new BigDecimal(aValue.toString()));
+			} catch (NumberFormatException ex) {
+				JOptionPane.showMessageDialog(null,
+						"Field 'AverageSalary' requires an BigDecimal value",
+						"Error", JOptionPane.ERROR_MESSAGE);
+			}
+
 			break;
-		case 5: arrListObjEmplHourlyWages.get(row).setHourlyRate(new BigDecimal (aValue.toString()));
+		case 5: 
+			try {
+				arrListObjEmplHourlyWages.get(row).setHourlyRate(
+						new BigDecimal(aValue.toString()));
+			} catch (NumberFormatException ex) {
+				JOptionPane.showMessageDialog(null,
+						"Field 'HourlyRate' requires an BigDecimal value",
+						"Error", JOptionPane.ERROR_MESSAGE);
+			}
+
 			break;
-		case 6: arrListObjEmplHourlyWages.get(row).setTaxIdentifNum(Long.valueOf(aValue.toString()));
+		case 6: 
+			try {
+				arrListObjEmplHourlyWages.get(row).setTaxIdentifNum(
+						Long.valueOf(aValue.toString()));
+			} catch (NumberFormatException ex) {
+				JOptionPane.showMessageDialog(null,
+						"Field 'TaxIdentifNum' requires an long value",
+						"Error", JOptionPane.ERROR_MESSAGE);
+			}
 			break;
-		case 7: arrListObjEmplHourlyWages.get(row).setEducation((String) aValue);
+		case 7: try {
+				arrListObjEmplHourlyWages.get(row).setEducation((String) aValue);
+			} catch (MyException e) {
+				JOptionPane.showMessageDialog(null,
+						"Incorrect value!",
+						"Error", JOptionPane.ERROR_MESSAGE);
+			}
 			break;
 		case 8: arrListObjEmplHourlyWages.get(row).setPassport((String) aValue);
 			break;

@@ -2,7 +2,6 @@ package gui;
 
 
 import java.awt.BorderLayout;
-import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.Toolkit;
@@ -14,6 +13,7 @@ import java.util.Comparator;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -25,6 +25,7 @@ import javax.swing.table.TableRowSorter;
 
 import employee.EmployeeFixedSalary;
 import employee.EmployeeHourlyWages;
+import exception.MyException;
 
 
 
@@ -82,7 +83,7 @@ public class GUI_Frame extends JFrame implements ActionListener {
 		panelEmployees.add(panelButEdit, BorderLayout.WEST);
 		
 //*******//кнопоки EDIT
-		butAdd = new JButton("Add");
+		butAdd = new JButton("<html><center> Add <br> Row");
 		butAdd.addActionListener(this);
 		panelButEdit.add(butAdd);
 				
@@ -90,7 +91,7 @@ public class GUI_Frame extends JFrame implements ActionListener {
 		butClean.addActionListener(this);
 		panelButEdit.add(butClean);
 
-		butDelete = new JButton("Delete");
+		butDelete = new JButton("<html><center> Delete <br> Row");
 		butDelete.addActionListener(this);
 		panelButEdit.add(butDelete);
 
@@ -174,41 +175,61 @@ public class GUI_Frame extends JFrame implements ActionListener {
 			panelEmplTable.updateUI();
 			break;
 		
-		case "Add":
+		case "<html><center> Add <br> Row":
 			if (tableModel instanceof EmplFixSalTableModel) {
-				EmplFixSalTableModel.arrListObjEmplFixSal.add(0, 
-						new EmployeeFixedSalary(0, "", "", "", new BigDecimal(0), 0, "", "", "", new BigDecimal(0)));
+				try {
+					EmplFixSalTableModel.arrListObjEmplFixSal.add(0, 
+							new EmployeeFixedSalary(0, "", "", "", new BigDecimal(0), 0, "", "", "", new BigDecimal(0)));
+				} catch (MyException e) {
+					JOptionPane.showMessageDialog(null,
+							"Incorrect value!",
+							"Error", JOptionPane.ERROR_MESSAGE);
+				}
 				tableModel.fireTableRowsInserted(0, 0);
 				dataTable.revalidate();
 				panelEmplTable.updateUI();
 			}//if
 			else if (tableModel instanceof EmplHourlyWagesTableModel) {
-					EmplHourlyWagesTableModel.arrListObjEmplHourlyWages.add(0, 
-							new EmployeeHourlyWages(0, "", "", "", new BigDecimal(0), 0, "", "", "", new BigDecimal(0)));
+					try {
+						EmplHourlyWagesTableModel.arrListObjEmplHourlyWages.add(0, 
+								new EmployeeHourlyWages(0, "", "", "", new BigDecimal(0), 0, "", "", "", new BigDecimal(0)));
+					} catch (MyException e) {
+						JOptionPane.showMessageDialog(null,
+								"Incorrect value!",
+								"Error", JOptionPane.ERROR_MESSAGE);					}
 					tableModel.fireTableRowsInserted(0, 0);
 					dataTable.revalidate();
 					panelEmplTable.updateUI();
 			}//else if
 			break;
 				
-		case "Delete":
-//			if (dataTable.getSelectedRow() == -1) {
-			if (tableModel instanceof EmplFixSalTableModel) {
-				EmplFixSalTableModel.arrListObjEmplFixSal.
+		case "<html><center> Delete <br> Row":
+			try {
+			
+				if (dataTable.getSelectedRow() == -1) {
+					JOptionPane.showMessageDialog(null, "Select the row you want to delete!", "Attention!", JOptionPane.INFORMATION_MESSAGE);
+					break;
+				}//
+				if (tableModel instanceof EmplFixSalTableModel) {
+					EmplFixSalTableModel.arrListObjEmplFixSal.
 										remove(dataTable.convertRowIndexToModel(dataTable.getSelectedRow()));
-				tableModel.fireTableRowsDeleted(dataTable.convertRowIndexToModel(dataTable.getSelectedRow()),
-						dataTable.convertRowIndexToModel(dataTable.getSelectedRow()));
-				dataTable.revalidate();
-				panelEmplTable.updateUI();
-			}//if
-			else if (tableModel instanceof EmplHourlyWagesTableModel) {
-				EmplHourlyWagesTableModel.arrListObjEmplHourlyWages.
+					tableModel.fireTableRowsDeleted(dataTable.convertRowIndexToModel(dataTable.getSelectedRow()),
+							dataTable.convertRowIndexToModel(dataTable.getSelectedRow()));
+					dataTable.revalidate();
+					panelEmplTable.updateUI();
+				}//if
+				else if (tableModel instanceof EmplHourlyWagesTableModel) {
+					EmplHourlyWagesTableModel.arrListObjEmplHourlyWages.
 										remove(dataTable.convertRowIndexToModel(dataTable.getSelectedRow()));
-				tableModel.fireTableRowsDeleted(dataTable.convertRowIndexToModel(dataTable.getSelectedRow()),
-						dataTable.convertRowIndexToModel(dataTable.getSelectedRow()));
-				dataTable.revalidate();
-				panelEmplTable.updateUI();
-			}//else if
+					tableModel.fireTableRowsDeleted(dataTable.convertRowIndexToModel(dataTable.getSelectedRow()),
+							dataTable.convertRowIndexToModel(dataTable.getSelectedRow()));
+					dataTable.revalidate();
+					panelEmplTable.updateUI();
+				}//else if
+			} catch (IndexOutOfBoundsException ex) {
+				JOptionPane.showMessageDialog(null, "Removing the last line does not work properly. Press 'Clean All', please!",
+						"Error", JOptionPane.ERROR_MESSAGE);
+			}
 			break;
 		}//switch
 	}//actionPerformed

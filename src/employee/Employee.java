@@ -5,6 +5,8 @@ import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
 
+import exception.MyException;
+
 import util.MyUtil;
 
 public abstract class Employee {
@@ -29,7 +31,7 @@ public abstract class Employee {
 //**********************************************************************************
 	public Employee(int personalNumber, String surnameNameMiddlename,
 			String department, String post, BigDecimal averageSalary, long taxIdentifNum,
-			String education, String passport, String residence) {
+			String education, String passport, String residence) throws MyException {
 		this.setPersonalNumber(personalNumber);
 		this.setSurnameNameMiddlename(surnameNameMiddlename);
 		this.setEducation(education);
@@ -59,8 +61,13 @@ public abstract class Employee {
 	public String getSurnameNameMiddlename() {
 		return surnameNameMiddlename;
 	}
-	public void setSurnameNameMiddlename(String surnameNameMiddlename) {
-		this.surnameNameMiddlename = surnameNameMiddlename;
+	public void setSurnameNameMiddlename(String surnameNameMiddlename) throws MyException {
+		if (surnameNameMiddlename.matches("^\\D*$")) {
+			this.surnameNameMiddlename = surnameNameMiddlename;
+
+		} else {
+			throw new MyException("incorrect value");
+		}
 	}
 	public String getDepartment() {
 		return department;
@@ -69,10 +76,16 @@ public abstract class Employee {
 		this.department = department;
 	}
 	public String getPost() {
+		
 		return post;
 	}
-	public void setPost(String post) {
-		this.post = post;
+	public void setPost(String post) throws MyException {
+		if (post.matches("^\\D*$")) {
+			this.post = post;
+
+		} else {
+			throw new MyException("incorrect value");
+		}
 	}
 	public BigDecimal getAverageSalary() {
 		return averageSalary;
@@ -89,8 +102,13 @@ public abstract class Employee {
 	public String getEducation() {
 		return education;
 	}
-	public void setEducation(String education) {
-		this.education = education;
+	public void setEducation(String education) throws MyException {
+		if (education.matches("^\\D*$")) {
+			this.education = education;
+
+		} else {
+			throw new MyException("incorrect value");
+		}
 	}
 	public String getPassport() {
 		return passport;
@@ -105,8 +123,5 @@ public abstract class Employee {
 		this.residence = residence;
 	}
 //********************************************************************	
-	
-	//проверки: возраст не отрицателен, фамилия - только буквы и т.д.
-
 
 }//class

@@ -78,7 +78,6 @@ public class MyMenu extends JFrame{
 	   submenuEmplFixSal.addActionListener (new ActionListener() {
 		   @Override
 		   public void actionPerformed(ActionEvent event) {
-			   System.out.println("Аноним. лисенер: меню Выход.");
 			   System.exit(0);
 		   }
 	   });
@@ -255,7 +254,7 @@ class EmployeeFixSalListener implements ActionListener {
 				//файлов, то передаем в параметре метку, чтобы сообщить откуда вызван метод
 				// и какой тип файлов читать
 				MyMenu.openFileEmployeesData("FixSal");
-			} catch (ClassNotFoundException | InstantiationException
+			} catch (ClassNotFoundException | InstantiationException 
 					| IllegalAccessException | UnsupportedLookAndFeelException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

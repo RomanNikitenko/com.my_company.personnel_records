@@ -3,9 +3,11 @@ package gui;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 
+import javax.swing.JOptionPane;
 import javax.swing.table.AbstractTableModel;
 
 import employee.EmployeeFixedSalary;
+import exception.MyException;
 
 public class EmplFixSalTableModel extends AbstractTableModel{
 
@@ -54,27 +56,81 @@ public class EmplFixSalTableModel extends AbstractTableModel{
 	}
 	@Override
 	public void setValueAt(Object aValue, int row, int column) {
+		
+			
 		switch (column) {
-		case 0: arrListObjEmplFixSal.get(row).setPersonalNumber(Integer.valueOf((String) aValue));
-			break;
-		case 1: arrListObjEmplFixSal.get(row).setSurnameNameMiddlename((String) aValue);
+		case 0:
+			try {
+				arrListObjEmplFixSal.get(row).setPersonalNumber(
+						Integer.valueOf((String) aValue));
+
+			} catch (NumberFormatException ex) {
+				JOptionPane.showMessageDialog(null,
+						"Field 'PersonalNumber' requires an integer value",
+						"Error", JOptionPane.ERROR_MESSAGE);
+			}
+		break;
+		case 1: try {
+				arrListObjEmplFixSal.get(row).setSurnameNameMiddlename((String) aValue);
+			} catch (MyException e) {
+				JOptionPane.showMessageDialog(null,
+						"Incorrect value!",
+						"Error", JOptionPane.ERROR_MESSAGE);
+			}
 			break;
 		case 2: arrListObjEmplFixSal.get(row).setDepartment((String) aValue);
 			break;
-		case 3: arrListObjEmplFixSal.get(row).setPost((String) aValue);
+		case 3: try {
+				arrListObjEmplFixSal.get(row).setPost((String) aValue);
+			} catch (MyException e) {
+				JOptionPane.showMessageDialog(null,
+						"Incorrect value!",
+						"Error", JOptionPane.ERROR_MESSAGE);
+			}
 			break;
-		case 4: arrListObjEmplFixSal.get(row).setAverageSalary(new BigDecimal (aValue.toString()));
+		case 4: 
+			try {
+				arrListObjEmplFixSal.get(row).setAverageSalary(
+						new BigDecimal(aValue.toString()));
+			} catch (NumberFormatException ex) {
+				JOptionPane.showMessageDialog(null,
+						"Field 'AverageSalary' requires an BigDecimal value",
+						"Error", JOptionPane.ERROR_MESSAGE);
+			}
 			break;
-		case 5: arrListObjEmplFixSal.get(row).setMonthlyPayment(new BigDecimal (aValue.toString()));
+		case 5: 
+			try {
+				arrListObjEmplFixSal.get(row).setMonthlyPayment(
+						new BigDecimal(aValue.toString()));
+			} catch (NumberFormatException ex) {
+				JOptionPane.showMessageDialog(null,
+						"Field 'MonthlyPayment' requires an BigDecimal value",
+						"Error", JOptionPane.ERROR_MESSAGE);
+			}
 			break;
-		case 6: arrListObjEmplFixSal.get(row).setTaxIdentifNum(Long.valueOf(aValue.toString()));
+		case 6: 
+			try {
+				arrListObjEmplFixSal.get(row).setTaxIdentifNum(
+						Long.valueOf(aValue.toString()));
+			} catch (NumberFormatException ex) {
+				JOptionPane.showMessageDialog(null,
+						"Field 'TaxIdentifNum' requires an long value",
+						"Error", JOptionPane.ERROR_MESSAGE);
+			}
 			break;
-		case 7: arrListObjEmplFixSal.get(row).setEducation((String) aValue);
+		case 7: try {
+				arrListObjEmplFixSal.get(row).setEducation((String) aValue);
+			} catch (MyException e) {
+				JOptionPane.showMessageDialog(null,
+						"Incorrect value!",
+						"Error", JOptionPane.ERROR_MESSAGE);
+			}
 			break;
 		case 8: arrListObjEmplFixSal.get(row).setPassport((String) aValue);
 			break;
 		case 9: arrListObjEmplFixSal.get(row).setResidence((String) aValue);
 			break;
 		}//switch
+		
 	}//setValueAt
 }//class
