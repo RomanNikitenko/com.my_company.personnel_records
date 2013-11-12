@@ -1,13 +1,15 @@
-package employee;
+package com.company.personnelrecords.employee;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
 
-import exception.MyException;
+import com.company.personnelrecords.exception.StringDigitIncludeException;
+import com.company.personnelrecords.util.MyUtil;
 
-import util.MyUtil;
+
+
 
 public abstract class Employee {
 	
@@ -31,7 +33,7 @@ public abstract class Employee {
 //**********************************************************************************
 	public Employee(int personalNumber, String surnameNameMiddlename,
 			String department, String post, BigDecimal averageSalary, long taxIdentifNum,
-			String education, String passport, String residence) throws MyException {
+			String education, String passport, String residence) throws StringDigitIncludeException {
 		this.setPersonalNumber(personalNumber);
 		this.setSurnameNameMiddlename(surnameNameMiddlename);
 		this.setEducation(education);
@@ -61,12 +63,12 @@ public abstract class Employee {
 	public String getSurnameNameMiddlename() {
 		return surnameNameMiddlename;
 	}
-	public void setSurnameNameMiddlename(String surnameNameMiddlename) throws MyException {
+	public void setSurnameNameMiddlename(String surnameNameMiddlename) throws StringDigitIncludeException {
 		if (surnameNameMiddlename.matches("^\\D*$")) {
 			this.surnameNameMiddlename = surnameNameMiddlename;
 
 		} else {
-			throw new MyException("incorrect value");
+			throw new StringDigitIncludeException("incorrect value");
 		}
 	}
 	public String getDepartment() {
@@ -79,12 +81,12 @@ public abstract class Employee {
 		
 		return post;
 	}
-	public void setPost(String post) throws MyException {
+	public void setPost(String post) throws StringDigitIncludeException {
 		if (post.matches("^\\D*$")) {
 			this.post = post;
 
 		} else {
-			throw new MyException("incorrect value");
+			throw new StringDigitIncludeException("incorrect value");
 		}
 	}
 	public BigDecimal getAverageSalary() {
@@ -102,12 +104,12 @@ public abstract class Employee {
 	public String getEducation() {
 		return education;
 	}
-	public void setEducation(String education) throws MyException {
+	public void setEducation(String education) throws StringDigitIncludeException {
 		if (education.matches("^\\D*$")) {
 			this.education = education;
 
 		} else {
-			throw new MyException("incorrect value");
+			throw new StringDigitIncludeException("incorrect value");
 		}
 	}
 	public String getPassport() {

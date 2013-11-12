@@ -1,4 +1,4 @@
-package gui;
+package com.company.personnelrecoreds.gui;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -6,17 +6,36 @@ import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.AbstractTableModel;
 
-import employee.EmployeeFixedSalary;
-import exception.MyException;
+import com.company.personnelrecords.employee.EmployeeFixedSalary;
+import com.company.personnelrecords.exception.StringDigitIncludeException;
+
+
 
 public class EmplFixSalTableModel extends AbstractTableModel{
 
-	private static String [] columnNames = {"<html><center>Personal<br>Number", "Surname/Name/Middlename", "Department",
+	private String [] columnNames = {"<html><center>Personal<br>Number", "Surname/Name/Middlename", "Department",
 		"Post", "<html><center>Average<br>Salary", "<html><center> Monthly <br>Payment", "<html><center>Tax <br>IdentifNum",
 		"Education", "Passport", "Residance"};
-	public static ArrayList<EmployeeFixedSalary> arrListObjEmplFixSal = new ArrayList<EmployeeFixedSalary>();
+	private ArrayList<EmployeeFixedSalary> arrListObjEmplFixSal = new ArrayList<EmployeeFixedSalary>();
 
-	
+//*******************************************************************	
+	public String[] getColumnNames() {
+		return columnNames;
+	}
+
+	public void setColumnNames(String[] columnNames) {
+		this.columnNames = columnNames;
+	}
+
+	public ArrayList<EmployeeFixedSalary> getArrListObjEmplFixSal() {
+		return arrListObjEmplFixSal;
+	}
+
+	public void setArrListObjEmplFixSal(
+			ArrayList<EmployeeFixedSalary> arrListObjEmplFixSal) {
+		this.arrListObjEmplFixSal = arrListObjEmplFixSal;
+	}
+//***********************************************************************
 	@Override
 	public int getColumnCount() {
 		return columnNames.length;
@@ -72,7 +91,7 @@ public class EmplFixSalTableModel extends AbstractTableModel{
 		break;
 		case 1: try {
 				arrListObjEmplFixSal.get(row).setSurnameNameMiddlename((String) aValue);
-			} catch (MyException e) {
+			} catch (StringDigitIncludeException e) {
 				JOptionPane.showMessageDialog(null,
 						"Incorrect value!",
 						"Error", JOptionPane.ERROR_MESSAGE);
@@ -82,7 +101,7 @@ public class EmplFixSalTableModel extends AbstractTableModel{
 			break;
 		case 3: try {
 				arrListObjEmplFixSal.get(row).setPost((String) aValue);
-			} catch (MyException e) {
+			} catch (StringDigitIncludeException e) {
 				JOptionPane.showMessageDialog(null,
 						"Incorrect value!",
 						"Error", JOptionPane.ERROR_MESSAGE);
@@ -120,7 +139,7 @@ public class EmplFixSalTableModel extends AbstractTableModel{
 			break;
 		case 7: try {
 				arrListObjEmplFixSal.get(row).setEducation((String) aValue);
-			} catch (MyException e) {
+			} catch (StringDigitIncludeException e) {
 				JOptionPane.showMessageDialog(null,
 						"Incorrect value!",
 						"Error", JOptionPane.ERROR_MESSAGE);

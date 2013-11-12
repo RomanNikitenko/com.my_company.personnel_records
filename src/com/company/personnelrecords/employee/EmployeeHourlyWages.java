@@ -1,11 +1,13 @@
-package employee;
+package com.company.personnelrecords.employee;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
 
-import exception.MyException;
+import com.company.personnelrecords.exception.StringDigitIncludeException;
+import com.company.personnelrecords.util.MyUtil;
 
-import util.MyUtil;
+
+
 
 public class EmployeeHourlyWages extends Employee{
 	
@@ -16,7 +18,7 @@ public class EmployeeHourlyWages extends Employee{
 	public EmployeeHourlyWages(int personalNumber,
 			String surnameNameMiddlename, String department, String post,  
 			BigDecimal averageSalary, long taxIdentifNum, String education,
-			String passport, String residence,  BigDecimal hourlyRate) throws MyException {
+			String passport, String residence,  BigDecimal hourlyRate) throws StringDigitIncludeException {
 		
 		super(personalNumber, surnameNameMiddlename, department, post, averageSalary,
 				taxIdentifNum, education, passport, residence);

@@ -1,5 +1,4 @@
-package gui;
-
+package com.company.personnelrecoreds.gui;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
@@ -13,6 +12,7 @@ import java.util.Comparator;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JMenuBar;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -23,31 +23,31 @@ import javax.swing.border.TitledBorder;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.TableRowSorter;
 
-import employee.EmployeeFixedSalary;
-import employee.EmployeeHourlyWages;
-import exception.MyException;
+import com.company.personnelrecords.employee.EmployeeFixedSalary;
+import com.company.personnelrecords.employee.EmployeeHourlyWages;
+import com.company.personnelrecords.exception.StringDigitIncludeException;
 
-
-
-public class GUI_Frame extends JFrame implements ActionListener {
+public class MainFrame extends JFrame implements ActionListener {
 	
 //*****************************
-	public static Dimension screenSize;
-	public static JTable dataTable;
-	public static JScrollPane jscrlp;
-	public static JPanel mainPanel;
-	public static JPanel panelEmployees;
-	public static JPanel panelButEdit;
-	public static JButton butAdd;
-	public static JButton butClean;
-	public static JButton butDelete;
-	public static JPanel panelEmplTable;
-	public static AbstractTableModel tableModel;
-	public static EmplFixSalTableModel emplFixSalTableModel;
-	public static EmplHourlyWagesTableModel emplHourlyWagesTableModel;
+	
+	private  JTable dataTable;
+	private static MenuBar menuBar;
+	private static Dimension screenSize;
+	private static JScrollPane jscrlp;
+	private static JPanel mainPanel;
+	private static JPanel panelEmployees;
+	private static JPanel panelButEdit;
+	private static JButton butAdd;
+	private static JButton butClean;
+	private static JButton butDelete;
+	private static JPanel panelEmplTable;
 	
 //*******Конструктор******************************
-	public GUI_Frame () throws Exception {
+	public MainFrame () throws Exception {
+		
+		MenuBar.setMainFrame(this);
+		this.setJMenuBar(MenuBar.getPersRecMenuBar());
 		
 		//получаем размер экрана
 		screenSize = Toolkit.getDefaultToolkit().getScreenSize();
@@ -59,7 +59,7 @@ public class GUI_Frame extends JFrame implements ActionListener {
 		
 //*******//настройки окна//*******
 		add(mainPanel);//добавляем главную панель к фрейму
-		this.setJMenuBar(MyMenu.menuBar);//устанавливаем меню
+//		this.setJMenuBar(MenuBar.menuBar);//устанавливаем меню
 		setTitle("PersonnelRecord"); //устанавливаем заголовок окна
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);//завершение работы приложения по закрытию главного окна
 //		setLocationRelativeTo(null); //расположение окна - левый верхний угол по центру экрана
@@ -103,7 +103,7 @@ public class GUI_Frame extends JFrame implements ActionListener {
 			
 	}//конструктор
 //***********************************************************
-	public static void createTable () {
+	public void createTable (AbstractTableModel tableModel) {
 		
 		//*******//создаем таблицу на основе нашей модели,
 		//переданной в параметре
@@ -150,6 +150,7 @@ public class GUI_Frame extends JFrame implements ActionListener {
 
 		//Добавляем на панель jscrlp вместе с таблицей
 		panelEmplTable.add(jscrlp);
+		
 		if (tableModel instanceof EmplFixSalTableModel) {
 			panelEmplTable.setBorder(BorderFactory.createTitledBorder(BorderFactory.createRaisedBevelBorder(),
 					"Employees With Fix Salary Data"));
@@ -176,28 +177,28 @@ public class GUI_Frame extends JFrame implements ActionListener {
 			break;
 		
 		case "<html><center> Add <br> Row":
-			if (tableModel instanceof EmplFixSalTableModel) {
+			if (dataTable.getModel() instanceof EmplFixSalTableModel) {
 				try {
-					EmplFixSalTableModel.arrListObjEmplFixSal.add(0, 
+					((EmplFixSalTableModel )dataTable.getModel()).getArrListObjEmplFixSal().add(0, 
 							new EmployeeFixedSalary(0, "", "", "", new BigDecimal(0), 0, "", "", "", new BigDecimal(0)));
-				} catch (MyException e) {
+				} catch (StringDigitIncludeException e) {
 					JOptionPane.showMessageDialog(null,
 							"Incorrect value!",
 							"Error", JOptionPane.ERROR_MESSAGE);
 				}
-				tableModel.fireTableRowsInserted(0, 0);
+				((EmplFixSalTableModel) dataTable.getModel()).fireTableRowsInserted(0, 0);
 				dataTable.revalidate();
 				panelEmplTable.updateUI();
 			}//if
-			else if (tableModel instanceof EmplHourlyWagesTableModel) {
+			else if (dataTable.getModel() instanceof EmplHourlyWagesTableModel) {
 					try {
-						EmplHourlyWagesTableModel.arrListObjEmplHourlyWages.add(0, 
+						((EmplHourlyWagesTableModel)dataTable.getModel()).getArrListObjEmplHourlyWages().add(0, 
 								new EmployeeHourlyWages(0, "", "", "", new BigDecimal(0), 0, "", "", "", new BigDecimal(0)));
-					} catch (MyException e) {
+					} catch (StringDigitIncludeException e) {
 						JOptionPane.showMessageDialog(null,
 								"Incorrect value!",
 								"Error", JOptionPane.ERROR_MESSAGE);					}
-					tableModel.fireTableRowsInserted(0, 0);
+					((EmplHourlyWagesTableModel)dataTable.getModel()).fireTableRowsInserted(0, 0);
 					dataTable.revalidate();
 					panelEmplTable.updateUI();
 			}//else if
@@ -210,18 +211,18 @@ public class GUI_Frame extends JFrame implements ActionListener {
 					JOptionPane.showMessageDialog(null, "Select the row you want to delete!", "Attention!", JOptionPane.INFORMATION_MESSAGE);
 					break;
 				}//
-				if (tableModel instanceof EmplFixSalTableModel) {
-					EmplFixSalTableModel.arrListObjEmplFixSal.
+				if (dataTable.getModel() instanceof EmplFixSalTableModel) {
+					((EmplFixSalTableModel )dataTable.getModel()).getArrListObjEmplFixSal().
 										remove(dataTable.convertRowIndexToModel(dataTable.getSelectedRow()));
-					tableModel.fireTableRowsDeleted(dataTable.convertRowIndexToModel(dataTable.getSelectedRow()),
+					((EmplFixSalTableModel )dataTable.getModel()).fireTableRowsDeleted(dataTable.convertRowIndexToModel(dataTable.getSelectedRow()),
 							dataTable.convertRowIndexToModel(dataTable.getSelectedRow()));
 					dataTable.revalidate();
 					panelEmplTable.updateUI();
 				}//if
-				else if (tableModel instanceof EmplHourlyWagesTableModel) {
-					EmplHourlyWagesTableModel.arrListObjEmplHourlyWages.
+				else if (dataTable.getModel() instanceof EmplHourlyWagesTableModel) {
+					((EmplHourlyWagesTableModel)dataTable.getModel()).getArrListObjEmplHourlyWages().
 										remove(dataTable.convertRowIndexToModel(dataTable.getSelectedRow()));
-					tableModel.fireTableRowsDeleted(dataTable.convertRowIndexToModel(dataTable.getSelectedRow()),
+					((EmplHourlyWagesTableModel)dataTable.getModel()).fireTableRowsDeleted(dataTable.convertRowIndexToModel(dataTable.getSelectedRow()),
 							dataTable.convertRowIndexToModel(dataTable.getSelectedRow()));
 					dataTable.revalidate();
 					panelEmplTable.updateUI();

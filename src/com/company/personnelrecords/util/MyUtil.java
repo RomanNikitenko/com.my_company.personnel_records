@@ -1,4 +1,4 @@
-package util;
+package com.company.personnelrecords.util;
 
 import java.io.BufferedWriter;
 import java.io.File;

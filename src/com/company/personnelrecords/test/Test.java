@@ -1,6 +1,6 @@
-package test;
+package com.company.personnelrecords.test;
 
-import util.MyUtil;
+import com.company.personnelrecords.util.MyUtil;
 
 public class Test {
 
