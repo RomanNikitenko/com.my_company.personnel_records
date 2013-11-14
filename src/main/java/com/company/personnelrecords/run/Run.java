@@ -2,8 +2,8 @@ package com.company.personnelrecords.run;
 
 import javax.swing.UIManager;
 
-import com.company.personnelrecoreds.gui.MainFrame;
-import com.company.personnelrecoreds.gui.MenuBar;
+import com.company.personnelrecords.gui.MainFrame;
+import com.company.personnelrecords.gui.MenuBar;
 
 
 public class Run {

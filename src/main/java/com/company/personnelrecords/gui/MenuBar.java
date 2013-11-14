@@ -1,4 +1,4 @@
-package com.company.personnelrecoreds.gui;
+package com.company.personnelrecords.gui;
 
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
@@ -187,7 +187,7 @@ public class MenuBar extends JFrame{
 
 	//***********************************************************************************
 	public static void openFileEmployeesData (AbstractTableModel tableModel) throws ClassNotFoundException, InstantiationException,
-	IllegalAccessException, UnsupportedLookAndFeelException {
+		IllegalAccessException, UnsupportedLookAndFeelException {
 
 		JFileChooser fileOpen = new JFileChooser();
 		
@@ -369,14 +369,14 @@ class TestModeListener implements ActionListener {
 								
 				//генерируем random-data по сотрудникам в файл "EmployeesFixedSalary.efs"
 				//расширение .efs от EmployeesFixedSalary - это поможет мне распознать файл при считывании
-				Test.generationEmployeeDataAndFiling(amountEmployee, "EmployeesFixedSalary.efs");
+				Test.generationEmployeeDataAndFiling(amountEmployee, "src/main/resources/EmployeesFixedSalary.efs");
 				
 				//создаем модель
 				emplFixSalTablemodel = new EmplFixSalTableModel ();
 				
 				//создаем объекты сотрудников
 				emplFixSalTablemodel.setArrListObjEmplFixSal( 
-						EmployeeFixedSalary.createArrayListObjEmplFixSalFromFile("EmployeesFixedSalary.efs"));
+						EmployeeFixedSalary.createArrayListObjEmplFixSalFromFile("src/main/resources/EmployeesFixedSalary.efs"));
 				
 				//вызываем метод создания таблицы
 				MenuBar.getMainFrame().createTable(emplFixSalTablemodel);
@@ -391,14 +391,14 @@ class TestModeListener implements ActionListener {
 				
 				//генерируем random-data по сотрудникам в файл "EmployeesHourlyWages.ehw"
 				//расширение .ehw - от EmployeesHourlyWages - это поможет мне распознать файл при считывании
-				Test.generationEmployeeDataAndFiling(amountEmployee, "EmployeesHourlyWages.ehw");
+				Test.generationEmployeeDataAndFiling(amountEmployee, "src/main/resources/EmployeesHourlyWages.ehw");
 				
 				//создаем модель
 				emplHourlyWagesTablemodel = new EmplHourlyWagesTableModel();
 				
 				//создаем объекты сотрудников
 				emplHourlyWagesTablemodel.setArrListObjEmplHourlyWages(
-						EmployeeHourlyWages.createArrayListObjEmplHourlyWagesFromFile("EmployeesHourlyWages.ehw"));
+						EmployeeHourlyWages.createArrayListObjEmplHourlyWagesFromFile("src/main/resources/EmployeesHourlyWages.ehw"));
 				
 				//вызываем метод создания таблицы
 				MenuBar.getMainFrame().createTable(emplHourlyWagesTablemodel);

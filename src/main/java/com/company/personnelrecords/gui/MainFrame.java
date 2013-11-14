@@ -1,4 +1,4 @@
-package com.company.personnelrecoreds.gui;
+package com.company.personnelrecords.gui;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
@@ -47,8 +47,7 @@ public class MainFrame extends JFrame implements ActionListener {
 	public MainFrame () throws Exception {
 		
 		MenuBar.setMainFrame(this);
-		this.setJMenuBar(MenuBar.getPersRecMenuBar());
-		
+
 		//получаем размер экрана
 		screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		
@@ -59,7 +58,7 @@ public class MainFrame extends JFrame implements ActionListener {
 		
 //*******//настройки окна//*******
 		add(mainPanel);//добавляем главную панель к фрейму
-//		this.setJMenuBar(MenuBar.menuBar);//устанавливаем меню
+		this.setJMenuBar(MenuBar.getPersRecMenuBar()); //устанавливаем меню
 		setTitle("PersonnelRecord"); //устанавливаем заголовок окна
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);//завершение работы приложения по закрытию главного окна
 //		setLocationRelativeTo(null); //расположение окна - левый верхний угол по центру экрана

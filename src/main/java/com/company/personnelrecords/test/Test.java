@@ -139,7 +139,7 @@ public class Test {
 	public static String [] generationRandomSurnameNameMiddlename (int amountGeneration) throws Exception {
 		
 		//—читываем файл, который содержит корни фамилий, окончани€ фамилий, имена и отчества
-		String [] arrStrFromFile = MyUtil.readFile("InputForTest.in");
+		String [] arrStrFromFile = MyUtil.readFile("src/main/resources/InputForTest.in");
 		
 		String [] arrRootsSurnames = null;
 		String [] arrSurnameCompletions = null;

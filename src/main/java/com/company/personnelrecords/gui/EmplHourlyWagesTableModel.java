@@ -1,4 +1,4 @@
-package com.company.personnelrecoreds.gui;
+package com.company.personnelrecords.gui;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
