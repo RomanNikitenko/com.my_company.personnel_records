@@ -24,7 +24,7 @@ import javax.swing.table.AbstractTableModel;
 
 import com.company.personnelrecords.employee.EmployeeFixedSalary;
 import com.company.personnelrecords.employee.EmployeeHourlyWages;
-import com.company.personnelrecords.test.Test;
+import com.company.personnelrecords.testmode.TestMode;
 
 public class MenuBar extends JFrame{
 	
@@ -369,7 +369,7 @@ class TestModeListener implements ActionListener {
 								
 				//генерируем random-data по сотрудникам в файл "EmployeesFixedSalary.efs"
 				//расширение .efs от EmployeesFixedSalary - это поможет мне распознать файл при считывании
-				Test.generationEmployeeDataAndFiling(amountEmployee, "src/main/resources/EmployeesFixedSalary.efs");
+				TestMode.generationEmployeeDataAndFiling(amountEmployee, "src/main/resources/EmployeesFixedSalary.efs");
 				
 				//создаем модель
 				emplFixSalTablemodel = new EmplFixSalTableModel ();
@@ -391,7 +391,7 @@ class TestModeListener implements ActionListener {
 				
 				//генерируем random-data по сотрудникам в файл "EmployeesHourlyWages.ehw"
 				//расширение .ehw - от EmployeesHourlyWages - это поможет мне распознать файл при считывании
-				Test.generationEmployeeDataAndFiling(amountEmployee, "src/main/resources/EmployeesHourlyWages.ehw");
+				TestMode.generationEmployeeDataAndFiling(amountEmployee, "src/main/resources/EmployeesHourlyWages.ehw");
 				
 				//создаем модель
 				emplHourlyWagesTablemodel = new EmplHourlyWagesTableModel();

@@ -6,10 +6,6 @@ import java.util.ArrayList;
 import com.company.personnelrecords.exception.StringDigitIncludeException;
 import com.company.personnelrecords.util.MyUtil;
 
-
-
-
-
 public class EmployeeFixedSalary extends Employee{
 	
 	private BigDecimal monthlyPayment; //мес€чный оклад

@@ -50,7 +50,7 @@ public abstract class Employee {
 	public int getPersonalNumber() {
 		return personalNumber;
 	}
-	public void setPersonalNumber(int personalNumber) {
+	public void setPersonalNumber(int personalNumber) throws NumberFormatException{
 		try {
 			this.personalNumber = personalNumber;
 			} catch (NumberFormatException ex) {

@@ -1,8 +1,8 @@
-package com.company.personnelrecords.test;
+package com.company.personnelrecords.testmode;
 
 import com.company.personnelrecords.util.MyUtil;
 
-public class Test {
+public class TestMode {
 
 	
 	private static String [] arrEducation = {"Средне-специальное", "Высшее", "Незаконченное высшее",

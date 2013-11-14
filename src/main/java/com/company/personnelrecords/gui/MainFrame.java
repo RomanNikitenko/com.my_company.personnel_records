@@ -12,7 +12,6 @@ import java.util.Comparator;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JMenuBar;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -102,7 +101,7 @@ public class MainFrame extends JFrame implements ActionListener {
 			
 	}//конструктор
 //***********************************************************
-	public void createTable (AbstractTableModel tableModel) {
+	public JTable createTable (AbstractTableModel tableModel) {
 		
 		//*******//создаем таблицу на основе нашей модели,
 		//переданной в параметре
@@ -160,7 +159,7 @@ public class MainFrame extends JFrame implements ActionListener {
 		//Добавляем панель с таблицей
 		panelEmployees.add(panelEmplTable,BorderLayout.CENTER);
 		panelEmplTable.updateUI();
-		
+		return dataTable;
 	}//createTable ()
 //***********************************************************
 	@Override
