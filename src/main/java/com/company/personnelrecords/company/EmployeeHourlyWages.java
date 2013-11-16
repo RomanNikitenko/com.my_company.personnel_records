@@ -1,4 +1,4 @@
-package com.company.personnelrecords.employee;
+package com.company.personnelrecords.company;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -6,15 +6,13 @@ import java.util.ArrayList;
 import com.company.personnelrecords.exception.StringDigitIncludeException;
 import com.company.personnelrecords.util.MyUtil;
 
-
-
-
 public class EmployeeHourlyWages extends Employee{
 	
 	private BigDecimal hourlyRate;	//ставка в час
 	
 	
-//*******************************************************************************************
+
+	//*******************************************************************************************
 	public EmployeeHourlyWages(int personalNumber,
 			String surnameNameMiddlename, String department, String post,  
 			BigDecimal averageSalary, long taxIdentifNum, String education,
@@ -26,7 +24,7 @@ public class EmployeeHourlyWages extends Employee{
 		this.setHourlyRate(hourlyRate); 
 	}//конструктор
 //*********************************************************************************************
-
+	
 	public BigDecimal getHourlyRate() {
 		return hourlyRate;
 	}
@@ -34,6 +32,13 @@ public class EmployeeHourlyWages extends Employee{
 		this.hourlyRate = hourlyRate;
 	}
 //**********************************************************************************************
+	public static ArrayList<EmployeeHourlyWages> createNewObjEmplHourlyWages () throws StringDigitIncludeException {
+		ArrayList<EmployeeHourlyWages> arrListObjEmplHourlyWages = new ArrayList<EmployeeHourlyWages>();
+		arrListObjEmplHourlyWages.add(0,
+			new EmployeeHourlyWages(0, "", "", "", new BigDecimal(0), 0, "", "", "", new BigDecimal(0)));
+		return arrListObjEmplHourlyWages;
+	}// 
+//***********************************************************************************************
 	/**
 	 * Метод создания ArrayList объектов EmployeeHourlyWages:
 	 * <p>* вызывает MyUtil.readDataEmployeeFromFile(pathFileIn), который считывает данные </p>
@@ -66,12 +71,6 @@ public class EmployeeHourlyWages extends Employee{
 					taxIdentifNum, education, passport, residence, hourlyRate));
 		}// for
 		return arrayListObjEmplHourlyWages;
-	}// createArrayListObjEmplFixSalFromFile
-		//**************************************************************************************************
-
-	public static void main(String[] args) {
-		
-		
-	}//main
-
+	}// createArrayListObjEmplHourlyWagesFromFile
+//**************************************************************************************************
 }//class

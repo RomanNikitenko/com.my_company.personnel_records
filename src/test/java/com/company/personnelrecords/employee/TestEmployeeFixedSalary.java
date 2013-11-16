@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.company.personnelrecords.company.EmployeeFixedSalary;
 import com.company.personnelrecords.exception.StringDigitIncludeException;
 import com.company.personnelrecords.testmode.TestMode;
 

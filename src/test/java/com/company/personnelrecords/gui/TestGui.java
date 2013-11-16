@@ -3,6 +3,7 @@ package com.company.personnelrecords.gui;
 import static org.junit.Assert.*;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 
 import javax.swing.JTable;
 
@@ -10,7 +11,8 @@ import javax.swing.JTable;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.company.personnelrecords.employee.EmployeeFixedSalary;
+import com.company.personnelrecords.company.Company;
+import com.company.personnelrecords.company.EmployeeFixedSalary;
 import com.company.personnelrecords.exception.StringDigitIncludeException;
 
 
@@ -23,8 +25,9 @@ public class TestGui {
 	public void setup() throws Exception{
 		new MenuBar();
 		new MainFrame();
-		emplFixSalTableModel = new EmplFixSalTableModel();
-		dataTable = MenuBar.getMainFrame().createTable(emplFixSalTableModel);
+		Company.getInstance().setArrListObjEmplFixSal(EmployeeFixedSalary.createNewObjEmplFixSal());
+		emplFixSalTableModel = new EmplFixSalTableModel(Company.getInstance().getArrListObjEmplFixSal());
+		dataTable = MenuBar.getMainFrame().displayTable(emplFixSalTableModel);
 	}//setup
 
 	
@@ -34,13 +37,14 @@ public class TestGui {
 	}//testCreateTableModel()
 
 	@Test
-    public void testCreateTable() {
+    public void testMethodDisplayTable() {
 		assertNotNull(dataTable);
 	}//testCreateTable()
 	
 	@Test
     public void testAddRowToTable () throws StringDigitIncludeException {
-		emplFixSalTableModel.getArrListObjEmplFixSal().add( 
+		Company.getInstance().setArrListObjEmplFixSal(new ArrayList<EmployeeFixedSalary>());
+		Company.getInstance().getArrListObjEmplFixSal().add( 
 				new EmployeeFixedSalary(0, "", "", "", new BigDecimal(0), 0, "", "", "", new BigDecimal(0)));
 		assertTrue(dataTable.getRowCount() == 1);
 	}//testAddRowToTable ()

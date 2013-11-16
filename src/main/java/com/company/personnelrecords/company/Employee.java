@@ -1,15 +1,10 @@
-package com.company.personnelrecords.employee;
+package com.company.personnelrecords.company;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
 
 import com.company.personnelrecords.exception.StringDigitIncludeException;
-import com.company.personnelrecords.util.MyUtil;
-
-
-
 
 public abstract class Employee {
 	

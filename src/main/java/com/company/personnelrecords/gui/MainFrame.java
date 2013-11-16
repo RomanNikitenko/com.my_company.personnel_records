@@ -22,8 +22,8 @@ import javax.swing.border.TitledBorder;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.TableRowSorter;
 
-import com.company.personnelrecords.employee.EmployeeFixedSalary;
-import com.company.personnelrecords.employee.EmployeeHourlyWages;
+import com.company.personnelrecords.company.EmployeeFixedSalary;
+import com.company.personnelrecords.company.EmployeeHourlyWages;
 import com.company.personnelrecords.exception.StringDigitIncludeException;
 
 public class MainFrame extends JFrame implements ActionListener {
@@ -31,7 +31,6 @@ public class MainFrame extends JFrame implements ActionListener {
 //*****************************
 	
 	private  JTable dataTable;
-	private static MenuBar menuBar;
 	private static Dimension screenSize;
 	private static JScrollPane jscrlp;
 	private static JPanel mainPanel;
@@ -101,7 +100,7 @@ public class MainFrame extends JFrame implements ActionListener {
 			
 	}//конструктор
 //***********************************************************
-	public JTable createTable (AbstractTableModel tableModel) {
+	public JTable displayTable (AbstractTableModel tableModel) {
 		
 		//*******//создаем таблицу на основе нашей модели,
 		//переданной в параметре
@@ -160,7 +159,7 @@ public class MainFrame extends JFrame implements ActionListener {
 		panelEmployees.add(panelEmplTable,BorderLayout.CENTER);
 		panelEmplTable.updateUI();
 		return dataTable;
-	}//createTable ()
+	}//displayTable ()
 //***********************************************************
 	@Override
 	public void actionPerformed(ActionEvent event) {
@@ -177,9 +176,10 @@ public class MainFrame extends JFrame implements ActionListener {
 		case "<html><center> Add <br> Row":
 			if (dataTable.getModel() instanceof EmplFixSalTableModel) {
 				try {
-					((EmplFixSalTableModel )dataTable.getModel()).getArrListObjEmplFixSal().add(0, 
-							new EmployeeFixedSalary(0, "", "", "", new BigDecimal(0), 0, "", "", "", new BigDecimal(0)));
+					((EmplFixSalTableModel)dataTable.getModel()).getArrListObjEmplFixSal().add(0, new EmployeeFixedSalary( 
+							0, "", "", "", new BigDecimal(0), 0, "", "", "", new BigDecimal(0)));
 				} catch (StringDigitIncludeException e) {
+					// TODO Auto-generated catch block
 					JOptionPane.showMessageDialog(null,
 							"Incorrect value!",
 							"Error", JOptionPane.ERROR_MESSAGE);

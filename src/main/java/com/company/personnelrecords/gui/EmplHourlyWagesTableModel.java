@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.AbstractTableModel;
 
-import com.company.personnelrecords.employee.EmployeeHourlyWages;
+import com.company.personnelrecords.company.EmployeeHourlyWages;
 import com.company.personnelrecords.exception.StringDigitIncludeException;
 
 
@@ -16,16 +16,15 @@ public class EmplHourlyWagesTableModel extends AbstractTableModel{
 	private String [] columnNames = {"<html><center>Personal<br>Number", "Surname/Name/Middlename", "Department",
 		"Post", "<html><center>Average<br>Salary", "<html><center> Hourly <br>Rate", "<html><center>Tax <br>IdentifNum",
 		"Education", "Passport", "Residance"};
-	private  ArrayList<EmployeeHourlyWages> arrListObjEmplHourlyWages = new ArrayList<EmployeeHourlyWages>();
-
-//*******//get/set//***********************************************************************
-	public String[] getColumnNames() {
-		return columnNames;
+	private  ArrayList<EmployeeHourlyWages> arrListObjEmplHourlyWages;
+	
+//*****************************************************************************
+	public EmplHourlyWagesTableModel(
+			ArrayList<EmployeeHourlyWages> arrListObjEmplHourlyWages) {
+		this.arrListObjEmplHourlyWages = arrListObjEmplHourlyWages;
 	}
 
-	public void setColumnNames(String[] columnNames) {
-		this.columnNames = columnNames;
-	}
+//*******//get/set//***********************************************************
 
 	public ArrayList<EmployeeHourlyWages> getArrListObjEmplHourlyWages() {
 		return arrListObjEmplHourlyWages;
@@ -35,7 +34,8 @@ public class EmplHourlyWagesTableModel extends AbstractTableModel{
 			ArrayList<EmployeeHourlyWages> arrListObjEmplHourlyWages) {
 		this.arrListObjEmplHourlyWages = arrListObjEmplHourlyWages;
 	}
-//*******//get/set//*********************************************************************************
+//****************************************************************************************
+	
 	@Override
 	public int getColumnCount() {
 		return columnNames.length;

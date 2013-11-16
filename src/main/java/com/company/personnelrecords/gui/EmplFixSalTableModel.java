@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.AbstractTableModel;
 
-import com.company.personnelrecords.employee.EmployeeFixedSalary;
+import com.company.personnelrecords.company.EmployeeFixedSalary;
 import com.company.personnelrecords.exception.StringDigitIncludeException;
 
 
@@ -16,17 +16,16 @@ public class EmplFixSalTableModel extends AbstractTableModel{
 	private String [] columnNames = {"<html><center>Personal<br>Number", "Surname/Name/Middlename", "Department",
 		"Post", "<html><center>Average<br>Salary", "<html><center> Monthly <br>Payment", "<html><center>Tax <br>IdentifNum",
 		"Education", "Passport", "Residance"};
-	private ArrayList<EmployeeFixedSalary> arrListObjEmplFixSal = new ArrayList<EmployeeFixedSalary>();
-
-//*******************************************************************	
-	public String[] getColumnNames() {
-		return columnNames;
+	private ArrayList<EmployeeFixedSalary> arrListObjEmplFixSal;
+	
+	
+//*******************************************************************
+	public EmplFixSalTableModel(
+			ArrayList<EmployeeFixedSalary> arrListObjEmplFixSal) {
+		this.arrListObjEmplFixSal = arrListObjEmplFixSal;
 	}
 
-	public void setColumnNames(String[] columnNames) {
-		this.columnNames = columnNames;
-	}
-
+//***********************************************************************
 	public ArrayList<EmployeeFixedSalary> getArrListObjEmplFixSal() {
 		return arrListObjEmplFixSal;
 	}
@@ -35,7 +34,7 @@ public class EmplFixSalTableModel extends AbstractTableModel{
 			ArrayList<EmployeeFixedSalary> arrListObjEmplFixSal) {
 		this.arrListObjEmplFixSal = arrListObjEmplFixSal;
 	}
-//***********************************************************************
+//***********************************************************************	
 	@Override
 	public int getColumnCount() {
 		return columnNames.length;

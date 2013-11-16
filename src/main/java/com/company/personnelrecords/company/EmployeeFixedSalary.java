@@ -1,4 +1,4 @@
-package com.company.personnelrecords.employee;
+package com.company.personnelrecords.company;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -8,10 +8,10 @@ import com.company.personnelrecords.util.MyUtil;
 
 public class EmployeeFixedSalary extends Employee{
 	
+	
 	private BigDecimal monthlyPayment; //месячный оклад
-	
-	
-//*********************************************************************************************
+
+	//*********************************************************************************************
 	public EmployeeFixedSalary (int personalNumber,
 			String surnameNameMiddlename, String department, String post,  
 			BigDecimal averageSalary, long taxIdentifNum, String education,
@@ -20,16 +20,25 @@ public class EmployeeFixedSalary extends Employee{
 		super(personalNumber, surnameNameMiddlename, department, post, averageSalary,
 				taxIdentifNum, education, passport, residence);
 		
-		this.setMonthlyPayment(monthlyPayment); 
+		this.setMonthlyPayment(monthlyPayment);
 	}//конструктор
 	
 //**********************************************************************************************
+		
 	public BigDecimal getMonthlyPayment() {
 		return monthlyPayment;
 	}
 	public void setMonthlyPayment(BigDecimal monthlyPayment) {
 		this.monthlyPayment = monthlyPayment;
 	}
+//**********************************************************************************************
+	public static ArrayList<EmployeeFixedSalary> createNewObjEmplFixSal () throws StringDigitIncludeException {
+		
+			ArrayList<EmployeeFixedSalary> arrListObjEmplFixSal = new ArrayList<EmployeeFixedSalary>();
+			arrListObjEmplFixSal.add(0,
+			new EmployeeFixedSalary(0, "", "", "", new BigDecimal(0), 0, "", "", "", new BigDecimal(0)));
+		return arrListObjEmplFixSal;
+	}// 
 //***********************************************************************************************
 		/**
 		 * Метод создания ArrayList объектов EmployeeFixedSalary:
@@ -44,7 +53,8 @@ public class EmployeeFixedSalary extends Employee{
 				throws Exception {
 		
 			ArrayList<ArrayList<String>> dataEmplFixSal = MyUtil.readDataEmployeeFromFile(pathFileIn);
-			ArrayList<EmployeeFixedSalary> arrayListObjEmplFixSal = new ArrayList<EmployeeFixedSalary> ();
+			ArrayList<EmployeeFixedSalary> arrListObjEmplFixSal = new ArrayList<EmployeeFixedSalary> ();
+			
 			for (int j = 0; j < dataEmplFixSal.size(); j++) {
 				int personalNumber = Integer.valueOf(dataEmplFixSal.get(j).get(0));
 				String surnameNameMiddlename = dataEmplFixSal.get(j).get(1);
@@ -57,15 +67,10 @@ public class EmployeeFixedSalary extends Employee{
 				String passport = dataEmplFixSal.get(j).get(8);
 				String residence = dataEmplFixSal.get(j).get(9);
 				
-								
-				arrayListObjEmplFixSal.add(new EmployeeFixedSalary(personalNumber, surnameNameMiddlename, department, post,
+				arrListObjEmplFixSal.add(new EmployeeFixedSalary(personalNumber, surnameNameMiddlename, department, post,
 						averageSalary, taxIdentifNum, education, passport, residence, monthlyPayment));
 			}//for
-		return arrayListObjEmplFixSal;
+			return arrListObjEmplFixSal;
 	}//createArrayListObjEmplFixSalFromFile
 //**************************************************************************************************
-	public static void main(String[] args) throws Exception {
-
-	}//main
-
 }//class
