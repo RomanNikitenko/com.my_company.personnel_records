@@ -28,6 +28,8 @@ public class MenuBar extends JFrame{
 	
 	private static JMenuBar persRecMenuBar;
 	private static MainFrame mainFrame;
+	private static JMenu menuCompany;
+	private static JMenuItem submenuCompanyData;
 	private static JMenu menuEmployeeFixSal;
 	private static JMenuItem submenuEmplFixSal;
 	private static JMenu menuEmployeeHourlyWages;
@@ -43,6 +45,57 @@ public class MenuBar extends JFrame{
 		
 		//создаем панель меню - JMenuBar
 	   setPersRecMenuBar(new JMenuBar());
+
+//*******Company*******//
+	   
+	   //создаем подменю Company
+	   menuCompany = new JMenu("<HTML><CENTER>Company</CENTER</HTML>");
+	   menuCompany.setBorder(new BevelBorder(BevelBorder.RAISED));
+	   
+	   //добав. пункт "Company Data"
+	   submenuCompanyData = new JMenuItem("Company Data");
+	   submenuCompanyData.setAccelerator
+	   (KeyStroke.getKeyStroke(KeyEvent.VK_C, ActionEvent.SHIFT_MASK));
+	   menuCompany.add(submenuCompanyData);
+	   submenuCompanyData.addActionListener(new CompanyDataListener());
+	   
+	   //добав. пункт меню - "Open List 'All Employee'"   
+	   submenuCompanyData = new JMenuItem("Open List 'All Employee'");
+	   submenuCompanyData.setAccelerator
+	   (KeyStroke.getKeyStroke(KeyEvent.VK_O, ActionEvent.SHIFT_MASK));
+	   menuCompany.add(submenuCompanyData);
+	   submenuCompanyData.addActionListener(new CompanyDataListener());
+
+	   //добав. пункт меню - "List of Departments"   
+	   submenuCompanyData = new JMenuItem("List of Departments");
+	   submenuCompanyData.setAccelerator
+	   (KeyStroke.getKeyStroke(KeyEvent.VK_D, ActionEvent.SHIFT_MASK));
+	   menuCompany.add(submenuCompanyData);
+	   submenuCompanyData.addActionListener(new CompanyDataListener());
+
+	   //добав. пункт меню - "List of Departments"   
+	   submenuCompanyData = new JMenuItem("List of Posts");
+	   submenuCompanyData.setAccelerator
+	   (KeyStroke.getKeyStroke(KeyEvent.VK_P, ActionEvent.SHIFT_MASK));
+	   menuCompany.add(submenuCompanyData);
+	   submenuCompanyData.addActionListener(new CompanyDataListener());
+
+	   //добав. разделитель меню
+	   menuCompany.add(new JSeparator());
+	   
+	   //добав. меню выход
+	   submenuCompanyData = new JMenuItem("Exit");
+	   submenuCompanyData.setAccelerator
+	   (KeyStroke.getKeyStroke(KeyEvent.VK_E, ActionEvent.SHIFT_MASK));
+	   menuCompany.add(submenuCompanyData);
+	   submenuCompanyData.addActionListener (new ActionListener() {
+		   @Override
+		   public void actionPerformed(ActionEvent event) {
+			   System.exit(0);
+		   }
+	   });
+	   //подменю добав к основному меню
+	   getPersRecMenuBar().add(menuCompany);
 	   
 //*******Employee With Fix Salary*******//
 	   
@@ -64,21 +117,7 @@ public class MenuBar extends JFrame{
 	   (KeyStroke.getKeyStroke(KeyEvent.VK_O, ActionEvent.CTRL_MASK));
 	   menuEmployeeFixSal.add(submenuEmplFixSal);
 	   submenuEmplFixSal.addActionListener(new EmployeeFixSalListener());
-	   
-	   //добав. разделитель меню
-	   menuEmployeeFixSal.add(new JSeparator());
-	   
-	   //добав. меню выход
-	   submenuEmplFixSal = new JMenuItem("Exit");
-	   submenuEmplFixSal.setAccelerator
-	   (KeyStroke.getKeyStroke(KeyEvent.VK_E, ActionEvent.CTRL_MASK));
-	   menuEmployeeFixSal.add(submenuEmplFixSal);
-	   submenuEmplFixSal.addActionListener (new ActionListener() {
-		   @Override
-		   public void actionPerformed(ActionEvent event) {
-			   System.exit(0);
-		   }
-	   });
+
 	   //подменю добав к основному меню
 	   getPersRecMenuBar().add(menuEmployeeFixSal);
 	   
@@ -113,7 +152,7 @@ public class MenuBar extends JFrame{
 		 
 	   //создаем подменю Test Mode
 	   menuTestMode = new JMenu("Test Mode");
-	   menuTestMode.setPreferredSize(new Dimension(80, 40));
+//	   menuTestMode.setPreferredSize(new Dimension(80, 40));
 	   menuTestMode.setBorder(new BevelBorder(BevelBorder.RAISED));
 	   
 	   //добав. пункт "Generate Employees"
@@ -290,6 +329,24 @@ public class MenuBar extends JFrame{
 				}
 	}//showInputDialog ()
 }//JMenuTest
+
+//*******//class EmployeeFixSalListener//****************************************
+
+class CompanyDataListener implements ActionListener {
+	
+	@Override
+	public void actionPerformed(ActionEvent event) {
+		if (event.getActionCommand().equals("Company Data")) {
+		}//if
+		else if (event.getActionCommand().equals("Open List 'All Employee'")) {
+		}//else if
+		else if (event.getActionCommand().equals("List of Departments")) {
+		}//else if
+		else if (event.getActionCommand().equals("List of Posts")) {
+		}//else if
+
+	}//actionPerformed
+}//class CompanyDataListener
 
 //*******//class EmployeeFixSalListener//****************************************
 
