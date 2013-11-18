@@ -1,11 +1,15 @@
 package com.company.personnelrecords.util;
 
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.RandomAccessFile;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -17,6 +21,44 @@ import javax.swing.JOptionPane;
 
 
 public class MyUtil {
+	
+	/**
+	 * Метод заменяет в файле строку, содержащую ключевое слово,
+	 *  на строку, полученную в параметре.
+	 *
+	 * @param strForFiling
+	 *            String - строка для перезаписи в файле
+	 * @param pathFileIn
+	 *            String - путь к файлу
+	 * @param keyword
+	 *            String - ключевое слово для поиска перезаписываемой строки
+	 * @return void
+	 * @throws IOException
+	 */
+
+//****************************************************************************
+	public static void replacementStrInFile (String strForFiling, String pathFileIn, String keyword) throws IOException {
+
+		BufferedReader fBufReader = new BufferedReader(new FileReader(pathFileIn));
+		String pathFileOut = pathFileIn + "1";
+		BufferedWriter fBufWriter = new BufferedWriter(new FileWriter(pathFileOut));
+		
+		String buf;
+		
+		while ((buf = fBufReader.readLine()) != null) {
+			if (buf.indexOf(keyword)!= -1){
+				fBufWriter.write(strForFiling);
+			}//if
+			else fBufWriter.write(buf);
+			fBufWriter.newLine();
+		}//while
+		
+		fBufReader.close();
+		fBufWriter.close();
+		
+    Files.move(Paths.get(pathFileOut), Paths.get(pathFileIn), StandardCopyOption.REPLACE_EXISTING);
+
+	}//filingCompanyData
 
 // ***************************************************************************
 	/**

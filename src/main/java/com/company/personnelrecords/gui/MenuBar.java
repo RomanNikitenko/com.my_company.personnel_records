@@ -11,6 +11,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.sql.Savepoint;
 
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
@@ -52,8 +54,13 @@ public class MenuBar extends JFrame{
 	private static JRadioButtonMenuItem radioMenuGenerEmplHourlyWages;
 	private static ButtonGroup rbGroup;
 	private static Dimension screenSize;
-	private static JFrame companyDataFrame;
 	
+	private static JFrame companyDataFrame;
+	private static JTextField txtFieldCompanyName;
+	private static JTextField txtFieldCompanyCEO;
+	private static JTextField txtFieldCompanyCurrentAccount;
+	private static JTextField txtFieldCompanyEDRPOU;
+	private static JTextArea txtAreaCompanyRegisteredOffice;
 
 	public MenuBar(){
 		
@@ -253,6 +260,56 @@ public class MenuBar extends JFrame{
 	public static void setCompanyDataFrame(JFrame companyDataFrame) {
 		MenuBar.companyDataFrame = companyDataFrame;
 	}
+	public static JTextField getTxtFieldCompanyName() {
+		return txtFieldCompanyName;
+	}
+
+
+	public static void setTxtFieldCompanyName(JTextField txtFieldCompanyName) {
+		MenuBar.txtFieldCompanyName = txtFieldCompanyName;
+	}
+
+
+	public static JTextField getTxtFieldCompanyCEO() {
+		return txtFieldCompanyCEO;
+	}
+
+
+	public static void setTxtFieldCompanyCEO(JTextField txtFieldCompanyCEO) {
+		MenuBar.txtFieldCompanyCEO = txtFieldCompanyCEO;
+	}
+
+
+	public static JTextField getTxtFieldCompanyCurrentAccount() {
+		return txtFieldCompanyCurrentAccount;
+	}
+
+
+	public static void setTxtFieldCompanyCurrentAccount(
+			JTextField txtFieldCompanyCurrentAccount) {
+		MenuBar.txtFieldCompanyCurrentAccount = txtFieldCompanyCurrentAccount;
+	}
+
+
+	public static JTextField getTxtFieldCompanyEDRPOU() {
+		return txtFieldCompanyEDRPOU;
+	}
+
+
+	public static void setTxtFieldCompanyEDRPOU(JTextField txtFieldCompanyEDRPOU) {
+		MenuBar.txtFieldCompanyEDRPOU = txtFieldCompanyEDRPOU;
+	}
+
+
+	public static JTextArea getTxtAreaCompanyRegisteredOffice() {
+		return txtAreaCompanyRegisteredOffice;
+	}
+
+
+	public static void setTxtAreaCompanyRegisteredOffice(
+			JTextArea txtAreaCompanyRegisteredOffice) {
+		MenuBar.txtAreaCompanyRegisteredOffice = txtAreaCompanyRegisteredOffice;
+	}
 
 //***********************************************************************************
 	public static void openFileEmployeesData () throws Exception {
@@ -386,7 +443,7 @@ public class MenuBar extends JFrame{
 		
 		constraints.gridx = 1;
 		constraints.gridy = 0;
-		JTextField txtFieldCompanyName = new JTextField();
+		txtFieldCompanyName = new JTextField();
 		txtFieldCompanyName.setPreferredSize(new Dimension(230, 25));
 		txtFieldCompanyName.setText(Company.getInstance().getCompanyName());
 		companyDataFrame.getContentPane().add(txtFieldCompanyName, constraints);
@@ -398,7 +455,7 @@ public class MenuBar extends JFrame{
 
 		constraints.gridx = 1; 
 		constraints.gridy = 1; 
-		JTextField txtFieldCompanyCEO = new JTextField();
+		txtFieldCompanyCEO = new JTextField();
 		txtFieldCompanyCEO.setPreferredSize(new Dimension(230, 25));
 		txtFieldCompanyCEO.setText(Company.getInstance().getCompanyCEO());
 		companyDataFrame.getContentPane().add(txtFieldCompanyCEO, constraints);
@@ -410,7 +467,7 @@ public class MenuBar extends JFrame{
 
 		constraints.gridx = 1; 
 		constraints.gridy = 2; 
-		JTextField txtFieldCompanyCurrentAccount = new JTextField();
+		txtFieldCompanyCurrentAccount = new JTextField();
 		txtFieldCompanyCurrentAccount.setPreferredSize(new Dimension(230, 25));
 		txtFieldCompanyCurrentAccount.setText("" + Company.getInstance().getCompanyCurrentAccount());
 		companyDataFrame.getContentPane().add(txtFieldCompanyCurrentAccount, constraints);
@@ -422,7 +479,7 @@ public class MenuBar extends JFrame{
 
 		constraints.gridx = 1; 
 		constraints.gridy = 3; 
-		JTextField txtFieldCompanyEDRPOU = new JTextField();
+		txtFieldCompanyEDRPOU = new JTextField();
 		txtFieldCompanyEDRPOU.setPreferredSize(new Dimension(230, 25));
 		txtFieldCompanyEDRPOU.setText("" + Company.getInstance().getCompanyEDRPOU());
 		companyDataFrame.getContentPane().add(txtFieldCompanyEDRPOU, constraints);
@@ -434,7 +491,7 @@ public class MenuBar extends JFrame{
 
 		constraints.gridx = 1; 
 		constraints.gridy = 4; 
-		JTextArea txtAreaCompanyRegisteredOffice = new JTextArea();
+		txtAreaCompanyRegisteredOffice = new JTextArea();
 		txtAreaCompanyRegisteredOffice.setPreferredSize(new Dimension(230, 50));
 		txtAreaCompanyRegisteredOffice.setFont(new Font (Font.SERIF, Font.ROMAN_BASELINE, 12));
 		txtAreaCompanyRegisteredOffice.setText(Company.getInstance().getCompanyRegisteredOffice());
@@ -447,6 +504,7 @@ public class MenuBar extends JFrame{
 		constraints.anchor = GridBagConstraints.CENTER;
 		JButton butCompanyDataSave = new JButton("<html><b>Save </b></html>");
 		butCompanyDataSave.setPreferredSize(new Dimension(100, 35));
+		butCompanyDataSave.addActionListener(new CompanyDataListener());
 		companyDataFrame.getContentPane().add(butCompanyDataSave, constraints);
 
 		constraints.gridx = 1; 
@@ -463,9 +521,36 @@ public class MenuBar extends JFrame{
 		companyDataFrame.setDefaultCloseOperation(companyDataFrame.DISPOSE_ON_CLOSE);
 		companyDataFrame.setVisible(true); // отображать окно
 	}//showCompanyDataFrame
+	//*******************************************************************************
+	public static void saveEditedCompanyData () throws IOException {
+		
+		if (! txtFieldCompanyName.getText().equals(Company.getInstance().getCompanyName())); {
+			Company.getInstance().setCompanyName(txtFieldCompanyName.getText());
+		}//if
+		if (! txtFieldCompanyCEO.getText().equals(Company.getInstance().getCompanyCEO())); {
+			Company.getInstance().setCompanyCEO(txtFieldCompanyCEO.getText());
+		}//if
+		if (! txtFieldCompanyCurrentAccount.getText().equals(Company.getInstance().getCompanyCurrentAccount())); {
+			Company.getInstance().setCompanyCurrentAccount(Long.valueOf(txtFieldCompanyCurrentAccount.getText()));
+		}//if
+		if (! txtFieldCompanyEDRPOU.getText().equals(Company.getInstance().getCompanyEDRPOU())); {
+			Company.getInstance().setCompanyEDRPOU(Long.valueOf(txtFieldCompanyEDRPOU.getText()));
+		}//if
+		if (! txtAreaCompanyRegisteredOffice.getText().equals(Company.getInstance().getCompanyRegisteredOffice())); {
+			Company.getInstance().setCompanyRegisteredOffice(txtAreaCompanyRegisteredOffice.getText());
+		}//if
+		
+		String strForFiling = "Company Name: " + Company.getInstance().getCompanyName() +  
+								"   companyCEO: " +  Company.getInstance().getCompanyCEO() +
+								"   companyCurrentAccount: " +  Company.getInstance().getCompanyCurrentAccount() +  
+								"   companyEDRPOU: " + Company.getInstance().getCompanyEDRPOU() +
+								"   companyRegisteredOffice: " + Company.getInstance().getCompanyRegisteredOffice();
+		MyUtil.replacementStrInFile(strForFiling, "src/main/resources/CompanyData.cdt", "Company Name:");
+		
+	}//saveEditedCompanyData
 }//MenuBar
 
-//*******//class EmployeeFixSalListener//****************************************
+//*******//class CompanyDataListener//****************************************
 
 class CompanyDataListener implements ActionListener {
 	
@@ -480,7 +565,17 @@ class CompanyDataListener implements ActionListener {
 		case "<html><b>Cancel </b></html>":
 			MenuBar.getCompanyDataFrame().dispose();
 		break;
-			
+		
+		case "<html><b>Save </b></html>":
+			try {
+				MenuBar.saveEditedCompanyData();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			MenuBar.getCompanyDataFrame().dispose();
+		break;
+
 		case "Open List 'All Employee'":
 			break;
 			
