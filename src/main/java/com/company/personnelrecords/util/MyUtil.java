@@ -12,6 +12,8 @@ import java.util.Arrays;
 import java.util.Random;
 import java.util.StringTokenizer;
 
+import javax.swing.JOptionPane;
+
 
 
 public class MyUtil {
@@ -87,8 +89,10 @@ public class MyUtil {
 		raf.close();
 		return arrListCompanyData;
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			JOptionPane.showMessageDialog(null,
+					"Please restart the application and to get started, select the submenu 'Test Mode -> Generate Company'",
+					"Error", JOptionPane.ERROR_MESSAGE);
+			System.exit(0);
 		}
 		return null;
 		

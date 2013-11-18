@@ -10,6 +10,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.io.File;
+import java.io.FileNotFoundException;
 
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
@@ -51,8 +52,7 @@ public class MenuBar extends JFrame{
 	private static JRadioButtonMenuItem radioMenuGenerEmplHourlyWages;
 	private static ButtonGroup rbGroup;
 	private static Dimension screenSize;
-	
-	
+
 	public MenuBar(){
 		
 		//создаем панель меню - JMenuBar
@@ -462,7 +462,7 @@ class CompanyDataListener implements ActionListener {
 		
 		switch (event.getActionCommand()) {
 		case "Company Data":
-			MenuBar.showCompanyDataFrame();
+				MenuBar.showCompanyDataFrame();
 			break;
 			
 		case "Open List 'All Employee'":
