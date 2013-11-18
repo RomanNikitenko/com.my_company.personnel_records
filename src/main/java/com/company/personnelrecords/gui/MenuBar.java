@@ -8,11 +8,11 @@ import java.awt.Insets;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 import java.awt.event.KeyEvent;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.sql.Savepoint;
 
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
@@ -34,6 +34,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import com.company.personnelrecords.company.Company;
 import com.company.personnelrecords.company.EmployeeFixedSalary;
 import com.company.personnelrecords.company.EmployeeHourlyWages;
+import com.company.personnelrecords.exception.StringDigitIncludeException;
 import com.company.personnelrecords.testmode.TestMode;
 import com.company.personnelrecords.util.MyUtil;
 
@@ -407,23 +408,19 @@ public class MenuBar extends JFrame{
 	}//createTableFromDataFile
 //*******************************************************************************
 	public static int showInputDialog () {
-			
+
 		try {
-			int numGeneration = Integer.valueOf((String) JOptionPane.showInputDialog(
-								null,
-								"Enter the number Employee",
-								"Number Employee",
-								JOptionPane.QUESTION_MESSAGE
-								//new ImageIcon(),
-								//null,  
-								//null	
-								));
-				return numGeneration;
-				} catch (NumberFormatException ex) {
-				  JOptionPane.showMessageDialog(null, "Field 'amount Employees' requires an integer value",
-						  "Error", JOptionPane.ERROR_MESSAGE);
-				  return 0;
-				}
+			int numGeneration = Integer.valueOf((String) JOptionPane
+					.showInputDialog(null, "Enter the number Employee",
+							"Number Employee", JOptionPane.QUESTION_MESSAGE));
+			return numGeneration;
+		} catch (NumberFormatException ex) {
+			JOptionPane.showMessageDialog(null,
+					"Field 'amount Employees' requires an integer value",
+					"Error", JOptionPane.ERROR_MESSAGE);
+
+			return 0;
+	}
 	}//showInputDialog ()
 //*******************************************************************************
 	public static void showCompanyDataFrame () {
@@ -458,6 +455,7 @@ public class MenuBar extends JFrame{
 		txtFieldCompanyCEO = new JTextField();
 		txtFieldCompanyCEO.setPreferredSize(new Dimension(230, 25));
 		txtFieldCompanyCEO.setText(Company.getInstance().getCompanyCEO());
+		txtFieldCompanyCEO.addFocusListener(new CompanyDataListener());
 		companyDataFrame.getContentPane().add(txtFieldCompanyCEO, constraints);
 
 		constraints.gridx = 0; 
@@ -470,6 +468,7 @@ public class MenuBar extends JFrame{
 		txtFieldCompanyCurrentAccount = new JTextField();
 		txtFieldCompanyCurrentAccount.setPreferredSize(new Dimension(230, 25));
 		txtFieldCompanyCurrentAccount.setText("" + Company.getInstance().getCompanyCurrentAccount());
+		txtFieldCompanyCurrentAccount.addFocusListener(new CompanyDataListener());
 		companyDataFrame.getContentPane().add(txtFieldCompanyCurrentAccount, constraints);
 
 		constraints.gridx = 0; 
@@ -482,6 +481,7 @@ public class MenuBar extends JFrame{
 		txtFieldCompanyEDRPOU = new JTextField();
 		txtFieldCompanyEDRPOU.setPreferredSize(new Dimension(230, 25));
 		txtFieldCompanyEDRPOU.setText("" + Company.getInstance().getCompanyEDRPOU());
+		txtFieldCompanyEDRPOU.addFocusListener(new CompanyDataListener());
 		companyDataFrame.getContentPane().add(txtFieldCompanyEDRPOU, constraints);
 
 		constraints.gridx = 0; 
@@ -522,20 +522,12 @@ public class MenuBar extends JFrame{
 		companyDataFrame.setVisible(true); // отображать окно
 	}//showCompanyDataFrame
 	//*******************************************************************************
-	public static void saveEditedCompanyData () throws IOException {
+	public static void saveEditedCompanyData () {
 		
 		if (! txtFieldCompanyName.getText().equals(Company.getInstance().getCompanyName())); {
 			Company.getInstance().setCompanyName(txtFieldCompanyName.getText());
 		}//if
-		if (! txtFieldCompanyCEO.getText().equals(Company.getInstance().getCompanyCEO())); {
-			Company.getInstance().setCompanyCEO(txtFieldCompanyCEO.getText());
-		}//if
-		if (! txtFieldCompanyCurrentAccount.getText().equals(Company.getInstance().getCompanyCurrentAccount())); {
-			Company.getInstance().setCompanyCurrentAccount(Long.valueOf(txtFieldCompanyCurrentAccount.getText()));
-		}//if
-		if (! txtFieldCompanyEDRPOU.getText().equals(Company.getInstance().getCompanyEDRPOU())); {
-			Company.getInstance().setCompanyEDRPOU(Long.valueOf(txtFieldCompanyEDRPOU.getText()));
-		}//if
+		
 		if (! txtAreaCompanyRegisteredOffice.getText().equals(Company.getInstance().getCompanyRegisteredOffice())); {
 			Company.getInstance().setCompanyRegisteredOffice(txtAreaCompanyRegisteredOffice.getText());
 		}//if
@@ -545,14 +537,19 @@ public class MenuBar extends JFrame{
 								"   companyCurrentAccount: " +  Company.getInstance().getCompanyCurrentAccount() +  
 								"   companyEDRPOU: " + Company.getInstance().getCompanyEDRPOU() +
 								"   companyRegisteredOffice: " + Company.getInstance().getCompanyRegisteredOffice();
-		MyUtil.replacementStrInFile(strForFiling, "src/main/resources/CompanyData.cdt", "Company Name:");
+		try {
+			MyUtil.replacementStrInFile(strForFiling, "src/main/resources/CompanyData.cdt", "Company Name:");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 	}//saveEditedCompanyData
 }//MenuBar
 
 //*******//class CompanyDataListener//****************************************
 
-class CompanyDataListener implements ActionListener {
+class CompanyDataListener implements ActionListener, FocusListener {
 	
 	@Override
 	public void actionPerformed(ActionEvent event) {
@@ -567,12 +564,7 @@ class CompanyDataListener implements ActionListener {
 		break;
 		
 		case "<html><b>Save </b></html>":
-			try {
-				MenuBar.saveEditedCompanyData();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			MenuBar.saveEditedCompanyData();
 			MenuBar.getCompanyDataFrame().dispose();
 		break;
 
@@ -586,6 +578,52 @@ class CompanyDataListener implements ActionListener {
 			break;
 		}//switch
 	}//actionPerformed
+
+	@Override
+	public void focusGained(FocusEvent arg0) {}
+
+	@Override
+	public void focusLost(FocusEvent event) throws NumberFormatException{
+
+		if (event.getSource() == MenuBar.getTxtFieldCompanyCEO()) {
+			if (! MenuBar.getTxtFieldCompanyCEO().getText().equals(Company.getInstance().getCompanyCEO())); {
+				try {
+					Company.getInstance().setCompanyCEO(MenuBar.getTxtFieldCompanyCEO().getText());
+				} catch (StringDigitIncludeException e) {
+					JOptionPane.showMessageDialog(null, "Incorrect value!", "Error", JOptionPane.ERROR_MESSAGE);
+					MenuBar.getTxtFieldCompanyCEO().requestFocus();
+					MenuBar.getTxtFieldCompanyCEO().setText(Company.getInstance().getCompanyCEO());
+					
+				}
+			}//if
+		}//if
+		
+		else if (event.getSource() == MenuBar.getTxtFieldCompanyEDRPOU()) {
+				if (! MenuBar.getTxtFieldCompanyEDRPOU().getText().equals(Company.getInstance().getCompanyEDRPOU())); {
+					try {
+						Company.getInstance().setCompanyEDRPOU(Long.valueOf(MenuBar.getTxtFieldCompanyEDRPOU().getText()));
+					} catch (NumberFormatException ex) {
+						JOptionPane.showMessageDialog(null,
+								"Field 'Company EDRPOU' requires an long value","Error", JOptionPane.ERROR_MESSAGE);
+						MenuBar.getTxtFieldCompanyEDRPOU().setText("" + Company.getInstance().getCompanyEDRPOU());
+						MenuBar.getTxtFieldCompanyEDRPOU().requestFocus();
+					}
+				}//if
+		}//else if
+		else if (event.getSource() == MenuBar.getTxtFieldCompanyCurrentAccount()) {
+				if (! MenuBar.getTxtFieldCompanyCurrentAccount().getText().equals(Company.getInstance().getCompanyCurrentAccount())); {
+					try {
+						Company.getInstance().setCompanyCurrentAccount(Long.valueOf(MenuBar.getTxtFieldCompanyCurrentAccount().getText()));
+					} catch (NumberFormatException ex) {
+						JOptionPane.showMessageDialog(null,
+									"Field 'Company Current Account' requires an long value",
+										"Error", JOptionPane.ERROR_MESSAGE);
+						MenuBar.getTxtFieldCompanyCurrentAccount().setText("" + Company.getInstance().getCompanyCurrentAccount());
+						MenuBar.getTxtFieldCompanyCurrentAccount().requestFocus();
+					}
+				}//if
+		}//else if
+	}//focusLost
 }//class CompanyDataListener
 
 //*******//class EmployeeFixSalListener//****************************************

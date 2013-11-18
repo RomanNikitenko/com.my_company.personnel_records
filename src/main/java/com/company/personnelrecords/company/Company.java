@@ -2,11 +2,12 @@ package com.company.personnelrecords.company;
 
 import java.util.ArrayList;
 
+import javax.swing.JOptionPane;
+
+import com.company.personnelrecords.exception.StringDigitIncludeException;
 import com.company.personnelrecords.util.MyUtil;
 
 public class Company {
-
-	
 	
 	private ArrayList<EmployeeFixedSalary> arrListObjEmplFixSal;
 	private ArrayList<EmployeeHourlyWages> arrListObjEmplHourlyWages;
@@ -77,8 +78,12 @@ public class Company {
 		return companyCEO;
 	}
 
-	public void setCompanyCEO(String companyCEO) {
-		this.companyCEO = companyCEO;
+	public void setCompanyCEO(String companyCEO) throws StringDigitIncludeException{
+		if (companyCEO.matches("^\\D*$")) {
+			this.companyCEO = companyCEO;
+		} else {
+			throw new StringDigitIncludeException("incorrect value");
+		}
 	}
 
 	public String getCompanyRegisteredOffice() {
@@ -93,16 +98,28 @@ public class Company {
 		return companyCurrentAccount;
 	}
 
-	public void setCompanyCurrentAccount(long companyCurrentAccount) {
-		this.companyCurrentAccount = companyCurrentAccount;
+	public void setCompanyCurrentAccount(long companyCurrentAccount) throws NumberFormatException {
+		try {
+			this.companyCurrentAccount = companyCurrentAccount;
+		} catch (NumberFormatException ex) {
+			JOptionPane.showMessageDialog(null,
+					"Field 'Company Current Account' requires an long value",
+					"Error", JOptionPane.ERROR_MESSAGE);
+		}
 	}
 
 	public long getCompanyEDRPOU() {
 		return companyEDRPOU;
 	}
 
-	public void setCompanyEDRPOU(long companyEDRPOU) {
-		this.companyEDRPOU = companyEDRPOU;
+	public void setCompanyEDRPOU(long companyEDRPOU) throws NumberFormatException{
+		try {
+			this.companyEDRPOU = companyEDRPOU;
+		} catch (NumberFormatException ex) {
+			JOptionPane.showMessageDialog(null,
+					"Field 'Company EDRPOU' requires an long value",
+					"Error", JOptionPane.ERROR_MESSAGE);
+		}
 	}
 
 	//***********************************************************
