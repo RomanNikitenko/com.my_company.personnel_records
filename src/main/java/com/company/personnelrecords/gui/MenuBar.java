@@ -52,6 +52,8 @@ public class MenuBar extends JFrame{
 	private static JRadioButtonMenuItem radioMenuGenerEmplHourlyWages;
 	private static ButtonGroup rbGroup;
 	private static Dimension screenSize;
+	private static JFrame companyDataFrame;
+	
 
 	public MenuBar(){
 		
@@ -243,6 +245,15 @@ public class MenuBar extends JFrame{
 			JRadioButtonMenuItem radioMenuGenerEmplHourlyWages) {
 		MenuBar.radioMenuGenerEmplHourlyWages = radioMenuGenerEmplHourlyWages;
 	}
+	public static JFrame getCompanyDataFrame() {
+		return companyDataFrame;
+	}
+
+
+	public static void setCompanyDataFrame(JFrame companyDataFrame) {
+		MenuBar.companyDataFrame = companyDataFrame;
+	}
+
 //***********************************************************************************
 	public static void openFileEmployeesData () throws Exception {
 
@@ -360,7 +371,7 @@ public class MenuBar extends JFrame{
 //*******************************************************************************
 	public static void showCompanyDataFrame () {
 
-		JFrame companyDataFrame = new JFrame("Company Data");
+		companyDataFrame = new JFrame("Company Data");
 		companyDataFrame.getContentPane().setLayout(new GridBagLayout());
 
 		GridBagConstraints constraints = new GridBagConstraints();
@@ -443,6 +454,7 @@ public class MenuBar extends JFrame{
 		constraints.anchor = GridBagConstraints.CENTER;
 		JButton butCompanyDataCancel = new JButton("<html><b>Cancel </b></html>");
 		butCompanyDataCancel.setPreferredSize(new Dimension(100, 35));
+		butCompanyDataCancel.addActionListener(new CompanyDataListener());
 		companyDataFrame.getContentPane().add(butCompanyDataCancel, constraints);
 
 		companyDataFrame.setSize(new Dimension(screenSize.width/3, screenSize.height/2));
@@ -464,6 +476,10 @@ class CompanyDataListener implements ActionListener {
 		case "Company Data":
 				MenuBar.showCompanyDataFrame();
 			break;
+			
+		case "<html><b>Cancel </b></html>":
+			MenuBar.getCompanyDataFrame().dispose();
+		break;
 			
 		case "Open List 'All Employee'":
 			break;
