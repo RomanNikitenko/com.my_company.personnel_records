@@ -58,7 +58,7 @@ public class MainFrame extends JFrame implements ActionListener {
 		add(mainPanel);//добавляем главную панель к фрейму
 		this.setJMenuBar(MenuBar.getPersRecMenuBar()); //устанавливаем меню
 		setTitle("PersonnelRecord"); //устанавливаем заголовок окна
-		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);//завершение работы приложения по закрытию главного окна
+		setDefaultCloseOperation(this.DISPOSE_ON_CLOSE);//завершение работы приложения по закрытию главного окна
 //		setLocationRelativeTo(null); //расположение окна - левый верхний угол по центру экрана
 		setSize(new Dimension(screenSize.width, screenSize.height-25));
 		setLocation((screenSize.width - getWidth()) / 2,

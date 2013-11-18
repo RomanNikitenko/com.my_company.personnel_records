@@ -4,12 +4,15 @@ import com.company.personnelrecords.util.MyUtil;
 
 public class TestMode {
 
-	
+	private static String [] arrCompanyName = {"IBM-Company", "Google-Company", "Sumsung-Company",
+											"Lenovo-Company"};
 	private static String [] arrEducation = {"Средне-специальное", "Высшее", "Незаконченное высшее",
 											"Среднее"};
 	private static String [] arrPost = 	  {"Управляющий", "Инженер", "Слесарь", "Менеджер",
 									"Технический директор", "Офис-менеджер", "Сисадмин",
 									"Обслуживающий персонал"};
+	private static int [] arrPostSalary = {8000, 6000, 4000, 5000, 10000, 4500, 5500, 3000};
+
 	private static String [] arrDepartment = {"Отдел работы с клиентами", "Технический отдел", "Хоз-часть", "Аналитический отдел",
 									"Отдел сборки"};
 	private static String [] arrOffPassport = {"Сосновским РВ УМВС", "Приднепровским РВ УМВС"};
@@ -17,6 +20,69 @@ public class TestMode {
 	private static String [] arrStreet = {"ул. Шевченка", "ул. Гоголя", "ул. Сумгаитская", "ул. Ленина"};
 	
 	
+	//**************************************************************
+		/**Метод, генерирует   random-данные для меню Company 
+		 * и записывает их в файл.
+		 * Для генерации случайных данных использовано два источника:
+		 * -  массивы класса Test
+		 * -  файл с данными.
+		 * @param pathFileOut String - путь к файлу, в который будет произведена запись сгенерированных данных
+		 * @return String [] - массив сгенерированных данных 
+		 * @throws Exception
+		 */
+		public static String[] generationCompanyDataAndFiling (String pathFileOut)	throws Exception {
+			//т.к. в наличии были готовые методы, которые возвращают МАССИВы random-data,
+			//то использовал их, указав количество генераций = 1 ...
+			
+			//Генерируем companyName 
+			String companyName = (MyUtil.generationRandomCellsOfArray(arrCompanyName, 1))[0];
+
+			//Генерируем фамилию, имя и отчество генерального директора 
+			String companyCEO = generationRandomSurnameNameMiddlename(1)[0];
+			
+			// генерируем random-data City companyRegisteredOffice
+			String cityCompanyRegisteredOffice = MyUtil.generationRandomCellsOfArray(arrCity, 1)[0];
+			
+			// генерируем random-data street companyRegisteredOffice
+			String streetCompanyRegisteredOffice = MyUtil.generationRandomCellsOfArray(arrStreet, 1)[0];
+			
+			// генерируем random-data почтового индекса companyRegisteredOffice
+			int zipCompanyRegisteredOffice = MyUtil.createArrRandomNum(1, 10000, 19000)[0];
+			
+			// генерируем random-data номер дома companyRegisteredOffice
+			int numHouseCompanyRegisteredOffice = MyUtil.createArrRandomNum(1, 1, 500)[0];
+			
+			// генерируем random-data номер оффиса companyRegisteredOffice
+			int numApprtmentCompanyRegisteredOffice = MyUtil.createArrRandomNum(1, 1, 50)[0];
+			
+			// генерируем random-data companyCurrentAccount
+			long companyCurrentAccount = MyUtil.createArrRandomNum(1, 1000000000l, 9999999999l)[0];
+
+			// генерируем массив random-data companyEDRPOU
+			long companyEDRPOU = MyUtil.createArrRandomNum(1, 1000000000l, 9999999999l)[0];
+
+			String [] companyData = new String [4];
+			companyData [0] = "Company Name: " + companyName +  "   companyCEO: " +  companyCEO +
+							 "   companyCurrentAccount: " +  companyCurrentAccount +  "   companyEDRPOU: " + companyEDRPOU +
+							 "   companyRegisteredOffice: " + zipCompanyRegisteredOffice + ", " + cityCompanyRegisteredOffice +
+							 ", " + streetCompanyRegisteredOffice + " " + numHouseCompanyRegisteredOffice + ", оф. " + numApprtmentCompanyRegisteredOffice;
+			
+			companyData [1] = "Departments: " + arrDepartment[0] + ", " + arrDepartment[1] + ", " + arrDepartment[2] + ", "
+								+ arrDepartment[3] + ", " + arrDepartment[4];
+			
+			companyData [2] = "Posts: " + arrPost[0] + ", " + arrPost[1] + ", " + arrPost[2] + ", "
+					+ arrPost[3] + ", " +  arrPost[4] + ", " + arrPost[5] + ", "
+							+ arrPost[6] + ", " + arrPost[7];
+			
+			companyData [3] = "PostSalaries: " + arrPostSalary[0] + ", " + arrPostSalary[1] + ", " + arrPostSalary[2] + ", "
+					+ arrPostSalary[3] + ", " + arrPostSalary[4] + ", " + arrPostSalary[5] + ", "
+							+ arrPostSalary[6] + ", " + arrPostSalary[7];
+
+			//Записываем сформированный массив результата в файл
+			MyUtil.recMassStr(pathFileOut, companyData);
+			
+			return companyData;
+		}//generationCompanyDataAndFiling
 //**************************************************************
 	/**Метод, генерирует   random-данные по полям EmployeeFixedSalary и EmployeeHourlyWages 
 	 * и записывает их в файл.

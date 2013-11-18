@@ -1,20 +1,29 @@
 package com.company.personnelrecords.gui;
 
 import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.io.File;
 
 import javax.swing.ButtonGroup;
+import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JRadioButtonMenuItem;
 import javax.swing.JSeparator;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
 import javax.swing.KeyStroke;
 import javax.swing.border.BevelBorder;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -23,6 +32,7 @@ import com.company.personnelrecords.company.Company;
 import com.company.personnelrecords.company.EmployeeFixedSalary;
 import com.company.personnelrecords.company.EmployeeHourlyWages;
 import com.company.personnelrecords.testmode.TestMode;
+import com.company.personnelrecords.util.MyUtil;
 
 public class MenuBar extends JFrame{
 	
@@ -35,16 +45,21 @@ public class MenuBar extends JFrame{
 	private static JMenu menuEmployeeHourlyWages;
 	private static JMenuItem submenuEmplHourlyWages;
 	private static JMenu menuTestMode;
+	private static JMenuItem submenuGenerateCompany;
 	private static JMenu submenuGenerateEmpl;
 	private static JRadioButtonMenuItem radioMenuGenerEmplFixSal;
 	private static JRadioButtonMenuItem radioMenuGenerEmplHourlyWages;
 	private static ButtonGroup rbGroup;
+	private static Dimension screenSize;
 	
 	
 	public MenuBar(){
 		
 		//создаем панель меню - JMenuBar
 	   setPersRecMenuBar(new JMenuBar());
+	 
+	   //получаем размер экрана
+	   screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 
 //*******Company*******//
 	   
@@ -155,6 +170,12 @@ public class MenuBar extends JFrame{
 //	   menuTestMode.setPreferredSize(new Dimension(80, 40));
 	   menuTestMode.setBorder(new BevelBorder(BevelBorder.RAISED));
 	   
+	   //добав. пункт "Generate Company"
+	   submenuGenerateCompany = new JMenuItem ("Generate Company");
+	   submenuGenerateCompany.addActionListener(new TestModeListener());
+	   menuTestMode.add(submenuGenerateCompany);
+	   
+	   
 	   //добав. пункт "Generate Employees"
 	   submenuGenerateEmpl = new JMenu("Generate Employees");
 	   
@@ -187,7 +208,8 @@ public class MenuBar extends JFrame{
 	   
 	}//конструктор
 	
-//*******//get/set//*********************************************************
+
+	//*******//get/set//*********************************************************
 	public static JMenuBar getPersRecMenuBar() {
 		return persRecMenuBar;
 	}
@@ -199,6 +221,13 @@ public class MenuBar extends JFrame{
 	}
 	public static void setMainFrame(MainFrame mainFrame) {
 		MenuBar.mainFrame = mainFrame;
+	}
+	public static JMenuItem getSubmenuGenerateCompany() {
+		return submenuGenerateCompany;
+	}
+
+	public static void setSubmenuGenerateCompany(JMenuItem submenuGenerateCompany) {
+		MenuBar.submenuGenerateCompany = submenuGenerateCompany;
 	}
 	public static JRadioButtonMenuItem getRadioMenuGenerEmplFixSal() {
 		return radioMenuGenerEmplFixSal;
@@ -328,7 +357,101 @@ public class MenuBar extends JFrame{
 				  return 0;
 				}
 	}//showInputDialog ()
-}//JMenuTest
+//*******************************************************************************
+	public static void showCompanyDataFrame () {
+
+		JFrame companyDataFrame = new JFrame("Company Data");
+		companyDataFrame.getContentPane().setLayout(new GridBagLayout());
+
+		GridBagConstraints constraints = new GridBagConstraints();
+		constraints.anchor = GridBagConstraints.WEST;//выравнивание компонента внутри отведенного для него пространства
+		constraints.fill   = GridBagConstraints.NONE; //растягивание компонента - NONE  - не меняет свой размер
+		constraints.insets = new Insets(15, 10, 10, 10);//отступ сверху, слева, снизу, справа
+		
+		constraints.gridx = 0;//номер столбца, куда будет помещен компонент 
+		constraints.gridy = 0;//номер строки, куда будет помещен компонент
+		JLabel labelCompanyName = new JLabel("<html><b>Company Name: </b></html>");
+		companyDataFrame.getContentPane().add(labelCompanyName, constraints);
+		
+		constraints.gridx = 1;
+		constraints.gridy = 0;
+		JTextField txtFieldCompanyName = new JTextField();
+		txtFieldCompanyName.setPreferredSize(new Dimension(230, 25));
+		txtFieldCompanyName.setText(Company.getInstance().getCompanyName());
+		companyDataFrame.getContentPane().add(txtFieldCompanyName, constraints);
+
+		constraints.gridx = 0;
+		constraints.gridy = 1; 
+		JLabel labelCompanyCEO = new JLabel("<html><b>Company CEO: </b></html>");
+		companyDataFrame.getContentPane().add(labelCompanyCEO, constraints);
+
+		constraints.gridx = 1; 
+		constraints.gridy = 1; 
+		JTextField txtFieldCompanyCEO = new JTextField();
+		txtFieldCompanyCEO.setPreferredSize(new Dimension(230, 25));
+		txtFieldCompanyCEO.setText(Company.getInstance().getCompanyCEO());
+		companyDataFrame.getContentPane().add(txtFieldCompanyCEO, constraints);
+
+		constraints.gridx = 0; 
+		constraints.gridy = 2; 
+		JLabel labelCompanyCurrentAccount = new JLabel("<html><b>Company Current Account: </b></html>");
+		companyDataFrame.getContentPane().add(labelCompanyCurrentAccount, constraints);
+
+		constraints.gridx = 1; 
+		constraints.gridy = 2; 
+		JTextField txtFieldCompanyCurrentAccount = new JTextField();
+		txtFieldCompanyCurrentAccount.setPreferredSize(new Dimension(230, 25));
+		txtFieldCompanyCurrentAccount.setText("" + Company.getInstance().getCompanyCurrentAccount());
+		companyDataFrame.getContentPane().add(txtFieldCompanyCurrentAccount, constraints);
+
+		constraints.gridx = 0; 
+		constraints.gridy = 3; 
+		JLabel labelCompanyEDRPOU = new JLabel("<html><b>Company EDRPOU: </b></html>");
+		companyDataFrame.getContentPane().add(labelCompanyEDRPOU, constraints);
+
+		constraints.gridx = 1; 
+		constraints.gridy = 3; 
+		JTextField txtFieldCompanyEDRPOU = new JTextField();
+		txtFieldCompanyEDRPOU.setPreferredSize(new Dimension(230, 25));
+		txtFieldCompanyEDRPOU.setText("" + Company.getInstance().getCompanyEDRPOU());
+		companyDataFrame.getContentPane().add(txtFieldCompanyEDRPOU, constraints);
+
+		constraints.gridx = 0; 
+		constraints.gridy = 4; 
+		JLabel labelCompanyRegisteredOffice = new JLabel("<html><b>Company Registered Office: </b></html>");
+		companyDataFrame.getContentPane().add(labelCompanyRegisteredOffice, constraints);
+
+		constraints.gridx = 1; 
+		constraints.gridy = 4; 
+		JTextArea txtAreaCompanyRegisteredOffice = new JTextArea();
+		txtAreaCompanyRegisteredOffice.setPreferredSize(new Dimension(230, 50));
+		txtAreaCompanyRegisteredOffice.setFont(new Font (Font.SERIF, Font.ROMAN_BASELINE, 12));
+		txtAreaCompanyRegisteredOffice.setText(Company.getInstance().getCompanyRegisteredOffice());
+		txtAreaCompanyRegisteredOffice.setLineWrap(true);
+		txtAreaCompanyRegisteredOffice.setWrapStyleWord(true);
+		companyDataFrame.getContentPane().add(txtAreaCompanyRegisteredOffice, constraints);
+		
+		constraints.gridx = 0; 
+		constraints.gridy = 5; 
+		constraints.anchor = GridBagConstraints.CENTER;
+		JButton butCompanyDataSave = new JButton("<html><b>Save </b></html>");
+		butCompanyDataSave.setPreferredSize(new Dimension(100, 35));
+		companyDataFrame.getContentPane().add(butCompanyDataSave, constraints);
+
+		constraints.gridx = 1; 
+		constraints.gridy = 5; 
+		constraints.anchor = GridBagConstraints.CENTER;
+		JButton butCompanyDataCancel = new JButton("<html><b>Cancel </b></html>");
+		butCompanyDataCancel.setPreferredSize(new Dimension(100, 35));
+		companyDataFrame.getContentPane().add(butCompanyDataCancel, constraints);
+
+		companyDataFrame.setSize(new Dimension(screenSize.width/3, screenSize.height/2));
+		companyDataFrame.setLocation((screenSize.width - companyDataFrame.getWidth()) / 2,
+		                (screenSize.height - companyDataFrame.getHeight()) / 3);
+		companyDataFrame.setDefaultCloseOperation(companyDataFrame.DISPOSE_ON_CLOSE);
+		companyDataFrame.setVisible(true); // отображать окно
+	}//showCompanyDataFrame
+}//MenuBar
 
 //*******//class EmployeeFixSalListener//****************************************
 
@@ -336,15 +459,21 @@ class CompanyDataListener implements ActionListener {
 	
 	@Override
 	public void actionPerformed(ActionEvent event) {
-		if (event.getActionCommand().equals("Company Data")) {
-		}//if
-		else if (event.getActionCommand().equals("Open List 'All Employee'")) {
-		}//else if
-		else if (event.getActionCommand().equals("List of Departments")) {
-		}//else if
-		else if (event.getActionCommand().equals("List of Posts")) {
-		}//else if
+		
+		switch (event.getActionCommand()) {
+		case "Company Data":
+			MenuBar.showCompanyDataFrame();
+			break;
+			
+		case "Open List 'All Employee'":
+			break;
+			
+		case "List of Departments":
+			break;
 
+		case "List of Posts":
+			break;
+		}//switch
 	}//actionPerformed
 }//class CompanyDataListener
 
@@ -404,17 +533,22 @@ class EmployeeHourlyWagesListener implements ActionListener {
 
 class TestModeListener implements ActionListener {
 		
-	
-//*********************************************************
 	@Override
 	public void actionPerformed(ActionEvent event) {
 		
-		//получаем из диалогового окна количество генерируемых сотрудников
-		int amountEmployee = MenuBar.showInputDialog();
-
-		if (event.getActionCommand().equals(MenuBar.getRadioMenuGenerEmplFixSal().getActionCommand())) {
+		if (event.getActionCommand().equals(MenuBar.getSubmenuGenerateCompany().getActionCommand())) {
+			try {
+				TestMode.generationCompanyDataAndFiling("src/main/resources/CompanyData.cdt");
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}//if
+		else if (event.getActionCommand().equals(MenuBar.getRadioMenuGenerEmplFixSal().getActionCommand())) {
 			
 			try {
+				//получаем из диалогового окна количество генерируемых сотрудников
+				int amountEmployee = MenuBar.showInputDialog();
 								
 				//генерируем random-data по сотрудникам в файл "EmployeesFixedSalary.efs"
 				//расширение .efs от EmployeesFixedSalary - это поможет мне распознать файл при считывании
@@ -429,6 +563,8 @@ class TestModeListener implements ActionListener {
 		else if (event.getActionCommand().equals(MenuBar.getRadioMenuGenerEmplHourlyWages().getActionCommand())) {
 			
 			try {
+				//получаем из диалогового окна количество генерируемых сотрудников
+				int amountEmployee = MenuBar.showInputDialog();
 				
 				//генерируем random-data по сотрудникам в файл "EmployeesHourlyWages.ehw"
 				//расширение .ehw - от EmployeesHourlyWages - это поможет мне распознать файл при считывании

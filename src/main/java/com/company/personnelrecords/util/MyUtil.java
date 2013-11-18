@@ -2,17 +2,98 @@ package com.company.personnelrecords.util;
 
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.text.NumberFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Random;
 import java.util.StringTokenizer;
 
 
 
 public class MyUtil {
+
+// ***************************************************************************
+	/**
+	 * ћетод читает данные дл€ меню "Company Data" и заносит в
+	 * ArrayList<ArrayList<String>>. –абота метода основана на считывании инфо,
+	 * котора€ идет после ключевого слова
+	 * 
+	 * @param pathFileIn
+	 *            String - путь к файлу
+	 * @return ArrayList<ArrayList<String>> - считанные данные
+	 * @throws Exception
+	 */
+	public static ArrayList<ArrayList<String>> readCompanyDataFromFile(String pathFileIn) {
+
+		RandomAccessFile raf;
+		try {
+			raf = new RandomAccessFile(pathFileIn, "r");
+		
+		/*
+		 * ћетод возвращает массив позиций непустых строк в файле, //выраженный
+		 * в байтах
+		 */
+		int[] massPosNoneEmptyStr = countStrInFile(pathFileIn);
+		ArrayList<ArrayList<String>> arrListCompanyData = new ArrayList<ArrayList<String>>();
+
+		// *******//читаем построчно файл, делаем анализ инфо и заполн€ем массив
+		// данных
+		while (raf.getFilePointer() < raf.length()) {
+
+			for (int j = 0; j < massPosNoneEmptyStr.length; j++) {
+
+				raf.seek(massPosNoneEmptyStr[j]);// устанавливаем каретку в
+													// позицию непустой строки
+
+				/*
+				 * запоминаем строку дл€ дальнейшего анализа, при этом - делаем
+				 * перекодировку - избавл€емс€ от различного рода пробелов
+				 * вначале и конце строки
+				 */
+				String buf = new String(raf.readLine().getBytes("ISO-8859-1"),
+						"Cp1251".trim());
+				
+				if (buf.indexOf("Company Name:")!= -1) {
+					ArrayList<String> rowCompanyName = new ArrayList<String>();
+					rowCompanyName.add(returnStrBetweenKeyWords(buf, "Company Name:", "companyCEO:"));
+					rowCompanyName.add(returnStrBetweenKeyWords(buf, "companyCEO:", "companyCurrentAccount:"));
+					rowCompanyName.add(returnStrBetweenKeyWords(buf, "companyCurrentAccount:", "companyEDRPOU:"));
+					rowCompanyName.add(returnStrBetweenKeyWords(buf, "companyEDRPOU:", "companyRegisteredOffice:"));
+					rowCompanyName.add(returnStrAfterKeyWord(buf, "companyRegisteredOffice:"));
+					arrListCompanyData.add(rowCompanyName);
+				}//if
+				else if (buf.indexOf("Departments:")!= -1) {
+					
+					ArrayList<String> rowDepartments = new ArrayList<String>(Arrays.asList(returnArrTokenAfterKeyWord(buf, "Departments:")));
+					arrListCompanyData.add(rowDepartments);
+				}//else if 
+				else if (buf.indexOf("Posts:")!= -1) {
+				
+					ArrayList<String> rowPosts = new ArrayList<String>(Arrays.asList(returnArrTokenAfterKeyWord(buf, "Posts:")));
+					arrListCompanyData.add(rowPosts);
+				}//else if 
+				else if (buf.indexOf("PostSalaries:")!= -1) {
+					
+					ArrayList<String> rowPostSalaries = new ArrayList<String>(Arrays.asList(returnArrTokenAfterKeyWord(buf, "PostSalaries:")));
+					arrListCompanyData.add(rowPostSalaries);
+				}//else if 
+			}// for
+		}// while
+		
+		raf.close();
+		return arrListCompanyData;
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+		
+	}// readCompanyDataFromFile()
+
 //***************************************************************************	
 	/**
 	 * ћетод читает данные по сотрудникам из файла и заносит в ArrayList<ArrayList<String>>. –абота метода
@@ -131,9 +212,9 @@ public class MyUtil {
 			int indexKeyWord = strForAnalysis.indexOf(keyWord);
 			String subStr = strForAnalysis.substring(indexKeyWord+keyWord.length()).trim();
 			
-			StringTokenizer strToken = new StringTokenizer(subStr, " :,\t\n\r\f");
+			StringTokenizer strToken = new StringTokenizer(subStr, ":,\t\n\r\f");
 			while (strToken.hasMoreTokens()) {
-				arrListTokens.add(strToken.nextToken());
+				arrListTokens.add(strToken.nextToken().trim());
 			}//while
 			
 		return arrListTokens.toArray(new String [arrListTokens.size()]);
