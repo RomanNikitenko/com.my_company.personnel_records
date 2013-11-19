@@ -237,6 +237,43 @@ public class MainFrame extends JFrame implements ActionListener {
 		panelEmplTable.updateUI();
 	}//addEmplHourlyWagesToTable (AbstractTableModel tableModel)
 //**************************************************************
+	public void deleteEmployee () {
+		try {
+			
+			if (dataTable.getModel() instanceof EmplFixSalTableModel) {
+				((EmplFixSalTableModel )dataTable.getModel()).getArrListObjEmplFixSal().
+									remove(dataTable.convertRowIndexToModel(dataTable.getSelectedRow()));
+				((EmplFixSalTableModel )dataTable.getModel()).fireTableRowsDeleted(
+						dataTable.convertRowIndexToModel(dataTable.getSelectedRow()),
+						dataTable.convertRowIndexToModel(dataTable.getSelectedRow()));
+				dataTable.revalidate();
+				panelEmplTable.updateUI();
+			}//if
+			else if (dataTable.getModel() instanceof EmplHourlyWagesTableModel) {
+				((EmplHourlyWagesTableModel)dataTable.getModel()).getArrListObjEmplHourlyWages().
+									remove(dataTable.convertRowIndexToModel(dataTable.getSelectedRow()));
+				((EmplHourlyWagesTableModel)dataTable.getModel()).fireTableRowsDeleted(
+						dataTable.convertRowIndexToModel(dataTable.getSelectedRow()),
+						dataTable.convertRowIndexToModel(dataTable.getSelectedRow()));
+				dataTable.revalidate();
+				panelEmplTable.updateUI();
+			}//else if
+			else if (dataTable.getModel() instanceof AllEmployeeTableModel) {
+				((AllEmployeeTableModel)dataTable.getModel()).getArrListObjAllEmployee().
+									remove(dataTable.convertRowIndexToModel(dataTable.getSelectedRow()));
+				((AllEmployeeTableModel)dataTable.getModel()).fireTableRowsDeleted(
+						dataTable.convertRowIndexToModel(dataTable.getSelectedRow()),
+						dataTable.convertRowIndexToModel(dataTable.getSelectedRow()));
+				dataTable.revalidate();
+				panelEmplTable.updateUI();
+			}//else if
+		} catch (IndexOutOfBoundsException ex) {
+			JOptionPane.showMessageDialog(null, "Removing the last line does not work properly. Press 'Clean All', please!",
+					"Error", JOptionPane.ERROR_MESSAGE);
+		}
+		
+	}//deleteEmployee
+//**************************************************************
 	@Override
 	public void actionPerformed(ActionEvent event) {
 		
@@ -257,33 +294,14 @@ public class MainFrame extends JFrame implements ActionListener {
 			addEmplHourlyWagesToTable((AbstractTableModel) dataTable.getModel());
 			break;
 
-		case "<html><center> Delete <br> Row":
-			try {
-			
-				if (dataTable.getSelectedRow() == -1) {
-					JOptionPane.showMessageDialog(null, "Select the row you want to delete!", "Attention!", JOptionPane.INFORMATION_MESSAGE);
-					break;
-				}//
-				if (dataTable.getModel() instanceof EmplFixSalTableModel) {
-					((EmplFixSalTableModel )dataTable.getModel()).getArrListObjEmplFixSal().
-										remove(dataTable.convertRowIndexToModel(dataTable.getSelectedRow()));
-					((EmplFixSalTableModel )dataTable.getModel()).fireTableRowsDeleted(dataTable.convertRowIndexToModel(dataTable.getSelectedRow()),
-							dataTable.convertRowIndexToModel(dataTable.getSelectedRow()));
-					dataTable.revalidate();
-					panelEmplTable.updateUI();
-				}//if
-				else if (dataTable.getModel() instanceof EmplHourlyWagesTableModel) {
-					((EmplHourlyWagesTableModel)dataTable.getModel()).getArrListObjEmplHourlyWages().
-										remove(dataTable.convertRowIndexToModel(dataTable.getSelectedRow()));
-					((EmplHourlyWagesTableModel)dataTable.getModel()).fireTableRowsDeleted(dataTable.convertRowIndexToModel(dataTable.getSelectedRow()),
-							dataTable.convertRowIndexToModel(dataTable.getSelectedRow()));
-					dataTable.revalidate();
-					panelEmplTable.updateUI();
-				}//else if
-			} catch (IndexOutOfBoundsException ex) {
-				JOptionPane.showMessageDialog(null, "Removing the last line does not work properly. Press 'Clean All', please!",
-						"Error", JOptionPane.ERROR_MESSAGE);
-			}
+		case "<html><center> Delete <br> Employee":
+			if (dataTable.getSelectedRow() == -1) {
+				JOptionPane.showMessageDialog(null,
+						"Select the row you want to delete!", "Attention!",
+						JOptionPane.INFORMATION_MESSAGE);
+				break;
+			}//
+			deleteEmployee();
 			break;
 		}//switch
 	}//actionPerformed
