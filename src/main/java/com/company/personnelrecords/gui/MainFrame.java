@@ -184,6 +184,36 @@ public class MainFrame extends JFrame implements ActionListener {
 		return dataTable;
 	}//displayTable ()
 //***********************************************************
+	public void addRowToTable (EmplFixSalTableModel tableModel) {
+		try {
+			tableModel.getArrListObjEmplFixSal().add(0, new EmployeeFixedSalary( 
+					0, "", "", "", new BigDecimal(0), 0, "", "", "", new BigDecimal(0)));
+		
+		} catch (StringDigitIncludeException e) {
+
+			JOptionPane.showMessageDialog(null,	"Incorrect value!",
+					"Error", JOptionPane.ERROR_MESSAGE);
+		}
+		tableModel.fireTableRowsInserted(0, 0);
+		dataTable.revalidate();
+		panelEmplTable.updateUI();
+	}//addRowToTable (EmplFixSalTableModel tableModel)
+//**************************************************************
+	public void addRowToTable (EmplHourlyWagesTableModel tableModel) {
+		try {
+			tableModel.getArrListObjEmplHourlyWages().add(0, new EmployeeHourlyWages( 
+					0, "", "", "", new BigDecimal(0), 0, "", "", "", new BigDecimal(0)));
+		
+		} catch (StringDigitIncludeException e) {
+
+			JOptionPane.showMessageDialog(null,	"Incorrect value!",
+					"Error", JOptionPane.ERROR_MESSAGE);
+		}
+		tableModel.fireTableRowsInserted(0, 0);
+		dataTable.revalidate();
+		panelEmplTable.updateUI();
+	}//addRowToTable (EmplHourlyWagesTableModel tableModel)
+//***********************************************************
 	@Override
 	public void actionPerformed(ActionEvent event) {
 		
@@ -198,30 +228,12 @@ public class MainFrame extends JFrame implements ActionListener {
 		
 		case "<html><center> Add <br> Row":
 			if (dataTable.getModel() instanceof EmplFixSalTableModel) {
-				try {
-					((EmplFixSalTableModel)dataTable.getModel()).getArrListObjEmplFixSal().add(0, new EmployeeFixedSalary( 
-							0, "", "", "", new BigDecimal(0), 0, "", "", "", new BigDecimal(0)));
-				} catch (StringDigitIncludeException e) {
-					// TODO Auto-generated catch block
-					JOptionPane.showMessageDialog(null,
-							"Incorrect value!",
-							"Error", JOptionPane.ERROR_MESSAGE);
-				}
-				((EmplFixSalTableModel) dataTable.getModel()).fireTableRowsInserted(0, 0);
-				dataTable.revalidate();
-				panelEmplTable.updateUI();
+				addRowToTable((EmplFixSalTableModel)dataTable.getModel());
+				break;
 			}//if
 			else if (dataTable.getModel() instanceof EmplHourlyWagesTableModel) {
-					try {
-						((EmplHourlyWagesTableModel)dataTable.getModel()).getArrListObjEmplHourlyWages().add(0, 
-								new EmployeeHourlyWages(0, "", "", "", new BigDecimal(0), 0, "", "", "", new BigDecimal(0)));
-					} catch (StringDigitIncludeException e) {
-						JOptionPane.showMessageDialog(null,
-								"Incorrect value!",
-								"Error", JOptionPane.ERROR_MESSAGE);					}
-					((EmplHourlyWagesTableModel)dataTable.getModel()).fireTableRowsInserted(0, 0);
-					dataTable.revalidate();
-					panelEmplTable.updateUI();
+				addRowToTable((EmplHourlyWagesTableModel)dataTable.getModel());
+				break;
 			}//else if
 			else
 			break;
