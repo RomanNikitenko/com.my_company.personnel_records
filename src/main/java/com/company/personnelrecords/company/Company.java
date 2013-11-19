@@ -13,13 +13,10 @@ public class Company {
 	private ArrayList<EmployeeFixedSalary> arrListObjEmplFixSal;
 	private ArrayList<EmployeeHourlyWages> arrListObjEmplHourlyWages;
 	
-	
 	private static ArrayList<ArrayList<String>> arrCompanyData = 
 			MyUtil.readCompanyDataFromFile("src/main/resources/CompanyData.cdt"); 
-
 	
-	private static final Company INSTANCECOMPANY = new Company(arrCompanyData.get(0).get(0), arrCompanyData.get(0).get(1),
-			Long.valueOf(arrCompanyData.get(0).get(2)), Long.valueOf(arrCompanyData.get(0).get(3)), arrCompanyData.get(0).get(4));
+	private static Company INSTANCECOMPANY;
 	
 	String 	companyName,
 			companyCEO,
@@ -29,7 +26,7 @@ public class Company {
 
 	//*******constructor**************************************
 	private Company(String companyName, String companyCEO, 
-			long companyCurrentAccount, long companyEDRPOU, String companyRegisteredOffice)  {
+			long companyCurrentAccount, long companyEDRPOU, String companyRegisteredOffice){
 		this.companyName = companyName;
 		this.companyCEO = companyCEO;
 		this.companyRegisteredOffice = companyRegisteredOffice;
@@ -38,9 +35,20 @@ public class Company {
 	}//constructor
 	//**********************************************************
 	
-	public static synchronized Company getInstance() {
-      return INSTANCECOMPANY;
-   	}
+	public static Company getInstance() {
+		if (INSTANCECOMPANY == null) {
+			synchronized (Company.class) {
+				if (INSTANCECOMPANY == null) {
+					INSTANCECOMPANY = new Company(arrCompanyData.get(0).get(0),
+							arrCompanyData.get(0).get(1),
+							Long.valueOf(arrCompanyData.get(0).get(2)),
+							Long.valueOf(arrCompanyData.get(0).get(3)),
+							arrCompanyData.get(0).get(4));
+				}//if
+			}//synchronized			
+		}// if
+		return INSTANCECOMPANY;
+	}//getInstance()
 
 	public static ArrayList<ArrayList<String>> getArrCompanyData() {
 		return arrCompanyData;
