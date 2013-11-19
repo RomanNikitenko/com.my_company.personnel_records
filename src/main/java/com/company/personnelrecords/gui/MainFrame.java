@@ -22,6 +22,7 @@ import javax.swing.border.TitledBorder;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.TableRowSorter;
 
+import com.company.personnelrecords.company.Company;
 import com.company.personnelrecords.company.EmployeeFixedSalary;
 import com.company.personnelrecords.company.EmployeeHourlyWages;
 import com.company.personnelrecords.exception.StringDigitIncludeException;
@@ -36,7 +37,8 @@ public class MainFrame extends JFrame implements ActionListener {
 	private static JPanel mainPanel;
 	private static JPanel panelEmployees;
 	private static JPanel panelButEdit;
-	private static JButton butAdd;
+	private static JButton butAddEmplFixSal;
+	private static JButton butAddEmplHourlyWages;
 	private static JButton butClean;
 	private static JButton butDelete;
 	private static JPanel panelEmplTable;
@@ -77,20 +79,21 @@ public class MainFrame extends JFrame implements ActionListener {
 //		panelButEdit.setLayout(new BoxLayout(panelButEdit, BoxLayout.Y_AXIS));
 		panelButEdit.setPreferredSize(new Dimension (100, mainPanel.getHeight()-10));
 		panelButEdit.setBorder(BorderFactory.createTitledBorder(BorderFactory.createRaisedBevelBorder(), "Buttons Edit"));
-		panelEmployees.add(panelButEdit, BorderLayout.WEST);
 		
 //*******//кнопоки EDIT
-		butAdd = new JButton("<html><center> Add <br> Row");
-		butAdd.addActionListener(this);
-		panelButEdit.add(butAdd);
-				
+		
+		butAddEmplFixSal = new JButton("<html><center> Add Employee <br> Fix Salary");
+		butAddEmplFixSal.addActionListener(this);
+		
+		butAddEmplHourlyWages = new JButton("<html><center> Add Employee <br>Hourly Wages");
+		butAddEmplHourlyWages.addActionListener(this);
+
 		butClean = new JButton("<html><center>Clean<br>All");
 		butClean.addActionListener(this);
-		panelButEdit.add(butClean);
 
-		butDelete = new JButton("<html><center> Delete <br> Row");
+		butDelete = new JButton("<html><center> Delete <br> Employee");
 		butDelete.addActionListener(this);
-		panelButEdit.add(butDelete);
+		
 
 //*******//панель для таблицы 
 		panelEmplTable = new JPanel(new BorderLayout());
@@ -165,30 +168,44 @@ public class MainFrame extends JFrame implements ActionListener {
 
 		//Добавляем на панель jscrlp вместе с таблицей
 		panelEmplTable.add(jscrlp);
-		
+		panelButEdit.removeAll();
+				
 		if (tableModel instanceof EmplFixSalTableModel) {
 			panelEmplTable.setBorder(BorderFactory.createTitledBorder(BorderFactory.createRaisedBevelBorder(),
 					"Employees With Fix Salary Data"));
+			panelButEdit.add(butAddEmplFixSal, 0);
 		}//if
 		else if (tableModel instanceof EmplHourlyWagesTableModel) {panelEmplTable.setBorder(
 				BorderFactory.createTitledBorder(BorderFactory.createRaisedBevelBorder(),
 				"Employees With Hourly Wages Data"));
+		panelButEdit.add(butAddEmplHourlyWages, 0);
 		}//else if
-		else panelEmplTable.setBorder(
-				BorderFactory.createTitledBorder(BorderFactory.createRaisedBevelBorder(),
-				"All Employees Data"));
+		else { panelEmplTable.setBorder(
+					BorderFactory.createTitledBorder(BorderFactory.createRaisedBevelBorder(),
+							"All Employees Data"));
+				panelButEdit.add(butAddEmplFixSal, 0);
+				panelButEdit.add(butAddEmplHourlyWages, 1);
+		}//else
 		
-		//Добавляем панель с таблицей
+		//Добавляем панели
+		panelButEdit.add(butDelete);
+		panelButEdit.add(butClean);
+		panelEmployees.add(panelButEdit, BorderLayout.WEST);
 		panelEmployees.add(panelEmplTable,BorderLayout.CENTER);
 		panelEmplTable.updateUI();
 		return dataTable;
 	}//displayTable ()
 //***********************************************************
-	public void addRowToTable (EmplFixSalTableModel tableModel) {
+	public void addEmplFixSalToTable (AbstractTableModel tableModel) {
 		try {
-			tableModel.getArrListObjEmplFixSal().add(0, new EmployeeFixedSalary( 
-					0, "", "", "", new BigDecimal(0), 0, "", "", "", new BigDecimal(0)));
-		
+			if (tableModel instanceof EmplFixSalTableModel) {
+				((EmplFixSalTableModel)tableModel).getArrListObjEmplFixSal().add(0, new EmployeeFixedSalary( 
+						0, "", "", "", new BigDecimal(0), 0, "", "", "", new BigDecimal(0)));
+			}//if
+			else if (tableModel instanceof AllEmployeeTableModel) {
+					((AllEmployeeTableModel)tableModel).getArrListObjAllEmployee().add(0, new EmployeeFixedSalary( 
+							0, "", "", "", new BigDecimal(0), 0, "", "", "", new BigDecimal(0)));
+			}//else if
 		} catch (StringDigitIncludeException e) {
 
 			JOptionPane.showMessageDialog(null,	"Incorrect value!",
@@ -197,13 +214,19 @@ public class MainFrame extends JFrame implements ActionListener {
 		tableModel.fireTableRowsInserted(0, 0);
 		dataTable.revalidate();
 		panelEmplTable.updateUI();
-	}//addRowToTable (EmplFixSalTableModel tableModel)
+	}//addEmplFixSalToTable (AbstractTableModel tableModel)
 //**************************************************************
-	public void addRowToTable (EmplHourlyWagesTableModel tableModel) {
+	public void addEmplHourlyWagesToTable (AbstractTableModel tableModel) {
 		try {
-			tableModel.getArrListObjEmplHourlyWages().add(0, new EmployeeHourlyWages( 
+			if (tableModel instanceof EmplHourlyWagesTableModel) {
+				((EmplHourlyWagesTableModel)tableModel).getArrListObjEmplHourlyWages().add(0, new EmployeeHourlyWages( 
 					0, "", "", "", new BigDecimal(0), 0, "", "", "", new BigDecimal(0)));
-		
+			}//if
+			else if (tableModel instanceof AllEmployeeTableModel) {
+					((AllEmployeeTableModel)tableModel).getArrListObjAllEmployee().add(0, new EmployeeHourlyWages( 
+						0, "", "", "", new BigDecimal(0), 0, "", "", "", new BigDecimal(0)));
+			}//else if
+			
 		} catch (StringDigitIncludeException e) {
 
 			JOptionPane.showMessageDialog(null,	"Incorrect value!",
@@ -212,8 +235,8 @@ public class MainFrame extends JFrame implements ActionListener {
 		tableModel.fireTableRowsInserted(0, 0);
 		dataTable.revalidate();
 		panelEmplTable.updateUI();
-	}//addRowToTable (EmplHourlyWagesTableModel tableModel)
-//***********************************************************
+	}//addEmplHourlyWagesToTable (AbstractTableModel tableModel)
+//**************************************************************
 	@Override
 	public void actionPerformed(ActionEvent event) {
 		
@@ -226,18 +249,14 @@ public class MainFrame extends JFrame implements ActionListener {
 			panelEmplTable.updateUI();
 			break;
 		
-		case "<html><center> Add <br> Row":
-			if (dataTable.getModel() instanceof EmplFixSalTableModel) {
-				addRowToTable((EmplFixSalTableModel)dataTable.getModel());
-				break;
-			}//if
-			else if (dataTable.getModel() instanceof EmplHourlyWagesTableModel) {
-				addRowToTable((EmplHourlyWagesTableModel)dataTable.getModel());
-				break;
-			}//else if
-			else
+		case "<html><center> Add Employee <br> Fix Salary":
+			addEmplFixSalToTable((AbstractTableModel) dataTable.getModel());
 			break;
-				
+
+		case "<html><center> Add Employee <br>Hourly Wages":
+			addEmplHourlyWagesToTable((AbstractTableModel) dataTable.getModel());
+			break;
+
 		case "<html><center> Delete <br> Row":
 			try {
 			

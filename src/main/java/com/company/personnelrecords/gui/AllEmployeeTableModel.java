@@ -28,11 +28,11 @@ public class AllEmployeeTableModel extends AbstractTableModel{
 	}
 
 //***********************************************************************
-	public ArrayList<Employee> getarrListObjAllEmployee() {
+	public ArrayList<Employee> getArrListObjAllEmployee() {
 		return arrListObjAllEmployee;
 	}
 
-	public void setarrListObjAllEmployee(
+	public void setArrListObjAllEmployee(
 			ArrayList<Employee> arrListObjAllEmployee) {
 		this.arrListObjAllEmployee = arrListObjAllEmployee;
 	}
@@ -60,18 +60,18 @@ public class AllEmployeeTableModel extends AbstractTableModel{
 			if (arrListObjAllEmployee.get(row) instanceof EmployeeFixedSalary) {
 				return ((EmployeeFixedSalary)arrListObjAllEmployee.get(row)).getMonthlyPayment();	
 			}//if
-			else return "";
+			else return -1;
 			
 		case 6: 
 			if (arrListObjAllEmployee.get(row) instanceof EmployeeHourlyWages) {
 				return ((EmployeeHourlyWages)arrListObjAllEmployee.get(row)).getHourlyRate();	
 			}//if
-			else return "";
+			else return -1;
 		case 7: return arrListObjAllEmployee.get(row).getTaxIdentifNum();
 		case 8: return arrListObjAllEmployee.get(row).getEducation();
 		case 9: return arrListObjAllEmployee.get(row).getPassport();
 		case 10: return arrListObjAllEmployee.get(row).getResidence();
-		default: return "";
+		default: return null;
 		}//switch
 	}//getValueAt
 	
