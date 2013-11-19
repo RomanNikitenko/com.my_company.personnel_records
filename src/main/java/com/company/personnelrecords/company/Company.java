@@ -8,9 +8,11 @@ import com.company.personnelrecords.exception.StringDigitIncludeException;
 import com.company.personnelrecords.util.MyUtil;
 
 public class Company {
-	
+
+	private ArrayList<Employee> arrListObjAllEmployee;
 	private ArrayList<EmployeeFixedSalary> arrListObjEmplFixSal;
 	private ArrayList<EmployeeHourlyWages> arrListObjEmplHourlyWages;
+	
 	
 	private static ArrayList<ArrayList<String>> arrCompanyData = 
 			MyUtil.readCompanyDataFromFile("src/main/resources/CompanyData.cdt"); 
@@ -46,6 +48,14 @@ public class Company {
 
 	public static void setArrCompanyData(ArrayList<ArrayList<String>> arrCompanyData) {
 		Company.arrCompanyData = arrCompanyData;
+	}
+
+	public ArrayList<Employee> getArrListObjAllEmployee() {
+		return arrListObjAllEmployee;
+	}
+
+	public void setArrListObjAllEmployee(ArrayList<Employee> arrListObjAllEmployee) {
+		this.arrListObjAllEmployee = arrListObjAllEmployee;
 	}
 
 	public ArrayList<EmployeeFixedSalary> getArrListObjEmplFixSal() {
@@ -123,4 +133,30 @@ public class Company {
 	}
 
 	//***********************************************************
+	/**
+	 * Метод создания ArrayList объектов AllEmployee:
+	 * <p>* Создает ArrayList объектов EmployeeFixedSalary ДЛЯ ВСЕХ сотрудников, данные про которых есть в файле</p>
+	 * <p>* Создает ArrayList объектов EmployeeHourlyWages ДЛЯ ВСЕХ сотрудников, данные про которых есть в файле</p>
+	 * <p>* Соединяет полученные объекты в один ArrayList</p> 
+	 * @param pathFileInEmplFixSal String - путь к файлу с данными по Сотрудникам EmployeeFixedSalary
+	 * @param pathFileInEmplHourlyWages String - путь к файлу с данными по Сотрудникам EmployeeHourlyWages
+	 * @return ArrayList<Employee> - объекты Сотрудников
+	 * @throws Exception
+	 */
+	public static ArrayList<Employee> createArrayListObjAllEmplFromFile (String pathFileInEmplFixSal, String pathFileInEmplHourlyWages)
+			throws Exception {
+		
+		ArrayList<EmployeeFixedSalary> arrListObjEmplFixSal = EmployeeFixedSalary
+				.createArrayListObjEmplFixSalFromFile(pathFileInEmplFixSal);
+		ArrayList<EmployeeHourlyWages> arrListObjEmplHourlyWages = EmployeeHourlyWages
+				.createArrayListObjEmplHourlyWagesFromFile(pathFileInEmplHourlyWages);
+		
+		ArrayList<Employee> arrListObjEmplAllEmployee = new ArrayList<Employee> ();
+		arrListObjEmplAllEmployee.addAll(arrListObjEmplFixSal);
+		arrListObjEmplAllEmployee.addAll(arrListObjEmplHourlyWages);
+		
+		return arrListObjEmplAllEmployee;
+}//createArrayListObjEmplFixSalFromFile
+//**************************************************************************************************
+
 }//class

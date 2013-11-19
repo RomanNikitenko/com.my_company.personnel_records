@@ -100,7 +100,7 @@ public class MainFrame extends JFrame implements ActionListener {
 			
 	}//конструктор
 //***********************************************************
-	public JTable displayTable (AbstractTableModel tableModel) {
+	public JTable displayTable (final AbstractTableModel tableModel) {
 		
 		//*******//создаем таблицу на основе нашей модели,
 		//переданной в параметре
@@ -114,7 +114,8 @@ public class MainFrame extends JFrame implements ActionListener {
 			@Override
 			public Comparator<?> getComparator(int column) {
 			      
-			      if (column == 0 || column == 4 || column == 5 || column == 6 ) {
+			      if (tableModel instanceof AllEmployeeTableModel && column == 0 || column == 4 ||
+			    		  column == 5 || column == 6 || column == 7 ) {
 			        return new Comparator<String>() {
 			          @Override
 			          public int compare(String s1,String s2) {
@@ -122,8 +123,17 @@ public class MainFrame extends JFrame implements ActionListener {
 			          }
 			        };
 			     }
+			      else if (column == 0 || column == 4 || column == 5 || column == 6 ) {
+			        return new Comparator<String>() {
+			          @Override
+			          public int compare(String s1,String s2) {
+			            return Integer.parseInt(s1) - Integer.parseInt(s2);
+			          }
+			        };
+			     } 
 			      return super.getComparator(column);
 			}
+			
 		};
 		dataTable.setRowSorter(sorter);
 		
@@ -135,10 +145,18 @@ public class MainFrame extends JFrame implements ActionListener {
 		dataTable.getColumnModel().getColumn(4).setPreferredWidth(80);
 		dataTable.getColumnModel().getColumn(5).setPreferredWidth(80);
 		dataTable.getColumnModel().getColumn(6).setPreferredWidth(80);
-		dataTable.getColumnModel().getColumn(7).setPreferredWidth(100);
-		dataTable.getColumnModel().getColumn(8).setPreferredWidth(220);
-		dataTable.getColumnModel().getColumn(9).setPreferredWidth(300);
 		
+		if (tableModel instanceof AllEmployeeTableModel) {
+			dataTable.getColumnModel().getColumn(7).setPreferredWidth(80);
+			dataTable.getColumnModel().getColumn(8).setPreferredWidth(100);
+			dataTable.getColumnModel().getColumn(9).setPreferredWidth(220);
+			dataTable.getColumnModel().getColumn(10).setPreferredWidth(300);
+		}
+		else {
+			dataTable.getColumnModel().getColumn(7).setPreferredWidth(100);
+			dataTable.getColumnModel().getColumn(8).setPreferredWidth(220);
+			dataTable.getColumnModel().getColumn(9).setPreferredWidth(300);
+		}//else
 		// Создаем панель прокрутки и включаем в ее состав нашу таблицу
 		jscrlp = new JScrollPane(dataTable,
 						ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS,
@@ -151,9 +169,14 @@ public class MainFrame extends JFrame implements ActionListener {
 		if (tableModel instanceof EmplFixSalTableModel) {
 			panelEmplTable.setBorder(BorderFactory.createTitledBorder(BorderFactory.createRaisedBevelBorder(),
 					"Employees With Fix Salary Data"));
-		}
-		else panelEmplTable.setBorder(BorderFactory.createTitledBorder(BorderFactory.createRaisedBevelBorder(),
+		}//if
+		else if (tableModel instanceof EmplHourlyWagesTableModel) {panelEmplTable.setBorder(
+				BorderFactory.createTitledBorder(BorderFactory.createRaisedBevelBorder(),
 				"Employees With Hourly Wages Data"));
+		}//else if
+		else panelEmplTable.setBorder(
+				BorderFactory.createTitledBorder(BorderFactory.createRaisedBevelBorder(),
+				"All Employees Data"));
 		
 		//Добавляем панель с таблицей
 		panelEmployees.add(panelEmplTable,BorderLayout.CENTER);
@@ -200,6 +223,7 @@ public class MainFrame extends JFrame implements ActionListener {
 					dataTable.revalidate();
 					panelEmplTable.updateUI();
 			}//else if
+			else
 			break;
 				
 		case "<html><center> Delete <br> Row":

@@ -543,8 +543,21 @@ public class MenuBar extends JFrame{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-	}//saveEditedCompanyData
+	}//saveEditedCompanyData()
+//*****************************************************************************************************************
+	public static void openListAllEmployee () {
+		try {
+			Company.getInstance().setArrListObjAllEmployee(
+					Company.createArrayListObjAllEmplFromFile(
+							"src/main/resources/EmployeesFixedSalary.efs",
+							"src/main/resources/EmployeesHourlyWages.ehw"));
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		AllEmployeeTableModel AllEmpltableModel = new AllEmployeeTableModel(Company.getInstance().getArrListObjAllEmployee());
+		getMainFrame().displayTable(AllEmpltableModel);
+	}//openListAllEmployee
 }//MenuBar
 
 //*******//class CompanyDataListener//****************************************
@@ -569,6 +582,7 @@ class CompanyDataListener implements ActionListener, FocusListener {
 		break;
 
 		case "Open List 'All Employee'":
+			MenuBar.openListAllEmployee();
 			break;
 			
 		case "List of Departments":
