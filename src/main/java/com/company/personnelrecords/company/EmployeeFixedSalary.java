@@ -31,15 +31,7 @@ public class EmployeeFixedSalary extends Employee{
 	public void setMonthlyPayment(BigDecimal monthlyPayment) {
 		this.monthlyPayment = monthlyPayment;
 	}
-//**********************************************************************************************
-	public static ArrayList<EmployeeFixedSalary> createNewObjEmplFixSal () throws StringDigitIncludeException {
-		
-			ArrayList<EmployeeFixedSalary> arrListObjEmplFixSal = new ArrayList<EmployeeFixedSalary>();
-			arrListObjEmplFixSal.add(0,
-			new EmployeeFixedSalary(0, "", "", "", new BigDecimal(0), 0, "", "", "", new BigDecimal(0)));
-		return arrListObjEmplFixSal;
-	}// 
-//***********************************************************************************************
+///***********************************************************************************************
 		/**
 		 * Метод создания ArrayList объектов EmployeeFixedSalary:
 		 * <p>* вызывает MyUtil.readDataEmployeeFromFile(pathFileIn), который считывает данные </p>
@@ -49,7 +41,7 @@ public class EmployeeFixedSalary extends Employee{
 		 * @return ArrayList<EmployeeFixedSalary> - объекты Сотрудников
 		 * @throws Exception
 		 */
-		public static ArrayList<EmployeeFixedSalary> createArrayListObjEmplFixSalFromFile (String pathFileIn)
+		public static ArrayList<EmployeeFixedSalary> createArrayListObjEmployeeFromFile (String pathFileIn)
 				throws Exception {
 		
 			ArrayList<ArrayList<String>> dataEmplFixSal = MyUtil.readDataEmployeeFromFile(pathFileIn);
@@ -73,4 +65,5 @@ public class EmployeeFixedSalary extends Employee{
 			return arrListObjEmplFixSal;
 	}//createArrayListObjEmplFixSalFromFile
 //**************************************************************************************************
+
 }//class

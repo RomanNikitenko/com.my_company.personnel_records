@@ -22,7 +22,7 @@ import javax.swing.border.TitledBorder;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.TableRowSorter;
 
-import com.company.personnelrecords.company.Company;
+import com.company.personnelrecords.company.EmployeeCreator;
 import com.company.personnelrecords.company.EmployeeFixedSalary;
 import com.company.personnelrecords.company.EmployeeHourlyWages;
 import com.company.personnelrecords.exception.StringDigitIncludeException;
@@ -199,13 +199,13 @@ public class MainFrame extends JFrame implements ActionListener {
 	public void addEmplFixSalToTable (AbstractTableModel tableModel) {
 		try {
 			if (tableModel instanceof EmplFixSalTableModel) {
-				((EmplFixSalTableModel)tableModel).getArrListObjEmplFixSal().add(0, new EmployeeFixedSalary( 
-						0, "", "", "", new BigDecimal(0), 0, "", "", "", new BigDecimal(0)));
-			}//if
+				((EmplFixSalTableModel) tableModel).getArrListObjEmplFixSal()
+						.add(0, new EmployeeCreator().createNewEmplFixSal());
+			}// if
 			else if (tableModel instanceof AllEmployeeTableModel) {
-					((AllEmployeeTableModel)tableModel).getArrListObjAllEmployee().add(0, new EmployeeFixedSalary( 
-							0, "", "", "", new BigDecimal(0), 0, "", "", "", new BigDecimal(0)));
-			}//else if
+				((AllEmployeeTableModel) tableModel).getArrListObjAllEmployee()
+						.add(0, new EmployeeCreator().createNewEmplFixSal());
+			}// else if
 		} catch (StringDigitIncludeException e) {
 
 			JOptionPane.showMessageDialog(null,	"Incorrect value!",
@@ -219,14 +219,19 @@ public class MainFrame extends JFrame implements ActionListener {
 	public void addEmplHourlyWagesToTable (AbstractTableModel tableModel) {
 		try {
 			if (tableModel instanceof EmplHourlyWagesTableModel) {
-				((EmplHourlyWagesTableModel)tableModel).getArrListObjEmplHourlyWages().add(0, new EmployeeHourlyWages( 
-					0, "", "", "", new BigDecimal(0), 0, "", "", "", new BigDecimal(0)));
-			}//if
+				((EmplHourlyWagesTableModel) tableModel)
+						.getArrListObjEmplHourlyWages().add(
+								0,
+								new EmployeeCreator()
+										.createNewEmplHourlyWages());
+			}// if
 			else if (tableModel instanceof AllEmployeeTableModel) {
-					((AllEmployeeTableModel)tableModel).getArrListObjAllEmployee().add(0, new EmployeeHourlyWages( 
-						0, "", "", "", new BigDecimal(0), 0, "", "", "", new BigDecimal(0)));
-			}//else if
-			
+				((AllEmployeeTableModel) tableModel).getArrListObjAllEmployee()
+						.add(0,
+								new EmployeeCreator()
+										.createNewEmplHourlyWages());
+			}// else if
+
 		} catch (StringDigitIncludeException e) {
 
 			JOptionPane.showMessageDialog(null,	"Incorrect value!",

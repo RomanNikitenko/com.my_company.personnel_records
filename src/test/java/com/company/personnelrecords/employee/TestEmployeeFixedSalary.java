@@ -28,7 +28,7 @@ public class TestEmployeeFixedSalary {
 	    TestMode.generationEmployeeDataAndFiling(amountGenerationEmployee,
 	    		"src/main/resources/EmployeesFixedSalary.efs");
 
-	    arrListObjEmplFixSal = EmployeeFixedSalary.createArrayListObjEmplFixSalFromFile(
+	    arrListObjEmplFixSal = EmployeeFixedSalary.createArrayListObjEmployeeFromFile(
 				"src/main/resources/EmployeesFixedSalary.efs");
 
 	}//setup

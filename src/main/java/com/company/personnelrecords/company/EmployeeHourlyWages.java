@@ -31,13 +31,6 @@ public class EmployeeHourlyWages extends Employee{
 	public void setHourlyRate(BigDecimal hourlyRate) {
 		this.hourlyRate = hourlyRate;
 	}
-//**********************************************************************************************
-	public static ArrayList<EmployeeHourlyWages> createNewObjEmplHourlyWages () throws StringDigitIncludeException {
-		ArrayList<EmployeeHourlyWages> arrListObjEmplHourlyWages = new ArrayList<EmployeeHourlyWages>();
-		arrListObjEmplHourlyWages.add(0,
-			new EmployeeHourlyWages(0, "", "", "", new BigDecimal(0), 0, "", "", "", new BigDecimal(0)));
-		return arrListObjEmplHourlyWages;
-	}// 
 //***********************************************************************************************
 	/**
 	 * Метод создания ArrayList объектов EmployeeHourlyWages:
@@ -48,7 +41,7 @@ public class EmployeeHourlyWages extends Employee{
 	 * @return ArrayList<EmployeeHourlyWages> - объекты Сотрудников
 	 * @throws Exception
 	 */
-	public static ArrayList<EmployeeHourlyWages> createArrayListObjEmplHourlyWagesFromFile(
+	public static ArrayList<EmployeeHourlyWages> createArrayListObjEmployeeFromFile(
 			String pathFileIn) throws Exception {
 
 		ArrayList<ArrayList<String>> dataEmplHourlyWages = MyUtil.readDataEmployeeFromFile(pathFileIn);
@@ -73,4 +66,5 @@ public class EmployeeHourlyWages extends Employee{
 		return arrayListObjEmplHourlyWages;
 	}// createArrayListObjEmplHourlyWagesFromFile
 //**************************************************************************************************
+
 }//class

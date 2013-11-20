@@ -12,6 +12,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.company.personnelrecords.company.Company;
+import com.company.personnelrecords.company.EmployeeCreator;
 import com.company.personnelrecords.company.EmployeeFixedSalary;
 import com.company.personnelrecords.exception.StringDigitIncludeException;
 
@@ -25,7 +26,7 @@ public class TestGui {
 	public void setup() throws Exception{
 		new MenuBar();
 		new MainFrame();
-		Company.getInstance().setArrListObjEmplFixSal(EmployeeFixedSalary.createNewObjEmplFixSal());
+		Company.getInstance().setArrListObjEmplFixSal(new EmployeeCreator().createArrListWithNewEmplFixSal());
 		emplFixSalTableModel = new EmplFixSalTableModel(Company.getInstance().getArrListObjEmplFixSal());
 		dataTable = MenuBar.getMainFrame().displayTable(emplFixSalTableModel);
 	}//setup

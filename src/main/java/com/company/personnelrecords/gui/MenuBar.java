@@ -13,6 +13,7 @@ import java.awt.event.FocusListener;
 import java.awt.event.KeyEvent;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
@@ -31,6 +32,7 @@ import javax.swing.KeyStroke;
 import javax.swing.border.BevelBorder;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
+import com.company.personnelrecords.company.EmployeeCreator;
 import com.company.personnelrecords.company.Company;
 import com.company.personnelrecords.company.EmployeeFixedSalary;
 import com.company.personnelrecords.company.EmployeeHourlyWages;
@@ -353,7 +355,7 @@ public class MenuBar extends JFrame{
 		if (mark.equals("FixSal")) {
 
 			// создаем объект сотрудникa
-			Company.getInstance().setArrListObjEmplFixSal(EmployeeFixedSalary.createNewObjEmplFixSal());
+			Company.getInstance().setArrListObjEmplFixSal(new EmployeeCreator().createArrListWithNewEmplFixSal());
 
 			// создаем модель
 			EmplFixSalTableModel emplFixSalTableModel = new EmplFixSalTableModel(
@@ -365,7 +367,7 @@ public class MenuBar extends JFrame{
 		else if (mark.equals("HourlyWages")) {
 
 			// создаем объект сотрудникa
-			Company.getInstance().setArrListObjEmplHourlyWages(EmployeeHourlyWages.createNewObjEmplHourlyWages());
+			Company.getInstance().setArrListObjEmplHourlyWages(new EmployeeCreator().createArrListWithNewEmplHourlyWages());
 
 			// создаем модель
 			EmplHourlyWagesTableModel emplHourlyWagesTableModel = new EmplHourlyWagesTableModel(
@@ -383,7 +385,7 @@ public class MenuBar extends JFrame{
 			
 			//создаем объекты сотрудников
 			Company.getInstance().setArrListObjEmplFixSal(EmployeeFixedSalary.
-					createArrayListObjEmplFixSalFromFile(pathFileIn));
+					createArrayListObjEmployeeFromFile(pathFileIn));
 		
 			//создаем модель
 			EmplFixSalTableModel emplFixSalTableModel = 
@@ -396,7 +398,7 @@ public class MenuBar extends JFrame{
 			
 			//создаем объекты сотрудников
 			Company.getInstance().setArrListObjEmplHourlyWages(EmployeeHourlyWages.
-					createArrayListObjEmplHourlyWagesFromFile(pathFileIn));
+					createArrayListObjEmployeeFromFile(pathFileIn));
 		
 			//создаем модель
 			EmplHourlyWagesTableModel emplHourlyWagesTableModel =

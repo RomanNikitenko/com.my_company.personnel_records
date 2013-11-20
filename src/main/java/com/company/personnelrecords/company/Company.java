@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
 import com.company.personnelrecords.exception.StringDigitIncludeException;
+import com.company.personnelrecords.gui.EmplFixSalTableModel;
 import com.company.personnelrecords.util.MyUtil;
 
 public class Company {
@@ -155,9 +156,9 @@ public class Company {
 			throws Exception {
 		
 		ArrayList<EmployeeFixedSalary> arrListObjEmplFixSal = EmployeeFixedSalary
-				.createArrayListObjEmplFixSalFromFile(pathFileInEmplFixSal);
+				.createArrayListObjEmployeeFromFile(pathFileInEmplFixSal);
 		ArrayList<EmployeeHourlyWages> arrListObjEmplHourlyWages = EmployeeHourlyWages
-				.createArrayListObjEmplHourlyWagesFromFile(pathFileInEmplHourlyWages);
+				.createArrayListObjEmployeeFromFile(pathFileInEmplHourlyWages);
 		
 		ArrayList<Employee> arrListObjEmplAllEmployee = new ArrayList<Employee> ();
 		arrListObjEmplAllEmployee.addAll(arrListObjEmplFixSal);

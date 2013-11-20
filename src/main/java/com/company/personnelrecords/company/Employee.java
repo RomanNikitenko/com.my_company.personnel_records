@@ -6,7 +6,7 @@ import javax.swing.JOptionPane;
 
 import com.company.personnelrecords.exception.StringDigitIncludeException;
 
-public abstract class Employee {
+public class Employee {
 	
 	protected int 	 personalNumber;			//табельный номер сотрудника
 	protected String surnameNameMiddlename,     //фамилия, имя, отчество сотрудника
@@ -119,6 +119,6 @@ public abstract class Employee {
 	public void setResidence(String residence) {
 		this.residence = residence;
 	}
-//********************************************************************	
-
+//********************************************************************
+//	protected abstract ArrayList<Employee> createArrayListObjEmployeeFromFile (String pathFileIn) throws Exception;
 }//class
