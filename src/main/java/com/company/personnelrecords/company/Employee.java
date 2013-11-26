@@ -1,7 +1,6 @@
 package com.company.personnelrecords.company;
 
 import java.math.BigDecimal;
-
 import javax.swing.JOptionPane;
 
 import com.company.personnelrecords.exception.StringDigitIncludeException;
@@ -120,5 +119,4 @@ public class Employee {
 		this.residence = residence;
 	}
 //********************************************************************
-//	protected abstract ArrayList<Employee> createArrayListObjEmployeeFromFile (String pathFileIn) throws Exception;
 }//class

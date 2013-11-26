@@ -13,7 +13,6 @@ import java.awt.event.FocusListener;
 import java.awt.event.KeyEvent;
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
@@ -34,8 +33,6 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 
 import com.company.personnelrecords.company.EmployeeCreator;
 import com.company.personnelrecords.company.Company;
-import com.company.personnelrecords.company.EmployeeFixedSalary;
-import com.company.personnelrecords.company.EmployeeHourlyWages;
 import com.company.personnelrecords.exception.StringDigitIncludeException;
 import com.company.personnelrecords.testmode.TestMode;
 import com.company.personnelrecords.util.MyUtil;
@@ -64,8 +61,12 @@ public class MenuBar extends JFrame{
 	private static JTextField txtFieldCompanyCurrentAccount;
 	private static JTextField txtFieldCompanyEDRPOU;
 	private static JTextArea txtAreaCompanyRegisteredOffice;
+	
+	private static Company instanceCompany;
 
 	public MenuBar(){
+		
+		instanceCompany = Company.getInstance();
 		
 		//создаем панель меню - JMenuBar
 	   setPersRecMenuBar(new JMenuBar());
@@ -352,26 +353,21 @@ public class MenuBar extends JFrame{
 	public static void createNewTable(String mark)
 			throws Exception {
 
+		EmployeeCreator emplCreator = new EmployeeCreator();
 		if (mark.equals("FixSal")) {
-
-			// создаем объект сотрудникa
-			Company.getInstance().setArrListObjEmplFixSal(new EmployeeCreator().createArrListWithNewEmplFixSal());
 
 			// создаем модель
 			EmplFixSalTableModel emplFixSalTableModel = new EmplFixSalTableModel(
-					Company.getInstance().getArrListObjEmplFixSal());
+					emplCreator.createArrListWithNewEmplFixSal());
 
 			// вызываем метод отображения таблицы
 			getMainFrame().displayTable(emplFixSalTableModel);
 		}// if
 		else if (mark.equals("HourlyWages")) {
 
-			// создаем объект сотрудникa
-			Company.getInstance().setArrListObjEmplHourlyWages(new EmployeeCreator().createArrListWithNewEmplHourlyWages());
-
 			// создаем модель
 			EmplHourlyWagesTableModel emplHourlyWagesTableModel = new EmplHourlyWagesTableModel(
-					Company.getInstance().getArrListObjEmplHourlyWages());
+					emplCreator.createArrListWithNewEmplHourlyWages());
 
 			// вызываем метод отображения таблицы
 			getMainFrame().displayTable(emplHourlyWagesTableModel);
@@ -384,12 +380,11 @@ public class MenuBar extends JFrame{
 		if (pathFileIn.indexOf(".efs") != (-1)) {
 			
 			//создаем объекты сотрудников
-			Company.getInstance().setArrListObjEmplFixSal(EmployeeFixedSalary.
-					createArrayListObjEmployeeFromFile(pathFileIn));
+			instanceCompany.createArrayListObjEmplFixSalFromFile(pathFileIn);
 		
 			//создаем модель
 			EmplFixSalTableModel emplFixSalTableModel = 
-					new EmplFixSalTableModel (Company.getInstance().getArrListObjEmplFixSal());
+					new EmplFixSalTableModel (instanceCompany.getArrListObjAllEmployee());
 
 			//вызываем метод отображения таблицы
 			getMainFrame().displayTable(emplFixSalTableModel);
@@ -397,12 +392,11 @@ public class MenuBar extends JFrame{
 		else if (pathFileIn.indexOf(".ehw") != (-1)) {
 			
 			//создаем объекты сотрудников
-			Company.getInstance().setArrListObjEmplHourlyWages(EmployeeHourlyWages.
-					createArrayListObjEmployeeFromFile(pathFileIn));
+			instanceCompany.createArrayListObjEmplHourlyWagesFromFile(pathFileIn);
 		
 			//создаем модель
 			EmplHourlyWagesTableModel emplHourlyWagesTableModel =
-					new EmplHourlyWagesTableModel(Company.getInstance().getArrListObjEmplHourlyWages());
+					new EmplHourlyWagesTableModel(instanceCompany.getArrListObjAllEmployee());
 
 			//вызываем метод отображения таблицы
 			getMainFrame().displayTable(emplHourlyWagesTableModel);
@@ -444,7 +438,7 @@ public class MenuBar extends JFrame{
 		constraints.gridy = 0;
 		txtFieldCompanyName = new JTextField();
 		txtFieldCompanyName.setPreferredSize(new Dimension(230, 25));
-		txtFieldCompanyName.setText(Company.getInstance().getCompanyName());
+		txtFieldCompanyName.setText(instanceCompany.getCompanyName());
 		companyDataFrame.getContentPane().add(txtFieldCompanyName, constraints);
 
 		constraints.gridx = 0;
@@ -456,7 +450,7 @@ public class MenuBar extends JFrame{
 		constraints.gridy = 1; 
 		txtFieldCompanyCEO = new JTextField();
 		txtFieldCompanyCEO.setPreferredSize(new Dimension(230, 25));
-		txtFieldCompanyCEO.setText(Company.getInstance().getCompanyCEO());
+		txtFieldCompanyCEO.setText(instanceCompany.getCompanyCEO());
 		txtFieldCompanyCEO.addFocusListener(new CompanyDataListener());
 		companyDataFrame.getContentPane().add(txtFieldCompanyCEO, constraints);
 
@@ -469,7 +463,7 @@ public class MenuBar extends JFrame{
 		constraints.gridy = 2; 
 		txtFieldCompanyCurrentAccount = new JTextField();
 		txtFieldCompanyCurrentAccount.setPreferredSize(new Dimension(230, 25));
-		txtFieldCompanyCurrentAccount.setText("" + Company.getInstance().getCompanyCurrentAccount());
+		txtFieldCompanyCurrentAccount.setText("" + instanceCompany.getCompanyCurrentAccount());
 		txtFieldCompanyCurrentAccount.addFocusListener(new CompanyDataListener());
 		companyDataFrame.getContentPane().add(txtFieldCompanyCurrentAccount, constraints);
 
@@ -482,7 +476,7 @@ public class MenuBar extends JFrame{
 		constraints.gridy = 3; 
 		txtFieldCompanyEDRPOU = new JTextField();
 		txtFieldCompanyEDRPOU.setPreferredSize(new Dimension(230, 25));
-		txtFieldCompanyEDRPOU.setText("" + Company.getInstance().getCompanyEDRPOU());
+		txtFieldCompanyEDRPOU.setText("" + instanceCompany.getCompanyEDRPOU());
 		txtFieldCompanyEDRPOU.addFocusListener(new CompanyDataListener());
 		companyDataFrame.getContentPane().add(txtFieldCompanyEDRPOU, constraints);
 
@@ -496,7 +490,7 @@ public class MenuBar extends JFrame{
 		txtAreaCompanyRegisteredOffice = new JTextArea();
 		txtAreaCompanyRegisteredOffice.setPreferredSize(new Dimension(230, 50));
 		txtAreaCompanyRegisteredOffice.setFont(new Font (Font.SERIF, Font.ROMAN_BASELINE, 12));
-		txtAreaCompanyRegisteredOffice.setText(Company.getInstance().getCompanyRegisteredOffice());
+		txtAreaCompanyRegisteredOffice.setText(instanceCompany.getCompanyRegisteredOffice());
 		txtAreaCompanyRegisteredOffice.setLineWrap(true);
 		txtAreaCompanyRegisteredOffice.setWrapStyleWord(true);
 		companyDataFrame.getContentPane().add(txtAreaCompanyRegisteredOffice, constraints);
@@ -526,38 +520,35 @@ public class MenuBar extends JFrame{
 	//*******************************************************************************
 	public static void saveEditedCompanyData () {
 		
-		if (! txtFieldCompanyName.getText().equals(Company.getInstance().getCompanyName())); {
-			Company.getInstance().setCompanyName(txtFieldCompanyName.getText());
+		if (! txtFieldCompanyName.getText().equals(instanceCompany.getCompanyName())); {
+			instanceCompany.setCompanyName(txtFieldCompanyName.getText());
 		}//if
 		
-		if (! txtAreaCompanyRegisteredOffice.getText().equals(Company.getInstance().getCompanyRegisteredOffice())); {
-			Company.getInstance().setCompanyRegisteredOffice(txtAreaCompanyRegisteredOffice.getText());
+		if (! txtAreaCompanyRegisteredOffice.getText().equals(instanceCompany.getCompanyRegisteredOffice())); {
+			instanceCompany.setCompanyRegisteredOffice(txtAreaCompanyRegisteredOffice.getText());
 		}//if
 		
-		String strForFiling = "Company Name: " + Company.getInstance().getCompanyName() +  
-								"   companyCEO: " +  Company.getInstance().getCompanyCEO() +
-								"   companyCurrentAccount: " +  Company.getInstance().getCompanyCurrentAccount() +  
-								"   companyEDRPOU: " + Company.getInstance().getCompanyEDRPOU() +
-								"   companyRegisteredOffice: " + Company.getInstance().getCompanyRegisteredOffice();
+		String strForFiling = "Company Name: " + instanceCompany.getCompanyName() +  
+								"   companyCEO: " +  instanceCompany.getCompanyCEO() +
+								"   companyCurrentAccount: " +  instanceCompany.getCompanyCurrentAccount() +  
+								"   companyEDRPOU: " + instanceCompany.getCompanyEDRPOU() +
+								"   companyRegisteredOffice: " + instanceCompany.getCompanyRegisteredOffice();
 		try {
 			MyUtil.replacementStrInFile(strForFiling, "src/main/resources/CompanyData.cdt", "Company Name:");
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}//saveEditedCompanyData()
 //*****************************************************************************************************************
 	public static void openListAllEmployee () {
 		try {
-			Company.getInstance().setArrListObjAllEmployee(
-					Company.createArrayListObjAllEmplFromFile(
+			instanceCompany.createArrayListObjAllEmplFromFile(
 							"src/main/resources/EmployeesFixedSalary.efs",
-							"src/main/resources/EmployeesHourlyWages.ehw"));
+							"src/main/resources/EmployeesHourlyWages.ehw");
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		AllEmployeeTableModel AllEmpltableModel = new AllEmployeeTableModel(Company.getInstance().getArrListObjAllEmployee());
+		AllEmployeeTableModel AllEmpltableModel = new AllEmployeeTableModel(instanceCompany.getArrListObjAllEmployee());
 		getMainFrame().displayTable(AllEmpltableModel);
 	}//openListAllEmployee
 }//MenuBar
@@ -565,6 +556,7 @@ public class MenuBar extends JFrame{
 //*******//class CompanyDataListener//****************************************
 
 class CompanyDataListener implements ActionListener, FocusListener {
+	private static Company instanceCompany = Company.getInstance();
 	
 	@Override
 	public void actionPerformed(ActionEvent event) {
@@ -602,39 +594,39 @@ class CompanyDataListener implements ActionListener, FocusListener {
 	public void focusLost(FocusEvent event) throws NumberFormatException{
 
 		if (event.getSource() == MenuBar.getTxtFieldCompanyCEO()) {
-			if (! MenuBar.getTxtFieldCompanyCEO().getText().equals(Company.getInstance().getCompanyCEO())); {
+			if (! MenuBar.getTxtFieldCompanyCEO().getText().equals(instanceCompany.getCompanyCEO())); {
 				try {
-					Company.getInstance().setCompanyCEO(MenuBar.getTxtFieldCompanyCEO().getText());
+					instanceCompany.setCompanyCEO(MenuBar.getTxtFieldCompanyCEO().getText());
 				} catch (StringDigitIncludeException e) {
 					JOptionPane.showMessageDialog(null, "Incorrect value!", "Error", JOptionPane.ERROR_MESSAGE);
 					MenuBar.getTxtFieldCompanyCEO().requestFocus();
-					MenuBar.getTxtFieldCompanyCEO().setText(Company.getInstance().getCompanyCEO());
+					MenuBar.getTxtFieldCompanyCEO().setText(instanceCompany.getCompanyCEO());
 					
 				}
 			}//if
 		}//if
 		
 		else if (event.getSource() == MenuBar.getTxtFieldCompanyEDRPOU()) {
-				if (! MenuBar.getTxtFieldCompanyEDRPOU().getText().equals(Company.getInstance().getCompanyEDRPOU())); {
+				if (! MenuBar.getTxtFieldCompanyEDRPOU().getText().equals(instanceCompany.getCompanyEDRPOU())); {
 					try {
-						Company.getInstance().setCompanyEDRPOU(Long.valueOf(MenuBar.getTxtFieldCompanyEDRPOU().getText()));
+						instanceCompany.setCompanyEDRPOU(Long.valueOf(MenuBar.getTxtFieldCompanyEDRPOU().getText()));
 					} catch (NumberFormatException ex) {
 						JOptionPane.showMessageDialog(null,
 								"Field 'Company EDRPOU' requires an long value","Error", JOptionPane.ERROR_MESSAGE);
-						MenuBar.getTxtFieldCompanyEDRPOU().setText("" + Company.getInstance().getCompanyEDRPOU());
+						MenuBar.getTxtFieldCompanyEDRPOU().setText("" + instanceCompany.getCompanyEDRPOU());
 						MenuBar.getTxtFieldCompanyEDRPOU().requestFocus();
 					}
 				}//if
 		}//else if
 		else if (event.getSource() == MenuBar.getTxtFieldCompanyCurrentAccount()) {
-				if (! MenuBar.getTxtFieldCompanyCurrentAccount().getText().equals(Company.getInstance().getCompanyCurrentAccount())); {
+				if (! MenuBar.getTxtFieldCompanyCurrentAccount().getText().equals(instanceCompany.getCompanyCurrentAccount())); {
 					try {
-						Company.getInstance().setCompanyCurrentAccount(Long.valueOf(MenuBar.getTxtFieldCompanyCurrentAccount().getText()));
+						instanceCompany.setCompanyCurrentAccount(Long.valueOf(MenuBar.getTxtFieldCompanyCurrentAccount().getText()));
 					} catch (NumberFormatException ex) {
 						JOptionPane.showMessageDialog(null,
 									"Field 'Company Current Account' requires an long value",
 										"Error", JOptionPane.ERROR_MESSAGE);
-						MenuBar.getTxtFieldCompanyCurrentAccount().setText("" + Company.getInstance().getCompanyCurrentAccount());
+						MenuBar.getTxtFieldCompanyCurrentAccount().setText("" + instanceCompany.getCompanyCurrentAccount());
 						MenuBar.getTxtFieldCompanyCurrentAccount().requestFocus();
 					}
 				}//if
@@ -648,23 +640,16 @@ class EmployeeFixSalListener implements ActionListener {
 	
 	@Override
 	public void actionPerformed(ActionEvent event) {
-		if (event.getActionCommand().equals("Open List Employees")) {
-			try {
+		try {
+			if (event.getActionCommand().equals("Open List Employees")) {
 				MenuBar.openFileEmployeesData();
-
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}//catch
-		}//if
-		else if (event.getActionCommand().equals("New")) {
-			
-			try {
+			}//if
+			else if (event.getActionCommand().equals("New")) {
 				MenuBar.createNewTable("FixSal");				
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		}//if
+			}//if
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}//actionPerformed
 }//class EmployeeFixSalListener
 
@@ -674,23 +659,17 @@ class EmployeeHourlyWagesListener implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent event) {
-		if (event.getActionCommand().equals("Open List Employees")) {
-			try {
+		
+		try {
+			if (event.getActionCommand().equals("Open List Employees")) {
 				MenuBar.openFileEmployeesData();
-
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}//catch
-		}//if
-		else if (event.getActionCommand().equals("New")) {
-			
-			try {
+			}//if
+			else if (event.getActionCommand().equals("New")) {
 				MenuBar.createNewTable("HourlyWages");				
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		}//if
+			}//if
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}//actionPerformed
 }//class EmployeeHourlyWagesListener
 
@@ -700,18 +679,12 @@ class TestModeListener implements ActionListener {
 		
 	@Override
 	public void actionPerformed(ActionEvent event) {
-		
-		if (event.getActionCommand().equals(MenuBar.getSubmenuGenerateCompany().getActionCommand())) {
-			try {
+		try {
+			if (event.getActionCommand().equals(MenuBar.getSubmenuGenerateCompany().getActionCommand())) {
 				TestMode.generationCompanyDataAndFiling("src/main/resources/CompanyData.cdt");
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}//if
-		else if (event.getActionCommand().equals(MenuBar.getRadioMenuGenerEmplFixSal().getActionCommand())) {
+			}//if
+			else if (event.getActionCommand().equals(MenuBar.getRadioMenuGenerEmplFixSal().getActionCommand())) {
 			
-			try {
 				//получаем из диалогового окна количество генерируемых сотрудников
 				int amountEmployee = MenuBar.showInputDialog();
 								
@@ -720,14 +693,9 @@ class TestModeListener implements ActionListener {
 				TestMode.generationEmployeeDataAndFiling(amountEmployee, "src/main/resources/EmployeesFixedSalary.efs");
 				
 				MenuBar.createTableFromDataFile("src/main/resources/EmployeesFixedSalary.efs");				
-				
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		}//if
-		else if (event.getActionCommand().equals(MenuBar.getRadioMenuGenerEmplHourlyWages().getActionCommand())) {
+			}//if
+			else if (event.getActionCommand().equals(MenuBar.getRadioMenuGenerEmplHourlyWages().getActionCommand())) {
 			
-			try {
 				//получаем из диалогового окна количество генерируемых сотрудников
 				int amountEmployee = MenuBar.showInputDialog();
 				
@@ -736,10 +704,9 @@ class TestModeListener implements ActionListener {
 				TestMode.generationEmployeeDataAndFiling(amountEmployee, "src/main/resources/EmployeesHourlyWages.ehw");
 				
 				MenuBar.createTableFromDataFile("src/main/resources/EmployeesHourlyWages.ehw");
-			
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		}//if 
+			}//if 
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}//actionPerformed
 }//class TestModeListener

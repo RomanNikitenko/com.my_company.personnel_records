@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.AbstractTableModel;
 
+import com.company.personnelrecords.company.Employee;
 import com.company.personnelrecords.company.EmployeeFixedSalary;
 import com.company.personnelrecords.exception.StringDigitIncludeException;
 
@@ -13,25 +14,25 @@ import com.company.personnelrecords.exception.StringDigitIncludeException;
 
 public class EmplFixSalTableModel extends AbstractTableModel{
 
-	private String [] columnNames = {"<html><center>Personal<br>Number", "Surname/Name/Middlename", "Department",
+	private static final String [] columnNames = {"<html><center>Personal<br>Number", "Surname/Name/Middlename", "Department",
 		"Post", "<html><center>Average<br>Salary", "<html><center> Monthly <br>Payment", "<html><center>Tax <br>IdentifNum",
 		"Education", "Passport", "Residance"};
-	private ArrayList<EmployeeFixedSalary> arrListObjEmplFixSal;
+	private ArrayList<Employee> arrListObjEmplFixSal;
 	
 	
 //*******************************************************************
 	public EmplFixSalTableModel(
-			ArrayList<EmployeeFixedSalary> arrListObjEmplFixSal) {
+			ArrayList<Employee> arrListObjEmplFixSal) {
 		this.arrListObjEmplFixSal = arrListObjEmplFixSal;
 	}
 
 //***********************************************************************
-	public ArrayList<EmployeeFixedSalary> getArrListObjEmplFixSal() {
+	public ArrayList<Employee> getArrListObjEmplFixSal() {
 		return arrListObjEmplFixSal;
 	}
 
 	public void setArrListObjEmplFixSal(
-			ArrayList<EmployeeFixedSalary> arrListObjEmplFixSal) {
+			ArrayList<Employee> arrListObjEmplFixSal) {
 		this.arrListObjEmplFixSal = arrListObjEmplFixSal;
 	}
 //***********************************************************************	
@@ -49,16 +50,16 @@ public class EmplFixSalTableModel extends AbstractTableModel{
 	public Object getValueAt(int row, int col) {
 		
 		switch (col) {
-		case 0: return arrListObjEmplFixSal.get(row).getPersonalNumber();
-		case 1: return arrListObjEmplFixSal.get(row).getSurnameNameMiddlename();
-		case 2: return arrListObjEmplFixSal.get(row).getDepartment();
-		case 3: return arrListObjEmplFixSal.get(row).getPost();
-		case 4: return arrListObjEmplFixSal.get(row).getAverageSalary();
-		case 5: return arrListObjEmplFixSal.get(row).getMonthlyPayment();
-		case 6: return arrListObjEmplFixSal.get(row).getTaxIdentifNum();
-		case 7: return arrListObjEmplFixSal.get(row).getEducation();
-		case 8: return arrListObjEmplFixSal.get(row).getPassport();
-		case 9: return arrListObjEmplFixSal.get(row).getResidence();
+		case 0: return 							arrListObjEmplFixSal.get(row).getPersonalNumber();
+		case 1: return 							arrListObjEmplFixSal.get(row).getSurnameNameMiddlename();
+		case 2: return 							arrListObjEmplFixSal.get(row).getDepartment();
+		case 3: return 							arrListObjEmplFixSal.get(row).getPost();
+		case 4: return 						  	arrListObjEmplFixSal.get(row).getAverageSalary();
+		case 5: return ((EmployeeFixedSalary) 	arrListObjEmplFixSal.get(row)).getMonthlyPayment();
+		case 6: return 							arrListObjEmplFixSal.get(row).getTaxIdentifNum();
+		case 7: return 							arrListObjEmplFixSal.get(row).getEducation();
+		case 8: return 							arrListObjEmplFixSal.get(row).getPassport();
+		case 9: return 							arrListObjEmplFixSal.get(row).getResidence();
 		default: return "";
 		}//switch
 	}//getValueAt
@@ -118,7 +119,7 @@ public class EmplFixSalTableModel extends AbstractTableModel{
 			break;
 		case 5: 
 			try {
-				arrListObjEmplFixSal.get(row).setMonthlyPayment(
+				((EmployeeFixedSalary) arrListObjEmplFixSal.get(row)).setMonthlyPayment(
 						new BigDecimal(aValue.toString()));
 			} catch (NumberFormatException ex) {
 				JOptionPane.showMessageDialog(null,
@@ -149,6 +150,5 @@ public class EmplFixSalTableModel extends AbstractTableModel{
 		case 9: arrListObjEmplFixSal.get(row).setResidence((String) aValue);
 			break;
 		}//switch
-		
 	}//setValueAt
 }//class

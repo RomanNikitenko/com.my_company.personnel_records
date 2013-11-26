@@ -6,7 +6,6 @@ import java.awt.GridLayout;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.math.BigDecimal;
 import java.util.Comparator;
 
 import javax.swing.BorderFactory;
@@ -22,10 +21,8 @@ import javax.swing.border.TitledBorder;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.TableRowSorter;
 
+import com.company.personnelrecords.company.Company;
 import com.company.personnelrecords.company.EmployeeCreator;
-import com.company.personnelrecords.company.EmployeeFixedSalary;
-import com.company.personnelrecords.company.EmployeeHourlyWages;
-import com.company.personnelrecords.exception.StringDigitIncludeException;
 
 public class MainFrame extends JFrame implements ActionListener {
 	
@@ -42,6 +39,7 @@ public class MainFrame extends JFrame implements ActionListener {
 	private static JButton butClean;
 	private static JButton butDelete;
 	private static JPanel panelEmplTable;
+	private EmployeeCreator emplCreator;
 	
 //*******Конструктор******************************
 	public MainFrame () throws Exception {
@@ -196,87 +194,34 @@ public class MainFrame extends JFrame implements ActionListener {
 		return dataTable;
 	}//displayTable ()
 //***********************************************************
-	public void addEmplFixSalToTable (AbstractTableModel tableModel) {
-		try {
-			if (tableModel instanceof EmplFixSalTableModel) {
-				((EmplFixSalTableModel) tableModel).getArrListObjEmplFixSal()
-						.add(0, new EmployeeCreator().createNewEmplFixSal());
-			}// if
-			else if (tableModel instanceof AllEmployeeTableModel) {
-				((AllEmployeeTableModel) tableModel).getArrListObjAllEmployee()
-						.add(0, new EmployeeCreator().createNewEmplFixSal());
-			}// else if
-		} catch (StringDigitIncludeException e) {
-
-			JOptionPane.showMessageDialog(null,	"Incorrect value!",
-					"Error", JOptionPane.ERROR_MESSAGE);
-		}
+	public void updateAfterRowInserted (AbstractTableModel tableModel) {
 		tableModel.fireTableRowsInserted(0, 0);
 		dataTable.revalidate();
 		panelEmplTable.updateUI();
-	}//addEmplFixSalToTable (AbstractTableModel tableModel)
+	}//updateAfterRowInserted (AbstractTableModel tableModel)
 //**************************************************************
-	public void addEmplHourlyWagesToTable (AbstractTableModel tableModel) {
-		try {
-			if (tableModel instanceof EmplHourlyWagesTableModel) {
-				((EmplHourlyWagesTableModel) tableModel)
-						.getArrListObjEmplHourlyWages().add(
-								0,
-								new EmployeeCreator()
-										.createNewEmplHourlyWages());
-			}// if
-			else if (tableModel instanceof AllEmployeeTableModel) {
-				((AllEmployeeTableModel) tableModel).getArrListObjAllEmployee()
-						.add(0,
-								new EmployeeCreator()
-										.createNewEmplHourlyWages());
-			}// else if
+	public void deleteRowFromTable() {
 
-		} catch (StringDigitIncludeException e) {
-
-			JOptionPane.showMessageDialog(null,	"Incorrect value!",
-					"Error", JOptionPane.ERROR_MESSAGE);
-		}
-		tableModel.fireTableRowsInserted(0, 0);
-		dataTable.revalidate();
-		panelEmplTable.updateUI();
-	}//addEmplHourlyWagesToTable (AbstractTableModel tableModel)
-//**************************************************************
-	public void deleteEmployee () {
-		try {
+		int index = dataTable.convertRowIndexToModel(dataTable.getSelectedRow());
+		Company.getInstance().deleteEmployee(index);
 			
-			if (dataTable.getModel() instanceof EmplFixSalTableModel) {
-				((EmplFixSalTableModel )dataTable.getModel()).getArrListObjEmplFixSal().
-									remove(dataTable.convertRowIndexToModel(dataTable.getSelectedRow()));
-				((EmplFixSalTableModel )dataTable.getModel()).fireTableRowsDeleted(
-						dataTable.convertRowIndexToModel(dataTable.getSelectedRow()),
-						dataTable.convertRowIndexToModel(dataTable.getSelectedRow()));
-				dataTable.revalidate();
-				panelEmplTable.updateUI();
-			}//if
-			else if (dataTable.getModel() instanceof EmplHourlyWagesTableModel) {
-				((EmplHourlyWagesTableModel)dataTable.getModel()).getArrListObjEmplHourlyWages().
-									remove(dataTable.convertRowIndexToModel(dataTable.getSelectedRow()));
-				((EmplHourlyWagesTableModel)dataTable.getModel()).fireTableRowsDeleted(
-						dataTable.convertRowIndexToModel(dataTable.getSelectedRow()),
-						dataTable.convertRowIndexToModel(dataTable.getSelectedRow()));
-				dataTable.revalidate();
-				panelEmplTable.updateUI();
-			}//else if
-			else if (dataTable.getModel() instanceof AllEmployeeTableModel) {
-				((AllEmployeeTableModel)dataTable.getModel()).getArrListObjAllEmployee().
-									remove(dataTable.convertRowIndexToModel(dataTable.getSelectedRow()));
-				((AllEmployeeTableModel)dataTable.getModel()).fireTableRowsDeleted(
-						dataTable.convertRowIndexToModel(dataTable.getSelectedRow()),
-						dataTable.convertRowIndexToModel(dataTable.getSelectedRow()));
-				dataTable.revalidate();
-				panelEmplTable.updateUI();
-			}//else if
-		} catch (IndexOutOfBoundsException ex) {
-			JOptionPane.showMessageDialog(null, "Removing the last line does not work properly. Press 'Clean All', please!",
-					"Error", JOptionPane.ERROR_MESSAGE);
-		}
-		
+		if (dataTable.getModel() instanceof EmplFixSalTableModel) {
+			((EmplFixSalTableModel )dataTable.getModel()).fireTableRowsDeleted(
+					dataTable.convertRowIndexToModel(dataTable.getSelectedRow()),
+					dataTable.convertRowIndexToModel(dataTable.getSelectedRow()));
+		}//if
+		else if (dataTable.getModel() instanceof EmplHourlyWagesTableModel) {
+			((EmplHourlyWagesTableModel)dataTable.getModel()).fireTableRowsDeleted(
+					dataTable.convertRowIndexToModel(dataTable.getSelectedRow()),
+					dataTable.convertRowIndexToModel(dataTable.getSelectedRow()));
+		}//else if
+		else if (dataTable.getModel() instanceof AllEmployeeTableModel) {
+			((AllEmployeeTableModel)dataTable.getModel()).fireTableRowsDeleted(
+					dataTable.convertRowIndexToModel(dataTable.getSelectedRow()),
+					dataTable.convertRowIndexToModel(dataTable.getSelectedRow()));
+		}//else if
+		dataTable.revalidate();
+		panelEmplTable.updateUI();
 	}//deleteEmployee
 //**************************************************************
 	@Override
@@ -292,11 +237,13 @@ public class MainFrame extends JFrame implements ActionListener {
 			break;
 		
 		case "<html><center> Add Employee <br> Fix Salary":
-			addEmplFixSalToTable((AbstractTableModel) dataTable.getModel());
+			Company.getInstance().addEmployee("FixSal");
+			updateAfterRowInserted((AbstractTableModel) dataTable.getModel());
 			break;
 
 		case "<html><center> Add Employee <br>Hourly Wages":
-			addEmplHourlyWagesToTable((AbstractTableModel) dataTable.getModel());
+			Company.getInstance().addEmployee("HourlyWages");
+			updateAfterRowInserted((AbstractTableModel) dataTable.getModel());
 			break;
 
 		case "<html><center> Delete <br> Employee":
@@ -306,7 +253,7 @@ public class MainFrame extends JFrame implements ActionListener {
 						JOptionPane.INFORMATION_MESSAGE);
 				break;
 			}//
-			deleteEmployee();
+			deleteRowFromTable();
 			break;
 		}//switch
 	}//actionPerformed

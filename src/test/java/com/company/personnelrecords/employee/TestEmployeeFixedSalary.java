@@ -8,6 +8,8 @@ import java.util.ArrayList;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.company.personnelrecords.company.Company;
+import com.company.personnelrecords.company.Employee;
 import com.company.personnelrecords.company.EmployeeFixedSalary;
 import com.company.personnelrecords.exception.StringDigitIncludeException;
 import com.company.personnelrecords.testmode.TestMode;
@@ -15,27 +17,24 @@ import com.company.personnelrecords.testmode.TestMode;
 public class TestEmployeeFixedSalary {
 	
 	EmployeeFixedSalary emplFixSal;
-	ArrayList<EmployeeFixedSalary> arrListObjEmplFixSal; 
+	ArrayList<Employee> arrListObjEmplFixSal; 
 	int amountGenerationEmployee = 10;
 
 	@Before
 	public void setup() throws Exception{
-	    
-		emplFixSal = new EmployeeFixedSalary(1, "Ivanov Ivan",
-	    		"Department ¹ 1", "manager", new BigDecimal(10000), 1370993795l,
-	    		"higher", "HC 139926", "New-York", new BigDecimal(10000));
-	    
-	    TestMode.generationEmployeeDataAndFiling(amountGenerationEmployee,
+
+		emplFixSal = new EmployeeFixedSalary(0, "", "", "", new BigDecimal(10000), 0, "", "", "", new BigDecimal(0));
+		
+		TestMode.generationEmployeeDataAndFiling(amountGenerationEmployee,
 	    		"src/main/resources/EmployeesFixedSalary.efs");
 
-	    arrListObjEmplFixSal = EmployeeFixedSalary.createArrayListObjEmployeeFromFile(
+	    arrListObjEmplFixSal = Company.getInstance().createArrayListObjEmplFixSalFromFile(
 				"src/main/resources/EmployeesFixedSalary.efs");
-
 	}//setup
 
 	
 	@Test
-    public void testCreateEmpl() {
+    public void testCreateEmpl() throws StringDigitIncludeException {
 		assertNotNull(emplFixSal);
 	}//testCreateEmpl
 		

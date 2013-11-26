@@ -15,7 +15,7 @@ import com.company.personnelrecords.exception.StringDigitIncludeException;
 
 public class AllEmployeeTableModel extends AbstractTableModel{
 
-	private String [] columnNames = {"<html><center>Personal<br>Number", "Surname/Name/Middlename", "Department",
+	private static final String [] columnNames = {"<html><center>Personal<br>Number", "Surname/Name/Middlename", "Department",
 		"Post", "<html><center>Average<br>Salary", "<html><center> Monthly <br>Payment", "<html><center> Hourly <br>Rate",
 		"<html><center>Tax <br>IdentifNum", "Education", "Passport", "Residance"};
 	private ArrayList<Employee> arrListObjAllEmployee;
@@ -176,6 +176,5 @@ public class AllEmployeeTableModel extends AbstractTableModel{
 		case 10: arrListObjAllEmployee.get(row).setResidence((String) aValue);
 			break;
 		}//switch
-		
 	}//setValueAt
 }//class

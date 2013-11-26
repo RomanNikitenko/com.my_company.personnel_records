@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.AbstractTableModel;
 
+import com.company.personnelrecords.company.Employee;
 import com.company.personnelrecords.company.EmployeeHourlyWages;
 import com.company.personnelrecords.exception.StringDigitIncludeException;
 
@@ -13,25 +14,25 @@ import com.company.personnelrecords.exception.StringDigitIncludeException;
 
 public class EmplHourlyWagesTableModel extends AbstractTableModel{
 
-	private String [] columnNames = {"<html><center>Personal<br>Number", "Surname/Name/Middlename", "Department",
+	private static final String [] columnNames = {"<html><center>Personal<br>Number", "Surname/Name/Middlename", "Department",
 		"Post", "<html><center>Average<br>Salary", "<html><center> Hourly <br>Rate", "<html><center>Tax <br>IdentifNum",
 		"Education", "Passport", "Residance"};
-	private  ArrayList<EmployeeHourlyWages> arrListObjEmplHourlyWages;
+	private  ArrayList<Employee> arrListObjEmplHourlyWages;
 	
 //*****************************************************************************
 	public EmplHourlyWagesTableModel(
-			ArrayList<EmployeeHourlyWages> arrListObjEmplHourlyWages) {
+			ArrayList<Employee> arrListObjEmplHourlyWages) {
 		this.arrListObjEmplHourlyWages = arrListObjEmplHourlyWages;
 	}
 
 //*******//get/set//***********************************************************
 
-	public ArrayList<EmployeeHourlyWages> getArrListObjEmplHourlyWages() {
+	public ArrayList<Employee> getArrListObjEmplHourlyWages() {
 		return arrListObjEmplHourlyWages;
 	}
 
 	public void setArrListObjEmplHourlyWages(
-			ArrayList<EmployeeHourlyWages> arrListObjEmplHourlyWages) {
+			ArrayList<Employee> arrListObjEmplHourlyWages) {
 		this.arrListObjEmplHourlyWages = arrListObjEmplHourlyWages;
 	}
 //****************************************************************************************
@@ -50,16 +51,16 @@ public class EmplHourlyWagesTableModel extends AbstractTableModel{
 	public Object getValueAt(int row, int col) {
 		
 		switch (col) {
-		case 0: return arrListObjEmplHourlyWages.get(row).getPersonalNumber();
-		case 1: return arrListObjEmplHourlyWages.get(row).getSurnameNameMiddlename();
-		case 2: return arrListObjEmplHourlyWages.get(row).getDepartment();
-		case 3: return arrListObjEmplHourlyWages.get(row).getPost();
-		case 4: return arrListObjEmplHourlyWages.get(row).getAverageSalary();
-		case 5: return arrListObjEmplHourlyWages.get(row).getHourlyRate();
-		case 6: return arrListObjEmplHourlyWages.get(row).getTaxIdentifNum();
-		case 7: return arrListObjEmplHourlyWages.get(row).getEducation();
-		case 8: return arrListObjEmplHourlyWages.get(row).getPassport();
-		case 9: return arrListObjEmplHourlyWages.get(row).getResidence();
+		case 0: return 							arrListObjEmplHourlyWages.get(row).getPersonalNumber();
+		case 1: return 							arrListObjEmplHourlyWages.get(row).getSurnameNameMiddlename();
+		case 2: return 							arrListObjEmplHourlyWages.get(row).getDepartment();
+		case 3: return 							arrListObjEmplHourlyWages.get(row).getPost();
+		case 4: return 							arrListObjEmplHourlyWages.get(row).getAverageSalary();
+		case 5: return ((EmployeeHourlyWages) 	arrListObjEmplHourlyWages.get(row)).getHourlyRate();
+		case 6: return 							arrListObjEmplHourlyWages.get(row).getTaxIdentifNum();
+		case 7: return 							arrListObjEmplHourlyWages.get(row).getEducation();
+		case 8: return 							arrListObjEmplHourlyWages.get(row).getPassport();
+		case 9: return 							arrListObjEmplHourlyWages.get(row).getResidence();
 		default: return "";
 		}//switch
 	}//getValueAt
@@ -117,7 +118,7 @@ public class EmplHourlyWagesTableModel extends AbstractTableModel{
 			break;
 		case 5: 
 			try {
-				arrListObjEmplHourlyWages.get(row).setHourlyRate(
+				((EmployeeHourlyWages) arrListObjEmplHourlyWages.get(row)).setHourlyRate(
 						new BigDecimal(aValue.toString()));
 			} catch (NumberFormatException ex) {
 				JOptionPane.showMessageDialog(null,
