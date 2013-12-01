@@ -2,11 +2,16 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
-	<body style="padding-top:50px;"> 
+	<body style="padding-top:20px;"> 
+		<Form action="index.jsp" >
+    			<p align="left"> <INPUT type="submit" value="<= Back to Home page" style="height:45px" align="center"></p> 
+		</Form>
+		
 		<c:out value="Current Time: ${calend.time}"/>
+		
 		<Form name = "companyDataForm">
 		<fieldset align = "center">
-		<legend><h3>Company Data</h3></legend>
+		<legend><h2>Company Data</h2></legend>
 		<table align="center">
 		<tr align="left"><td><Strong>Company Name:</Strong> </td>
 							 <td><input type = "text" name = "companyName" size="30" value = "${companyName}"></td></tr>
@@ -24,9 +29,7 @@
     	<p align="center">	<INPUT type="submit" value="Save" style="width:150px; height:45px">
     						<INPUT type="reset" value="Cancel Editing" style="width:150px; height:45px"></p>
     	</Form>
-    	<Form action="index.jsp" >
-    			<p align="center"> <INPUT type="submit" value="Back to Home page" style="height:45px" align="center"></p> 
-		</Form>
+    	
 		 
  
 </body></html> 

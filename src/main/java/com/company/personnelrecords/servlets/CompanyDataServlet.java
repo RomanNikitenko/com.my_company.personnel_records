@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.company.personnelrecords.company.Company;
 
 
-public class ServletController extends HttpServlet {
+public class CompanyDataServlet extends HttpServlet {
 	
 	private Company instanceCompany;
 	
@@ -23,21 +23,18 @@ public class ServletController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) 
                           throws ServletException, IOException {
-    	
-
-    	request.setAttribute("companyName", instanceCompany.getCompanyName());
-    	request.setAttribute("companyCEO", instanceCompany.getCompanyCEO());
-    	request.setAttribute("companyCurAcc", instanceCompany.getCompanyCurrentAccount());
-    	request.setAttribute("companyEDRPOU", instanceCompany.getCompanyEDRPOU());
-    	request.setAttribute("companyRegOffice", instanceCompany.getCompanyRegisteredOffice());
-    	request.getSession().setAttribute("calend", Calendar.getInstance());
-    	request.getRequestDispatcher("/companyData.jsp").forward(request, response); 
-    	
-
     }//doPost
  
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) 
                          throws ServletException, IOException {
+    	request.setAttribute("companyName", instanceCompany.getCompanyName());
+    	request.setAttribute("companyCEO", instanceCompany.getCompanyCEO());
+    	request.setAttribute("companyCurAcc", instanceCompany.getCompanyCurrentAccount());
+    	request.setAttribute("companyEDRPOU", instanceCompany.getCompanyEDRPOU());
+    	request.setAttribute("companyRegOffice", instanceCompany.getCompanyRegisteredOffice());
+    	
+    	request.getRequestDispatcher("/companyData.jsp").forward(request, response); 
+    	request.getSession().setAttribute("calend", Calendar.getInstance());
     }
 }

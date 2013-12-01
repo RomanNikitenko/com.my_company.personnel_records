@@ -6,11 +6,20 @@ com/xml/ns/javaee/web-app_3_0.xsd"
 
   <display-name>Archetype Created Web Application</display-name>
   <servlet> 
-  	<servlet-name>controller</servlet-name> 
-  	<servlet-class>com.company.personnelrecords.servlets.ServletController</servlet-class> 
+  	<servlet-name>ServlCompanyData</servlet-name> 
+  	<servlet-class>com.company.personnelrecords.servlets.CompanyDataServlet</servlet-class> 
  </servlet> 
   <servlet-mapping> 
-  <servlet-name>controller</servlet-name> 
+  <servlet-name>ServlCompanyData</servlet-name> 
   <url-pattern>/companyData</url-pattern> 
+ </servlet-mapping>
+ <servlet> 
+  	<servlet-name>ServlEmplFixSalData</servlet-name> 
+  	<servlet-class>com.company.personnelrecords.servlets.EmplFixSalDataServlet</servlet-class> 
+ </servlet> 
+  <servlet-mapping> 
+  <servlet-name>ServlEmplFixSalData</servlet-name> 
+  <url-pattern>/EmplFixSalData</url-pattern> 
  </servlet-mapping> 
+  
 </web-app>

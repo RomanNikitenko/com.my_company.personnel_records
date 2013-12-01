@@ -8,7 +8,7 @@
 
 	<fieldset align="center">
 		<legend>
-			<h3>Test Mode</h3>
+			<h2>Test Mode</h2>
 		</legend>
 
 		<table align="center">
@@ -18,27 +18,29 @@
 
 			<tr>
 				<td>
-					<Form action="companyData" method="POST">
+					<Form action="companyData" method="GET">
 						<INPUT type="submit" value="Show/Edit Company Data"
 							style="width: 250px; height: 45px">
 					</Form>
 				</td>
 			</tr>
 			<tr>
-				<td><Form>
-						<INPUT type="reset" value="Generate Employee with fix salary"
+				<td>
+					<Form action="EmplFixSalData" method="POST">
+						<INPUT type="submit" value="Generate Employee with fix salary"
 							style="width: 250px; height: 45px">
-					</Form></td>
-				<td><input type="text" name="quanityEmplFixSal" size="1"
-					maxlength="3"></td>
+				</td>
+				<td><input type="text" value="50" name="quanityEmplFixSal"
+					size="1" maxlength="3">
+				</Form></td>
 			</tr>
 			<tr>
 				<td><Form>
 						<INPUT type="reset" value="Generate Employee with hourly wages"
 							style="width: 250px; height: 45px">
 					</Form></td>
-				<td><input type="text" name="quanityEmplHourlyWages" size="1"
-					maxlength="3"></td>
+				<td><input type="text" value="50" name="quanityEmplHourlyWages"
+					size="1" maxlength="3"></td>
 			</tr>
 		</table>
 	</fieldset>
