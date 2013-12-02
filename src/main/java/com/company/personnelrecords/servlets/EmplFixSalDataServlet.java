@@ -27,13 +27,14 @@ public class EmplFixSalDataServlet extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		
-			
-			request.setAttribute("arrObjEmpl", generationEmployee(request.getParameter("quanityEmplFixSal")));
-			request.setAttribute("arrColumnNames", columnNames);
-			request.getRequestDispatcher("/emplFixSalData.jsp").forward(
-					request, response);
-			request.getSession().setAttribute("calend", Calendar.getInstance());
+		request.setCharacterEncoding("UTF-8");
+
+		request.setAttribute("arrObjEmpl",
+				generationEmployee(request.getParameter("quanityEmplFixSal")));
+		request.setAttribute("arrColumnNames", columnNames);
+		request.getRequestDispatcher("/emplFixSalData.jsp").forward(request,
+				response);
+		request.getSession().setAttribute("calend", Calendar.getInstance());
 
 	}// doPost
 	//*****************************************************************************************
