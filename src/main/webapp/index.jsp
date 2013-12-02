@@ -1,6 +1,11 @@
 <%@ page contentType="text/html; charset=UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <html>
+<style>
+td {
+	vertical-align: baseline;
+}
+</style>
 <body style="padding-top: 25px;">
 	<h1 align="center">Welcome!</h1>
 	<jsp:useBean id="gc" class="java.util.GregorianCalendar" />
@@ -12,10 +17,6 @@
 		</legend>
 
 		<table align="center">
-			<style>
-				td {vertical-align: baseline;}
-			</style>
-
 			<tr>
 				<td>
 					<Form action="companyData" method="GET">
@@ -23,24 +24,25 @@
 							style="width: 250px; height: 45px">
 					</Form>
 				</td>
+				<td></td>
 			</tr>
 			<tr>
 				<td>
 					<Form action="EmplFixSalData" method="POST">
 						<INPUT type="submit" value="Generate Employee with fix salary"
-							style="width: 250px; height: 45px">
+							style="width: 250px; height: 45px"> <input type="text"
+							value="50" name="quanityEmplFixSal" size="1" maxlength="3">
+					</Form>
 				</td>
-				<td><input type="text" value="50" name="quanityEmplFixSal"
-					size="1" maxlength="3">
-				</Form></td>
 			</tr>
 			<tr>
-				<td><Form>
-						<INPUT type="reset" value="Generate Employee with hourly wages"
-							style="width: 250px; height: 45px">
-					</Form></td>
-				<td><input type="text" value="50" name="quanityEmplHourlyWages"
-					size="1" maxlength="3"></td>
+				<td>
+					<Form action="EmplHourlyWagesData" method="POST">
+						<INPUT type="submit" value="Generate Employee with hourly wages"
+							style="width: 250px; height: 45px"> <input type="text"
+							value="50" name="quanityEmplHourlyWages" size="1" maxlength="3">
+					</Form>
+				</td>
 			</tr>
 		</table>
 	</fieldset>

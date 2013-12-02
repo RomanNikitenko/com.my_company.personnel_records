@@ -11,13 +11,14 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.company.personnelrecords.company.Company;
 import com.company.personnelrecords.company.Employee;
+import com.company.personnelrecords.company.EmployeeHourlyWages;
 import com.company.personnelrecords.testmode.TestMode;
 
-public class EmplFixSalDataServlet extends HttpServlet {
+public class EmplHourlyWagesDataServlet extends HttpServlet {
 
 	private Company instanceCompany;
 	private static final String [] columnNames = {"<html><center>Personal<br>Number", "Surname/Name/Middlename", "Department",
-		"Post", "<html><center>Average<br>Salary", "<html><center> Monthly <br>Payment", "<html><center>Tax <br>IdentifNum",
+		"Post", "<html><center>Average<br>Salary", "<html><center> Hourly <br>Rate", "<html><center>Tax <br>IdentifNum",
 		"Education", "Passport", "Residance"};
 
 	public void init() throws ServletException {
@@ -29,9 +30,9 @@ public class EmplFixSalDataServlet extends HttpServlet {
 			HttpServletResponse response) throws ServletException, IOException {
 		
 			
-			request.setAttribute("arrObjEmpl", generationEmployee(request.getParameter("quanityEmplFixSal")));
+			request.setAttribute("arrObjEmpl", generationEmployee(request.getParameter("quanityEmplHourlyWages")));
 			request.setAttribute("arrColumnNames", columnNames);
-			request.getRequestDispatcher("/emplFixSalData.jsp").forward(
+			request.getRequestDispatcher("/emplHourlyWagesData.jsp").forward(
 					request, response);
 			request.getSession().setAttribute("calend", Calendar.getInstance());
 
@@ -46,13 +47,12 @@ public class EmplFixSalDataServlet extends HttpServlet {
 		
 		try {
 		int amountEmpl = Integer.valueOf(amountEmployee);
-		String pathFileOut = "src/main/resources/EmployeesFixedSalary.efs"; 
+		String pathFileOut = "src/main/resources/EmployeesHourlyWages.ehw";
 
-		TestMode.generationEmployeeDataAndFiling(amountEmpl, pathFileOut);
+		TestMode.generationEmployeeDataAndFiling(amountEmpl,pathFileOut);
 		
 		ArrayList<Employee> arrEmpl = instanceCompany
-				.createArrayListObjEmplFixSalFromFile(pathFileOut);
-		
+				.createArrayListObjEmplHourlyWagesFromFile(pathFileOut);
 		return arrEmpl;
 		} catch (Exception e) {
 			return null;

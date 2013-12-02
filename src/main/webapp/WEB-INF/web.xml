@@ -20,6 +20,13 @@ com/xml/ns/javaee/web-app_3_0.xsd"
   <servlet-mapping> 
   <servlet-name>ServlEmplFixSalData</servlet-name> 
   <url-pattern>/EmplFixSalData</url-pattern> 
+ </servlet-mapping>
+ <servlet> 
+  	<servlet-name>ServlEmplHourlyWagesData</servlet-name> 
+  	<servlet-class>com.company.personnelrecords.servlets.EmplHourlyWagesDataServlet</servlet-class> 
+ </servlet> 
+  <servlet-mapping> 
+  <servlet-name>ServlEmplHourlyWagesData</servlet-name> 
+  <url-pattern>/EmplHourlyWagesData</url-pattern> 
  </servlet-mapping> 
-  
 </web-app>
