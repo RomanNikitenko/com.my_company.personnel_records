@@ -6,66 +6,65 @@ public class TestMode {
 
 	private static String [] arrCompanyName = {"IBM-Company", "Google-Company", "Sumsung-Company",
 											"Lenovo-Company"};
-	private static String [] arrEducation = {"Средне-специальное", "Высшее", "Незаконченное высшее",
-											"Среднее"};
-	private static String [] arrPost = 	  {"Управляющий", "Инженер", "Слесарь", "Менеджер",
-									"Технический директор", "Офис-менеджер", "Сисадмин",
-									"Обслуживающий персонал"};
+	private static String [] arrEducation = {"High School", "Higher", " Vocational education"};
+	private static String [] arrPost = 	  {"Chief Engineer", "Executive Director", "Accountant", "General Director",
+									"Programmer", "Clerk", "Assistant", "Laborer"};
 	private static int [] arrPostSalary = {8000, 6000, 4000, 5000, 10000, 4500, 5500, 3000};
 
-	private static String [] arrDepartment = {"Отдел работы с клиентами", "Технический отдел", "Хоз-часть", "Аналитический отдел",
-									"Отдел сборки"};
-	private static String [] arrOffPassport = {"Сосновским РВ УМВС", "Приднепровским РВ УМВС"};
-	private static String [] arrCity = {"г. Черкассы", "г. Киев", "г. Харьков", "г. Смела"};
-	private static String [] arrStreet = {"ул. Шевченка", "ул. Гоголя", "ул. Сумгаитская", "ул. Ленина"};
+	private static String [] arrDepartment = {"Material department", "Payroll department", "Department of programmers",
+											"Department of designers", "Department of engineers"};
+	private static String [] arrOffPassport = {"Ministry of Internal Affairs, district division of Cherkassy city department",
+												"Ministry of Internal Affairs, district division of Kiev city department"};
+	private static String [] arrCity = {"Kiev", "Cherkassy", "Kharkiv", "Lviv", "Moscow"};
+	private static String [] arrStreet = {"Shevchenko str.", "Gogol str.", "University str.", "Chekhov str."};
 	
 	
 	//**************************************************************
-		/**Метод, генерирует   random-данные для меню Company 
-		 * и записывает их в файл.
-		 * Для генерации случайных данных использовано два источника:
-		 * -  массивы класса Test
-		 * -  файл с данными.
-		 * @param pathFileOut String - путь к файлу, в который будет произведена запись сгенерированных данных
-		 * @return String [] - массив сгенерированных данных 
+		/**пїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ   random-пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅ Company 
+		 * пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅ пїЅпїЅпїЅпїЅ.
+		 * пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ:
+		 * -  пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ Test
+		 * -  пїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ.
+		 * @param pathFileOut String - пїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅ, пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
+		 * @return String [] - пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ 
 		 * @throws Exception
 		 */
 		public static String[] generationCompanyDataAndFiling (String pathFileOut)	throws Exception {
-			//т.к. в наличии были готовые методы, которые возвращают МАССИВы random-data,
-			//то использовал их, указав количество генераций = 1 ...
+			//пїЅ.пїЅ. пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ random-data,
+			//пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ, пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ = 1 ...
 			
-			//Генерируем companyName 
+			//пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ companyName 
 			String companyName = (MyUtil.generationRandomCellsOfArray(arrCompanyName, 1))[0];
 
-			//Генерируем фамилию, имя и отчество генерального директора 
+			//пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ 
 			String companyCEO = generationRandomSurnameNameMiddlename(1)[0];
 			
-			// генерируем random-data City companyRegisteredOffice
+			// пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ random-data City companyRegisteredOffice
 			String cityCompanyRegisteredOffice = MyUtil.generationRandomCellsOfArray(arrCity, 1)[0];
 			
-			// генерируем random-data street companyRegisteredOffice
+			// пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ random-data street companyRegisteredOffice
 			String streetCompanyRegisteredOffice = MyUtil.generationRandomCellsOfArray(arrStreet, 1)[0];
 			
-			// генерируем random-data почтового индекса companyRegisteredOffice
+			// пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ random-data пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ companyRegisteredOffice
 			int zipCompanyRegisteredOffice = MyUtil.createArrRandomNum(1, 10000, 19000)[0];
 			
-			// генерируем random-data номер дома companyRegisteredOffice
+			// пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ random-data пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ companyRegisteredOffice
 			int numHouseCompanyRegisteredOffice = MyUtil.createArrRandomNum(1, 1, 500)[0];
 			
-			// генерируем random-data номер оффиса companyRegisteredOffice
+			// пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ random-data пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ companyRegisteredOffice
 			int numApprtmentCompanyRegisteredOffice = MyUtil.createArrRandomNum(1, 1, 50)[0];
 			
-			// генерируем random-data companyCurrentAccount
+			// пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ random-data companyCurrentAccount
 			long companyCurrentAccount = MyUtil.createArrRandomNum(1, 1000000000l, 9999999999l)[0];
 
-			// генерируем массив random-data companyEDRPOU
+			// пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ random-data companyEDRPOU
 			long companyEDRPOU = MyUtil.createArrRandomNum(1, 1000000000l, 9999999999l)[0];
 
 			String [] companyData = new String [4];
 			companyData [0] = "Company Name: " + companyName +  "   companyCEO: " +  companyCEO +
 							 "   companyCurrentAccount: " +  companyCurrentAccount +  "   companyEDRPOU: " + companyEDRPOU +
 							 "   companyRegisteredOffice: " + zipCompanyRegisteredOffice + ", " + cityCompanyRegisteredOffice +
-							 ", " + streetCompanyRegisteredOffice + " " + numHouseCompanyRegisteredOffice + ", оф. " + numApprtmentCompanyRegisteredOffice;
+							 ", " + streetCompanyRegisteredOffice + " " + numHouseCompanyRegisteredOffice + ", пїЅпїЅ. " + numApprtmentCompanyRegisteredOffice;
 			
 			companyData [1] = "Departments: " + arrDepartment[0] + ", " + arrDepartment[1] + ", " + arrDepartment[2] + ", "
 								+ arrDepartment[3] + ", " + arrDepartment[4];
@@ -78,96 +77,96 @@ public class TestMode {
 					+ arrPostSalary[3] + ", " + arrPostSalary[4] + ", " + arrPostSalary[5] + ", "
 							+ arrPostSalary[6] + ", " + arrPostSalary[7];
 
-			//Записываем сформированный массив результата в файл
+			//пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅ
 			MyUtil.recMassStr(pathFileOut, companyData);
 			
 			return companyData;
 		}//generationCompanyDataAndFiling
 //**************************************************************
-	/**Метод, генерирует   random-данные по полям EmployeeFixedSalary и EmployeeHourlyWages 
-	 * и записывает их в файл.
-	 * Для генерации случайных данных использовано два источника:
-	 * -  массивы класса Test
-	 * -  файл с данными.
-	 * @param amountEmployee int - количество генерируемых сотрудников
-	 * @param pathFileOut String - путь к файлу, в который будет произведена запись сгенерированных данных
-	 * @return String [] - массив сгенерированных данных 
+	/**пїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ   random-пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅ EmployeeFixedSalary пїЅ EmployeeHourlyWages 
+	 * пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅ пїЅпїЅпїЅпїЅ.
+	 * пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ:
+	 * -  пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ Test
+	 * -  пїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ.
+	 * @param amountEmployee int - пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+	 * @param pathFileOut String - пїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅ, пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
+	 * @return String [] - пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ 
 	 * @throws Exception
 	 */
 	public static String[] generationEmployeeDataAndFiling (int amountEmployee, 
 															String pathFileOut)	throws Exception {
 		
-		//Генерируем последовательность фамилий, имен и отчеств
+		//пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 		String [] arrSurnameNameMiddlename = generationRandomSurnameNameMiddlename(amountEmployee);
 		
-		// генерируем массив random-data Education
+		// пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ random-data Education
 		String [] arrRandomDataEducation = MyUtil.generationRandomCellsOfArray(arrEducation, amountEmployee);
 		
-		// генерируем массив random-data Post
+		// пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ random-data Post
 		String [] arrRandomDataPost = MyUtil.generationRandomCellsOfArray(arrPost, amountEmployee);
 		
-		// генерируем массив random-data Department
+		// пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ random-data Department
 		String [] arrRandomDataDepartment = MyUtil.generationRandomCellsOfArray(arrDepartment, amountEmployee);
 
-		// генерируем массив random-data OffPassport
+		// пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ random-data OffPassport
 		String [] arrRandomDataOffPassport = MyUtil.generationRandomCellsOfArray(arrOffPassport, amountEmployee);
 
-		// генерируем массив random-data CityPassport
+		// пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ random-data CityPassport
 		String [] arrRandomDataCityPassport = MyUtil.generationRandomCellsOfArray(arrCity, amountEmployee);
 
-		// генерируем массив random-data CityResidence
+		// пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ random-data CityResidence
 		String [] arrRandomDataCityResidence = MyUtil.generationRandomCellsOfArray(arrCity, amountEmployee);
 		
-		// генерируем массив random-data street
+		// пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ random-data street
 		String [] arrRandomDataStreet = MyUtil.generationRandomCellsOfArray(arrStreet, amountEmployee);
 		
-		// генерируем массив random-data numPassport
+		// пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ random-data numPassport
 		String [] arrRandomDataNumPassport = MyUtil.generateRandomNumPass(amountEmployee);
 		
-		// генерируем массив random-data дату выдачи паспорта
+		// пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ random-data пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 		String [] arrRandomDataDatePassport = MyUtil.generateRandomDatePassport(amountEmployee);
 		
-		// генерируем массив random-data почтового индекса
+		// пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ random-data пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 		int [] arrRandomDataZip = MyUtil.createArrRandomNum(amountEmployee, 10000, 19000);
 		
-		// генерируем массив random-data номер дома
+		// пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ random-data пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ
 		int [] arrRandomDataNumHouse = MyUtil.createArrRandomNum(amountEmployee, 1, 500);
 		
-		// генерируем массив random-data номер квартиры
+		// пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ random-data пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 		int [] arrRandomDataNumApprtment = MyUtil.createArrRandomNum(amountEmployee, 1, 300);
 		
-		// генерируем массив random-data индетифик. номер
+		// пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ random-data пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ. пїЅпїЅпїЅпїЅпїЅ
 		long [] arrRandomDataTaxIdentifNum = MyUtil.createArrRandomNum(amountEmployee, 1000000000l, 9999999999l);
 
-		// генерируем массив random-data средняя зарплата
+		// пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ random-data пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 		int [] arrRandomDataAverageSalary = MyUtil.createArrRandomNum(amountEmployee, 2000, 10000);
 
-		// генерируем массив random-data табельный номер сотрудника
+		// пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ random-data пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 		int [] arrRandomDataPersonalNum = MyUtil.createArrRandomNum(amountEmployee, 1, 10000);
 		
-		/*В моей упрощенной модели список полей классов EmployeeHourlyWages и EmployeeFixedSalary
-		*отличается только полями hourlyRate и monthlyPayment. Соответственно данный метод сможет генерировать данные
-		* по обеим классам сотрудников. Для этого делаем проверку: 
-		* - если название файла, в который будет произведена запись содержит "EmployeesFixedSalary",
-		* то генерируем поле "monthlyPayment" и записываем random-data в файл
-		* - если название файла, в который будет произведена запись содержит "EmployeesHourlyWages",
-		* то генерируем поле "hourlyRate" и записываем random-data в файл
+		/*пїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ EmployeeHourlyWages пїЅ EmployeeFixedSalary
+		*пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ hourlyRate пїЅ monthlyPayment. пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
+		* пїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ. пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ: 
+		* - пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ, пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ "EmployeesFixedSalary",
+		* пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ "monthlyPayment" пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ random-data пїЅ пїЅпїЅпїЅпїЅ
+		* - пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ, пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ "EmployeesHourlyWages",
+		* пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ "hourlyRate" пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ random-data пїЅ пїЅпїЅпїЅпїЅ
 		*/ 
 		String [] arrEmployeeData = new String [arrSurnameNameMiddlename.length];
 		
 		if (pathFileOut.indexOf("EmployeesFixedSalary") != (-1)) {
 			int [] arrRandomDataMonthlyPayment = MyUtil.createArrRandomNum(amountEmployee, 2000, 10000);
 			
-			/* Подготовка для записи в файл - соединяем записи в массив строк,
-			 * при этом перед актуальной инфо ставим ключевое слово
+			/* пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅ - пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ,
+			 * пїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
 			 */
 			for (int i = 0; i < arrEmployeeData.length; i++) {
 				arrEmployeeData[i] = "Personal Number: " + arrRandomDataPersonalNum[i] +  "   surname/Name/Middlename: " +  arrSurnameNameMiddlename[i] +
 						 "   department: " +  arrRandomDataDepartment[i] +  "   post: " + arrRandomDataPost[i] +  "   averageSalary: " +  arrRandomDataAverageSalary[i] +
 						 "   monthlyPayment: " + arrRandomDataMonthlyPayment[i] + "   taxIdentifNum: " + arrRandomDataTaxIdentifNum[i] + 
-						 "   Education: " + arrRandomDataEducation[i] + "   Passport: " + arrRandomDataNumPassport[i] + ", выдан " + arrRandomDataDatePassport[i] + ", " +
+						 "   Education: " + arrRandomDataEducation[i] + "   Passport: " + arrRandomDataNumPassport[i] + ", issued" + arrRandomDataDatePassport[i] + ", " +
 						 arrRandomDataOffPassport[i] + " " + arrRandomDataCityPassport[i] + "   Residance: " + arrRandomDataZip[i] + ", " + arrRandomDataCityResidence[i] +
-						 ", " + arrRandomDataStreet[i] + " " + arrRandomDataNumHouse[i] + ", кв. " + arrRandomDataNumApprtment[i];
+						 ", " + arrRandomDataStreet[i] + " " + arrRandomDataNumHouse[i] + ", Apt. " + arrRandomDataNumApprtment[i];
 			}//for
 		}//
 		else if (pathFileOut.indexOf("EmployeesHourlyWages") != (-1)) {
@@ -177,34 +176,34 @@ public class TestMode {
 				arrEmployeeData[i] = "Personal Number: " + arrRandomDataPersonalNum[i] +  "   surname/Name/Middlename: " +  arrSurnameNameMiddlename[i] +
 						 "   department: " +  arrRandomDataDepartment[i] +  "   post: " + arrRandomDataPost[i] +  "   averageSalary: " +  arrRandomDataAverageSalary[i] +
 						 "   hourlyRate: " + arrRandomDataHourlyRate [i] + "   taxIdentifNum: " + arrRandomDataTaxIdentifNum[i] + 
-						 "   Education: " + arrRandomDataEducation[i] + "   Passport: " + arrRandomDataNumPassport[i] + ", выдан " + arrRandomDataDatePassport[i] + ", " +
+						 "   Education: " + arrRandomDataEducation[i] + "   Passport: " + arrRandomDataNumPassport[i] + ", issued" + arrRandomDataDatePassport[i] + ", " +
 						 arrRandomDataOffPassport[i] + " " + arrRandomDataCityPassport[i] + "   Residance: " + arrRandomDataZip[i] + ", " + arrRandomDataCityResidence[i] +
-						 ", " + arrRandomDataStreet[i] + " " + arrRandomDataNumHouse[i] + ", кв. " + arrRandomDataNumApprtment[i];
+						 ", " + arrRandomDataStreet[i] + " " + arrRandomDataNumHouse[i] + ", Apt. " + arrRandomDataNumApprtment[i];
 			}//for
 
 		}//
-		//Записываем сформированный массив результата в файл
+		//пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅ
 		MyUtil.recMassStr(pathFileOut, arrEmployeeData);
 		
 		return arrEmployeeData;
 	}//generationEmployeeDataAndFiling
 
 //**************************************************************
-		/**Метод: 1. Считывает из файла "InputForTest.in" (лежит в корне проекта) корни фамилий, окончания фамилий,
-		 * имена и отчества; 2. Генерирует  случайным образом ПОСЛЕДОВАТЕЛЬНОСТЬ фамилий, имен и отчеств.
-		 * Выбирается случайным образом корень фамилии(генерируется его номер методом некстИнт()),
-		 * потом аналогично выбирается окончание некстИнт() и объединяются в фамилию.
-		 * Имена считываются из файла, генерируется случайный номер имени.
-		 * Отчество - аналогично имени.
-		 * Грамматичекая правильность последовательности не важна.
+		/**пїЅпїЅпїЅпїЅпїЅ: 1. пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅ "InputForTest.in" (пїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ) пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ,
+		 * пїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ; 2. пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ  пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ.
+		 * пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ(пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ()),
+		 * пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ() пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ.
+		 * пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ.
+		 * пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ - пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ.
+		 * пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅ.
 		 * 
-		 * @param amountGeneration int - количество необходимых генераций
-		 * @return String [] - массив сгенерированных фамилий, имен и отчеств 
+		 * @param amountGeneration int - пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+		 * @return String [] - пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ 
 		 * @throws Exception
 		 */
 	public static String [] generationRandomSurnameNameMiddlename (int amountGeneration) throws Exception {
 		
-		//Считываем файл, который содержит корни фамилий, окончания фамилий, имена и отчества
+		//пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 		String [] arrStrFromFile = MyUtil.readFile("src/main/resources/InputForTest.in");
 		
 		String [] arrRootsSurnames = null;
@@ -219,39 +218,39 @@ public class TestMode {
 			int indexKeyword3 = buf.indexOf("Names:");
 			int indexKeyword4 = buf.indexOf("Middlenames:");
 			if (indexKeyword1 != -1) {
-				//считываем из файла КОРНИ фамилий в массив строк
+				//пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
 				arrRootsSurnames = MyUtil.returnArrTokenAfterKeyWord(buf, "RootsOfSurnames:");
 			}//if
 			else if (indexKeyword2 != -1) {
-				//считываем из файла ОКОНЧАНИЯ фамилий в массив строк
+				//пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
 				arrSurnameCompletions = MyUtil.returnArrTokenAfterKeyWord(buf, "CompletionsOfSurnames:");
 			}//if
 			else if (indexKeyword3 != -1) {
-				//считываем из файла ИМЕНА в массив строк
+				//пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
 				arrNames = MyUtil.returnArrTokenAfterKeyWord(buf, "Names:");
 			}//if
 			else if (indexKeyword4 != -1) {
-				//считываем из файла ОТЧЕСТВА в массив строк
+				//пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
 				arrMiddlenames = MyUtil.returnArrTokenAfterKeyWord(buf, "Middlenames:");
 			}//if
 		}//for
 		
-		//генерируем массив номеров КОРНЯ фамилий
+		//пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 		int [] rootsNum = MyUtil.createArrRandomNum(amountGeneration, 0, arrRootsSurnames.length);
 		
-		//генерируем массив номеров ОКОНЧАНИЙ фамилий
+		//пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 		int [] numComplet = MyUtil.createArrRandomNum(amountGeneration, 0, arrSurnameCompletions.length);
 		
-		//склеиваем корень фамилии с окончанием и запоминаем в массив
+		//пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
 		String [] arrRandomDataSurnames = MyUtil.glueCellsArrays(arrRootsSurnames, rootsNum, arrSurnameCompletions, numComplet);
 		
-		// генерируем массив random-data ИМЕН
+		// пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ random-data пїЅпїЅпїЅпїЅ
 		String [] arrRandomDataNames = MyUtil.generationRandomCellsOfArray(arrNames, amountGeneration);
 
-		// генерируем массив random-data ОТЧЕСТВ
+		// пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ random-data пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 		String [] arrRandomDataMiddlenames = MyUtil.generationRandomCellsOfArray(arrMiddlenames, amountGeneration);
 
-		//Склеиваем массив фамилий с массивом имен и массивом отчеств в один массив
+		//пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
 		String[] arrResult = MyUtil.glueCellsArrays(arrRandomDataSurnames, arrRandomDataNames, arrRandomDataMiddlenames, " ");
 
 		return arrResult;

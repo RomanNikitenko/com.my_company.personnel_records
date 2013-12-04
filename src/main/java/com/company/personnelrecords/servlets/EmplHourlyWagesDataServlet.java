@@ -28,13 +28,14 @@ public class EmplHourlyWagesDataServlet extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		
-			
-			request.setAttribute("arrObjEmpl", generationEmployee(request.getParameter("quanityEmplHourlyWages")));
-			request.setAttribute("arrColumnNames", columnNames);
-			request.getRequestDispatcher("/emplHourlyWagesData.jsp").forward(
-					request, response);
-			request.getSession().setAttribute("calend", Calendar.getInstance());
+		request.setCharacterEncoding("UTF-8");
+
+		request.setAttribute("arrObjEmpl", generationEmployee(request
+				.getParameter("quanityEmplHourlyWages")));
+		request.setAttribute("arrColumnNames", columnNames);
+		request.getRequestDispatcher("/emplHourlyWagesData.jsp").forward(
+				request, response);
+		request.getSession().setAttribute("calend", Calendar.getInstance());
 
 	}// doPost
 	//*****************************************************************************************

@@ -2,10 +2,11 @@ package com.company.personnelrecords.util;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.io.RandomAccessFile;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -18,14 +19,12 @@ import java.util.StringTokenizer;
 
 import javax.swing.JOptionPane;
 
-
-
 public class MyUtil {
-	
+
 	/**
-	 * ����� �������� � ����� ������, ���������� �������� �����,
-	 *  �� ������, ���������� � ���������.
-	 *
+	 * ����� �������� � ����� ������, ���������� �������� �����, �� ������,
+	 * ���������� � ���������.
+	 * 
 	 * @param strForFiling
 	 *            String - ������ ��� ���������� � �����
 	 * @param pathFileIn
@@ -36,15 +35,14 @@ public class MyUtil {
 	 * @throws IOException
 	 */
 
-//****************************************************************************
+	// ****************************************************************************
 	public static void replacementStrInFile (String strForFiling, String pathFileIn, String keyword) throws IOException {
-
-		BufferedReader fBufReader = new BufferedReader(new FileReader(pathFileIn));
+		
+		BufferedReader fBufReader = new BufferedReader(new InputStreamReader(new FileInputStream(pathFileIn), "UTF-8"));
 		String pathFileOut = pathFileIn + "1";
-		BufferedWriter fBufWriter = new BufferedWriter(new FileWriter(pathFileOut));
+		BufferedWriter fBufWriter = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(pathFileOut), "UTF-8"));
 		
-		String buf;
-		
+		String buf; 
 		while ((buf = fBufReader.readLine()) != null) {
 			if (buf.indexOf(keyword)!= -1){
 				fBufWriter.write(strForFiling);
@@ -57,10 +55,9 @@ public class MyUtil {
 		fBufWriter.close();
 		
     Files.move(Paths.get(pathFileOut), Paths.get(pathFileIn), StandardCopyOption.REPLACE_EXISTING);
-
 	}//filingCompanyData
 
-// ***************************************************************************
+	// ***************************************************************************
 	/**
 	 * ����� ������ ������ ��� ���� "Company Data" � ������� �
 	 * ArrayList<ArrayList<String>>. ������ ������ �������� �� ���������� ����,
@@ -71,140 +68,129 @@ public class MyUtil {
 	 * @return ArrayList<ArrayList<String>> - ��������� ������
 	 * @throws Exception
 	 */
-	public static ArrayList<ArrayList<String>> readCompanyDataFromFile(String pathFileIn) {
-
-		RandomAccessFile raf;
+	public static ArrayList<ArrayList<String>> readCompanyDataFromFile(
+			String pathFileIn) {
 		try {
-			raf = new RandomAccessFile(pathFileIn, "r");
-		
-		/*
-		 * ����� ���������� ������ ������� �������� ����� � �����, //����������
-		 * � ������
-		 */
-		int[] massPosNoneEmptyStr = countStrInFile(pathFileIn);
-		ArrayList<ArrayList<String>> arrListCompanyData = new ArrayList<ArrayList<String>>();
+			ArrayList<ArrayList<String>> arrListCompanyData = new ArrayList<ArrayList<String>>();
 
-		// *******//������ ��������� ����, ������ ������ ���� � ��������� ������
-		// ������
-		while (raf.getFilePointer() < raf.length()) {
+			BufferedReader fBufReader = new BufferedReader(
+					new InputStreamReader(new FileInputStream(pathFileIn),
+							"UTF-8"));
+			String buf;
 
-			for (int j = 0; j < massPosNoneEmptyStr.length; j++) {
+			while ((buf = fBufReader.readLine()) != null) {
 
-				raf.seek(massPosNoneEmptyStr[j]);// ������������� ������� �
-													// ������� �������� ������
-
-				/*
-				 * ���������� ������ ��� ����������� �������, ��� ���� - ������
-				 * ������������� - ����������� �� ���������� ���� ��������
-				 * ������� � ����� ������
-				 */
-				String buf = new String(raf.readLine().getBytes("ISO-8859-1"),
-						"Cp1251".trim());
-				
-				if (buf.indexOf("Company Name:")!= -1) {
+				if (buf.indexOf("Company Name:") != -1) {
 					ArrayList<String> rowCompanyName = new ArrayList<String>();
-					rowCompanyName.add(returnStrBetweenKeyWords(buf, "Company Name:", "companyCEO:"));
-					rowCompanyName.add(returnStrBetweenKeyWords(buf, "companyCEO:", "companyCurrentAccount:"));
-					rowCompanyName.add(returnStrBetweenKeyWords(buf, "companyCurrentAccount:", "companyEDRPOU:"));
-					rowCompanyName.add(returnStrBetweenKeyWords(buf, "companyEDRPOU:", "companyRegisteredOffice:"));
-					rowCompanyName.add(returnStrAfterKeyWord(buf, "companyRegisteredOffice:"));
+					rowCompanyName.add(returnStrBetweenKeyWords(buf,
+							"Company Name:", "companyCEO:"));
+					rowCompanyName.add(returnStrBetweenKeyWords(buf,
+							"companyCEO:", "companyCurrentAccount:"));
+					rowCompanyName.add(returnStrBetweenKeyWords(buf,
+							"companyCurrentAccount:", "companyEDRPOU:"));
+					rowCompanyName.add(returnStrBetweenKeyWords(buf,
+							"companyEDRPOU:", "companyRegisteredOffice:"));
+					rowCompanyName.add(returnStrAfterKeyWord(buf,
+							"companyRegisteredOffice:"));
 					arrListCompanyData.add(rowCompanyName);
-				}//if
-				else if (buf.indexOf("Departments:")!= -1) {
-					
-					ArrayList<String> rowDepartments = new ArrayList<String>(Arrays.asList(returnArrTokenAfterKeyWord(buf, "Departments:")));
+				}// if
+				else if (buf.indexOf("Departments:") != -1) {
+
+					ArrayList<String> rowDepartments = new ArrayList<String>(
+							Arrays.asList(returnArrTokenAfterKeyWord(buf,
+									"Departments:")));
 					arrListCompanyData.add(rowDepartments);
-				}//else if 
-				else if (buf.indexOf("Posts:")!= -1) {
-				
-					ArrayList<String> rowPosts = new ArrayList<String>(Arrays.asList(returnArrTokenAfterKeyWord(buf, "Posts:")));
+				}// else if
+				else if (buf.indexOf("Posts:") != -1) {
+
+					ArrayList<String> rowPosts = new ArrayList<String>(
+							Arrays.asList(returnArrTokenAfterKeyWord(buf,
+									"Posts:")));
 					arrListCompanyData.add(rowPosts);
-				}//else if 
-				else if (buf.indexOf("PostSalaries:")!= -1) {
-					
-					ArrayList<String> rowPostSalaries = new ArrayList<String>(Arrays.asList(returnArrTokenAfterKeyWord(buf, "PostSalaries:")));
+				}// else if
+				else if (buf.indexOf("PostSalaries:") != -1) {
+
+					ArrayList<String> rowPostSalaries = new ArrayList<String>(
+							Arrays.asList(returnArrTokenAfterKeyWord(buf,
+									"PostSalaries:")));
 					arrListCompanyData.add(rowPostSalaries);
-				}//else if 
-			}// for
-		}// while
-		
-		raf.close();
-		return arrListCompanyData;
+				}// else if
+			}// while
+			fBufReader.close();
+
+			return arrListCompanyData;
 		} catch (Exception e) {
-			JOptionPane.showMessageDialog(null,
-					"Please restart the application and to get started, select the submenu 'Test Mode -> Generate Company'",
-					"Error", JOptionPane.ERROR_MESSAGE);
+			JOptionPane
+					.showMessageDialog(
+							null,
+							"Please restart the application and to get started, select the submenu 'Test Mode -> Generate Company'",
+							"Error", JOptionPane.ERROR_MESSAGE);
 			System.exit(0);
 		}
 		return null;
-		
 	}// readCompanyDataFromFile()
 
-//***************************************************************************	
+	// ***************************************************************************
 	/**
-	 * ����� ������ ������ �� ����������� �� ����� � ������� � ArrayList<ArrayList<String>>. ������ ������
-	 * �������� �� ���������� ����, ������� ���� ����� ��������� �����
+	 * ����� ������ ������ �� ����������� �� ����� � ������� �
+	 * ArrayList<ArrayList<String>>. ������ ������ �������� �� ���������� ����,
+	 * ������� ���� ����� ��������� �����
+	 * 
 	 * @param pathFileIn
 	 *            String - ���� � �����
 	 * @return ArrayList<ArrayList<String>> - ��������� ������
 	 * @throws Exception
 	 */
-	public static ArrayList<ArrayList<String>> readDataEmployeeFromFile(String pathFileIn) throws Exception {
+	public static ArrayList<ArrayList<String>> readDataEmployeeFromFile(
+			String pathFileIn) throws Exception {
 
-		RandomAccessFile raf = new RandomAccessFile(pathFileIn, "r");
-		/*
-		 * ����� ���������� ������ ������� �������� ����� � �����, //����������
-		 * � ������
-		 */
-		int[] massPosNoneEmptyStr = countStrInFile(pathFileIn);
-		ArrayList<ArrayList<String>> arrListDataEmployees = new ArrayList<ArrayList<String>>(); 
+		ArrayList<ArrayList<String>> arrListDataEmployees = new ArrayList<ArrayList<String>>();
 
-		// *******//������ ��������� ����, ������ ������ ���� � ��������� ������ ������
-		while (raf.getFilePointer() < raf.length()) {
+		BufferedReader fBufReader = new BufferedReader(new InputStreamReader(
+				new FileInputStream(pathFileIn), "UTF-8"));
+		String buf;
 
-			for (int j = 0; j < massPosNoneEmptyStr.length; j++) {
+		while ((buf = fBufReader.readLine()) != null) {
 
-				raf.seek(massPosNoneEmptyStr[j]);// ������������� ������� � ������� �������� ������
+			ArrayList<String> row = new ArrayList<String>();
+			row.add(returnStrBetweenKeyWords(buf, "Personal Number:",
+					"surname/Name/Middlename:"));
+			row.add(returnStrBetweenKeyWords(buf, "surname/Name/Middlename:",
+					"department:"));
+			row.add(returnStrBetweenKeyWords(buf, "department:", "post:"));
+			row.add(returnStrBetweenKeyWords(buf, "post:", "averageSalary:"));
+			row.add(returnStrBetweenKeyWords(buf, "taxIdentifNum:",
+					"Education:"));
+			row.add(returnStrBetweenKeyWords(buf, "Education:", "Passport:"));
+			row.add(returnStrBetweenKeyWords(buf, "Passport:", "Residance:"));
+			row.add(returnStrAfterKeyWord(buf, "Residance:"));
 
-				/*
-				 * ���������� ������ ��� ����������� �������, ��� ���� - ������
-				 * ������������� - ����������� �� ���������� ���� ��������
-				 * ������� � ����� ������
-				 */
-				String buf = new String(raf.readLine().getBytes("ISO-8859-1"), "Cp1251".trim());
-				ArrayList<String> row = new ArrayList<String>();
-					row.add(returnStrBetweenKeyWords(buf, "Personal Number:", 			"surname/Name/Middlename:"));
-					row.add(returnStrBetweenKeyWords(buf, "surname/Name/Middlename:", 	"department:"));
-					row.add(returnStrBetweenKeyWords(buf, "department:", 				"post:"));
-					row.add(returnStrBetweenKeyWords(buf, "post:", 						"averageSalary:"));
-					row.add(returnStrBetweenKeyWords(buf, "taxIdentifNum:", 			"Education:"));
-					row.add(returnStrBetweenKeyWords(buf, "Education:", 				"Passport:"));
-					row.add(returnStrBetweenKeyWords(buf, "Passport:", 					"Residance:"));
-					row.add(returnStrAfterKeyWord   (buf, "Residance:"));
+			int indexKeyword1 = buf.indexOf("monthlyPayment");
+			int indexKeyword2 = buf.indexOf("hourlyRate");
 
-					/*� ���� ���������� ������ ������ ����� ������� EmployeeHourlyWages � EmployeeFixedSalary
-					*���������� ������ ������ hourlyRate � monthlyPayment. �������������� ������ ����� ������ ������ ������
-					* �� ����� ������� �����������. ��� ����� ��������� ����� �������� ����� (monthlyPayment ��� hourlyRate)
-					* ������������ � ����� ��� ������ � ��������� ������ ����
-					*/
-					int indexKeyword1 = buf.indexOf("monthlyPayment");
-					int indexKeyword2 = buf.indexOf("hourlyRate");
-					
-					if (indexKeyword1 != (-1)) {
-						row.add(4, returnStrBetweenKeyWords(buf, "averageSalary:", 			"monthlyPayment:"));
-						row.add(5, returnStrBetweenKeyWords(buf, "monthlyPayment:", 			"taxIdentifNum:"));
-					}//
-					else if (indexKeyword2 != (-1)) {
-						row.add(4, returnStrBetweenKeyWords(buf, "averageSalary:", 			"hourlyRate:"));
-						row.add(5, returnStrBetweenKeyWords(buf, "hourlyRate:", 			"taxIdentifNum:"));
-					}//
-					arrListDataEmployees.add(row);
-			}// for
+			if (indexKeyword1 != (-1)) {
+				row.add(4,
+						returnStrBetweenKeyWords(buf, "averageSalary:",
+								"monthlyPayment:"));
+				row.add(5,
+						returnStrBetweenKeyWords(buf, "monthlyPayment:",
+								"taxIdentifNum:"));
+			}//
+			else if (indexKeyword2 != (-1)) {
+				row.add(4,
+						returnStrBetweenKeyWords(buf, "averageSalary:",
+								"hourlyRate:"));
+				row.add(5,
+						returnStrBetweenKeyWords(buf, "hourlyRate:",
+								"taxIdentifNum:"));
+			}//
+			arrListDataEmployees.add(row);
 		}// while
-		raf.close();
+		fBufReader.close();
 		return arrListDataEmployees;
 	}// readDataEmployeeFromFile()
-//*****************************************************************************************************
+		// *****************************************************************************************************
+
 	/**
 	 * ����� ��������� ���� ����� ��������� �������
 	 * 
@@ -214,7 +200,7 @@ public class MyUtil {
 	 *            String - ������ �������� �����
 	 * @param keyWord2
 	 *            String - ������ �������� �����
-
+	 * 
 	 * @return String - ���������, ������� ��������� ����� �������� ����
 	 */
 	public static String returnStrBetweenKeyWords(String strForAnalysis,
@@ -222,95 +208,117 @@ public class MyUtil {
 
 		int indexKeyWord1 = strForAnalysis.indexOf(keyWord1);
 		int indexKeyWord2 = strForAnalysis.indexOf(keyWord2);
-		String result = strForAnalysis.substring(indexKeyWord1 + keyWord1.length(), indexKeyWord2).trim();
+		String result = strForAnalysis.substring(
+				indexKeyWord1 + keyWord1.length(), indexKeyWord2).trim();
 		return result;
 	}// returnStrBetweenKeyWords
-//*****************************************************************************************************
-		/**
-		 * ����� ��������� ����, ������� ����� ����� ��������� ����� �� ����� ������
-		 * 
-		 * @param strForAnalysis
-		 *            String - ������ ��� �������
-		 * @param keyWord1
-		 *            String - ������ �������� �����
-		 * @param keyWord2
-		 *            String - ������ �������� �����
-		 * @return String - ���������, ������� ��������� ����� �������� ����
-		 */
-		public static String returnStrAfterKeyWord(String strForAnalysis, String keyWord) {
+		// *****************************************************************************************************
 
-			int indexKeyWord = strForAnalysis.indexOf(keyWord);
-			String result = strForAnalysis.substring(indexKeyWord + keyWord.length()).trim();
-			return result;
-		}// returnStrAfterKeyWord
+	/**
+	 * ����� ��������� ����, ������� ����� ����� ��������� ����� �� ����� ������
+	 * 
+	 * @param strForAnalysis
+	 *            String - ������ ��� �������
+	 * @param keyWord1
+	 *            String - ������ �������� �����
+	 * @param keyWord2
+	 *            String - ������ �������� �����
+	 * @return String - ���������, ������� ��������� ����� �������� ����
+	 */
+	public static String returnStrAfterKeyWord(String strForAnalysis,
+			String keyWord) {
 
-// ******************************************************
-		/**
-		 * ����� ��������� ���������, ������� ����� ����� ��������� �����, �� ������
-		 * � ���������� �� � ���� �������
-		 * @param strForAnalysis String - ������ ��� �������
-		 * @param keyWord String - �������� �����
-		 * @return String[] - ������ �������, ���������� �� ���������, ������� ����� ����� ��������� �����.
-		 */
-		public static String [] returnArrTokenAfterKeyWord (String strForAnalysis, String keyWord) {
-			
-			ArrayList<String> arrListTokens = new ArrayList<String>();
-			int indexKeyWord = strForAnalysis.indexOf(keyWord);
-			String subStr = strForAnalysis.substring(indexKeyWord+keyWord.length()).trim();
-			
-			StringTokenizer strToken = new StringTokenizer(subStr, ":,\t\n\r\f");
-			while (strToken.hasMoreTokens()) {
-				arrListTokens.add(strToken.nextToken().trim());
-			}//while
-			
-		return arrListTokens.toArray(new String [arrListTokens.size()]);
-		}//returnStrAfterKeyWord()
-	
-//*******************************************************
-		/**
-		 * ����� ��������� �� ���� ������ String [] � ���������� ���������.
-		 * ���������� ������  arrResult.length = amountGeneration,
-		 *  ������ ������ �������� = random-������ �������, ����������� � ��������� 
-		 * 
-		 * @param arr
-		 *            String [] - �������� ������ ��� ��������� random-������
-		 * @param amountGeneration
-		 *            int - ���������� ����������� ��������� random-����� = arrResult.length ������� ����������
-		 * @return String [] - ������ ������� ����������
-		 */
-		public static String[] generationRandomCellsOfArray(String[] arr, int amountGeneration) {
-			//���������� ������ random-������� �������, ����������� � ���������
-			int[] arrRandomNumCells = createArrRandomNum(amountGeneration, 0, arr.length);
-			
-			String[] arrResult = new String[amountGeneration];
-			for (int i = 0; i < arrResult.length; i++) {
-				arrResult[i] = arr[arrRandomNumCells[i]];
-			}// for
-			return arrResult;
-		}// generationRandomCellsOfArray ()
+		int indexKeyWord = strForAnalysis.indexOf(keyWord);
+		String result = strForAnalysis.substring(
+				indexKeyWord + keyWord.length()).trim();
+		return result;
+	}// returnStrAfterKeyWord
 
-//******************************************************************************************
-	/** ����� ���������� �������� � ��������� ���������� ��������� ����� � ������� ���������
-	 * @param quantityNum int - ���������� ��������� ��������� �����
-	 * @param num1 long - ������ ������� ���������
-	 * @param num2 long - ������� ������� ���������
+	// ******************************************************
+	/**
+	 * ����� ��������� ���������, ������� ����� ����� ��������� �����, �� ������
+	 * � ���������� �� � ���� �������
+	 * 
+	 * @param strForAnalysis
+	 *            String - ������ ��� �������
+	 * @param keyWord
+	 *            String - �������� �����
+	 * @return String[] - ������ �������, ���������� �� ���������, ������� �����
+	 *         ����� ��������� �����.
+	 */
+	public static String[] returnArrTokenAfterKeyWord(String strForAnalysis,
+			String keyWord) {
+
+		ArrayList<String> arrListTokens = new ArrayList<String>();
+		int indexKeyWord = strForAnalysis.indexOf(keyWord);
+		String subStr = strForAnalysis.substring(
+				indexKeyWord + keyWord.length()).trim();
+
+		StringTokenizer strToken = new StringTokenizer(subStr, ":,\t\n\r\f");
+		while (strToken.hasMoreTokens()) {
+			arrListTokens.add(strToken.nextToken().trim());
+		}// while
+
+		return arrListTokens.toArray(new String[arrListTokens.size()]);
+	}// returnStrAfterKeyWord()
+
+	// *******************************************************
+	/**
+	 * ����� ��������� �� ���� ������ String [] � ���������� ���������.
+	 * ���������� ������ arrResult.length = amountGeneration, ������ ������
+	 * �������� = random-������ �������, ����������� � ���������
+	 * 
+	 * @param arr
+	 *            String [] - �������� ������ ��� ��������� random-������
+	 * @param amountGeneration
+	 *            int - ���������� ����������� ��������� random-����� =
+	 *            arrResult.length ������� ����������
+	 * @return String [] - ������ ������� ����������
+	 */
+	public static String[] generationRandomCellsOfArray(String[] arr,
+			int amountGeneration) {
+		// ���������� ������ random-������� �������, ����������� � ���������
+		int[] arrRandomNumCells = createArrRandomNum(amountGeneration, 0,
+				arr.length);
+
+		String[] arrResult = new String[amountGeneration];
+		for (int i = 0; i < arrResult.length; i++) {
+			arrResult[i] = arr[arrRandomNumCells[i]];
+		}// for
+		return arrResult;
+	}// generationRandomCellsOfArray ()
+
+	// ******************************************************************************************
+	/**
+	 * ����� ���������� �������� � ��������� ���������� ��������� ����� �
+	 * ������� ���������
+	 * 
+	 * @param quantityNum
+	 *            int - ���������� ��������� ��������� �����
+	 * @param num1
+	 *            long - ������ ������� ���������
+	 * @param num2
+	 *            long - ������� ������� ���������
 	 * @return long [] - ������ ��������� ����� � �������� ���������
 	 */
-	public static long [] createArrRandomNum (int quantityNum, long num1, long num2) {
-	
+	public static long[] createArrRandomNum(int quantityNum, long num1,
+			long num2) {
+
 		Random rndm = new Random();
-		long [] arrRandomNum = new long [quantityNum];
-		
+		long[] arrRandomNum = new long[quantityNum];
+
 		if (num2 > num1) {
 			for (int i = 0; i < quantityNum; i++) {
-				arrRandomNum [i] = num1 + rndm.nextInt((int) (num2-num1));
-			}//for
-		}//if
-		else System.out.println("������ ������������ �������� ��������: ��������2 ������ ���������1");
-		
+				arrRandomNum[i] = num1 + rndm.nextInt((int) (num2 - num1));
+			}// for
+		}// if
+		else
+			System.out
+					.println("������ ������������ �������� ��������: ��������2 ������ ���������1");
+
 		return arrRandomNum;
-	}//ArrRandomNum
-// ***********************************************************************************************************************************
+	}// ArrRandomNum
+		// ***********************************************************************************************************************************
 
 	/**
 	 * ����� ���������� ������ ����� � ����, ���� � �������� ������� � ���������
@@ -326,7 +334,8 @@ public class MyUtil {
 	public static boolean recMassStr(String pathFileOut, String[] massStrForRec)
 			throws Exception {
 
-		BufferedWriter fBufWr = new BufferedWriter(new FileWriter(pathFileOut));
+		BufferedWriter fBufWr = new BufferedWriter(new OutputStreamWriter(
+				new FileOutputStream(pathFileOut), "UTF-8"));
 
 		for (int i = 0; i < massStrForRec.length; i++) {
 			fBufWr.write(massStrForRec[i]);
@@ -336,7 +345,7 @@ public class MyUtil {
 		return checkRecFile(pathFileOut);
 	}// recMassStr ()
 
-// ************************************************************************************
+	// ************************************************************************************
 	/**
 	 * ����� ��������� ����������� �� ������ � ����
 	 * 
@@ -359,7 +368,7 @@ public class MyUtil {
 		return retVal;
 	}// checkRecFile ()
 
-// ******************************************************************************
+	// ******************************************************************************
 
 	/**
 	 * ����� ������� ������� �������� ����� � �����, ���������� � ������
@@ -399,7 +408,7 @@ public class MyUtil {
 		return massPosNoneEmptyStr;
 	}// countStrInFile
 
-// ******************************************************************************
+	// ******************************************************************************
 	/**
 	 * ����� ��������� ���� � ���������� ������ �����
 	 * 
@@ -410,24 +419,23 @@ public class MyUtil {
 	 */
 	public static String[] readFile(String pathFileIn) throws Exception {
 
-		RandomAccessFile raf = new RandomAccessFile(new File(pathFileIn), "r");
-
 		int[] massPosStr = countStrInFile(pathFileIn);// ����� ������ �������
 														// �������� ����� �����
 		String[] massStr = new String[massPosStr.length];
 
+		BufferedReader fBufReader = new BufferedReader(
+				new InputStreamReader(new FileInputStream(pathFileIn),
+						"UTF-8"));
+
 		for (int i = 0; i < massStr.length; i++) {
-			raf.seek(massPosStr[i]);// ������������� ������� � ������� ��������
-									// ������
-			massStr[i] = new String(raf.readLine().getBytes("ISO-8859-1"),
-					"Cp1251").trim();
+			massStr[i] = fBufReader.readLine().trim();
 		}// for
 
-		raf.close();
+		fBufReader.close();
 		return massStr;
 	}// readFile
 
-// ******************************************************
+	// ******************************************************
 	/**
 	 * ����� "���������" ������ ���� ���������� �������� (arr1.length =
 	 * arr2.length) ��� ������� � ��. ������������, ��� ���� ������ �����������
@@ -451,7 +459,8 @@ public class MyUtil {
 		}// for
 		return arrRes;
 	}// glueCellsArrays ()
-//******************************************************
+		// ******************************************************
+
 	/**
 	 * ����� "���������" ������ ���� ���������� �������� (arr1.length =
 	 * arr2.length = arr3.length) � ������������ (����������� � ���������)
@@ -466,14 +475,16 @@ public class MyUtil {
 	 *            String - �����������
 	 * @return String [] - ������ "���������" �����
 	 */
-	public static String[] glueCellsArrays(String[] arr1, String[] arr2, String[] arr3, String delim) {
+	public static String[] glueCellsArrays(String[] arr1, String[] arr2,
+			String[] arr3, String delim) {
 		String[] arrResult = new String[arr1.length];
 		for (int i = 0; i < arrResult.length; i++) {
 			arrResult[i] = arr1[i] + delim + arr2[i] + delim + arr3[i];
 		}// for
 		return arrResult;
 	}// glueCellsArrays ()
-//*********************************************************
+		// *********************************************************
+
 	/**
 	 * ����� "���������" ������ ���� ���������� �������� (arr1.length =
 	 * arr2.length) ��� ���� ��������� ����������� (delim)
@@ -486,7 +497,8 @@ public class MyUtil {
 	 *            - �����������
 	 * @return String [] - ������ "���������" �����
 	 */
-	public static String[] glueCellsArrays(String[] arr1, String [] arr2, String delim) {
+	public static String[] glueCellsArrays(String[] arr1, String[] arr2,
+			String delim) {
 
 		String[] arrRes = new String[arr1.length];
 
@@ -496,16 +508,21 @@ public class MyUtil {
 
 		return arrRes;
 	}// glueCellsArrays
-//******************************************************************************
-	/** ����� ���������� ������ ��������� ����� � �������� ���������
+		// ******************************************************************************
+
+	/**
+	 * ����� ���������� ������ ��������� ����� � �������� ���������
 	 * 
-	 * @param quantityNum int - ���������� ���������
-	 * @param num1 int - ������ ������� ���������
-	 * @param num2 int - ������� ������� ���������
+	 * @param quantityNum
+	 *            int - ���������� ���������
+	 * @param num1
+	 *            int - ������ ������� ���������
+	 * @param num2
+	 *            int - ������� ������� ���������
 	 * @return int[] - ������ ��������� �����
 	 * @throws Exception
 	 */
-	
+
 	public static int[] createArrRandomNum(int quantityNum, int num1, int num2) {
 
 		Random rndm = new Random();
@@ -523,11 +540,14 @@ public class MyUtil {
 		return arrRandomNum;
 	}// ArrRandomNum
 
-// ******************************************************
-	/** ����� ���������� ��������� ����� � �������� ���������
+	// ******************************************************
+	/**
+	 * ����� ���������� ��������� ����� � �������� ���������
 	 * 
-	 * @param num1 long - ������ ������� ���������
-	 * @param num2 long - ������� ������� ���������
+	 * @param num1
+	 *            long - ������ ������� ���������
+	 * @param num2
+	 *            long - ������� ������� ���������
 	 * @return int[] - ������ ��������� �����
 	 * @throws Exception
 	 */
@@ -545,53 +565,53 @@ public class MyUtil {
 
 		return random;
 	}// randomNum
-// ******************************************************
+		// ******************************************************
 
 	/**
-	 * ����� ���������� �������� ����� ������� ���������
-	 * (����� ���� - ��� ��������)
+	 * ����� ���������� �������� ����� ������� ��������� (����� ���� - ���
+	 * ��������)
 	 * 
 	 * @param amountGeneration
-	 *            				int - ���������� ���������
+	 *            int - ���������� ���������
 	 * @return String [] - ������ ������� ���������
 	 */
-	public static String[] generateRandomNumPass (int amountGeneration) {
+	public static String[] generateRandomNumPass(int amountGeneration) {
 
 		Random rndm = new Random();
-		String [] arrNumPass = new String [amountGeneration];
+		String[] arrNumPass = new String[amountGeneration];
 
-			for (int i = 0; i < amountGeneration; i++) {
-				arrNumPass[i] = "HC" + (111111 + rndm.nextInt((int) (999999 - 111111)));
-			}// for
+		for (int i = 0; i < amountGeneration; i++) {
+			arrNumPass[i] = "HC"
+					+ (111111 + rndm.nextInt((int) (999999 - 111111)));
+		}// for
 		return arrNumPass;
 	}// generateRandomNumPass
-// ******************************************************
-		/**
-		 * ����� ���������� �������� ����� ��� ������ ���������
-		 * 
-		 * @param amountGeneration
-		 *            				int - ���������� ���������
-		 * @return String [] - ������ ��� ������ ���������
-		 */
-	public static String[] generateRandomDatePassport (int amountGeneration) {
+		// ******************************************************
+
+	/**
+	 * ����� ���������� �������� ����� ��� ������ ���������
+	 * 
+	 * @param amountGeneration
+	 *            int - ���������� ���������
+	 * @return String [] - ������ ��� ������ ���������
+	 */
+	public static String[] generateRandomDatePassport(int amountGeneration) {
 
 		Random rndm = new Random();
 		NumberFormat formatter = NumberFormat.getNumberInstance();
-		
-		String [] arrDatePass = new String [amountGeneration];
+
+		String[] arrDatePass = new String[amountGeneration];
 		for (int i = 0; i < amountGeneration; i++) {
 
 			String year = "" + (1940 + rndm.nextInt((int) (2000 - 1940)));
-			
+
 			formatter.setMinimumIntegerDigits(2);
 			String month = formatter.format(1 + rndm.nextInt((int) (12 - 1)));
-			
+
 			String date = formatter.format(1 + rndm.nextInt((int) (31 - 1)));
 			arrDatePass[i] = year + "." + month + "." + date;
 		}// for
 		return arrDatePass;
 	}// generateRandomNumPass
-// ******************************************************
-
-
-}//class
+		// ******************************************************
+}// class

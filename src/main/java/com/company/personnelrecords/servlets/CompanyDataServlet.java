@@ -1,6 +1,7 @@
 package com.company.personnelrecords.servlets;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.util.Calendar;
 
 import javax.servlet.ServletException;
@@ -25,8 +26,8 @@ public class CompanyDataServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) 
                           throws ServletException, IOException {
+    	request.setCharacterEncoding("UTF-8");
     	if (!(request.getParameter("companyName") == null)) {
-    		request.setCharacterEncoding("Cp1251");
     		saveEditedCompanyData(request);
     	}//if
     	
@@ -45,7 +46,7 @@ public class CompanyDataServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) 
                          throws ServletException, IOException {
     }
-    public void saveEditedCompanyData(HttpServletRequest request) {
+    public void saveEditedCompanyData(HttpServletRequest request) throws UnsupportedEncodingException {
 		
     	instanceCompany.setCompanyName(request.getParameter("companyName"));
     	try {
@@ -58,14 +59,14 @@ public class CompanyDataServlet extends HttpServlet {
     	instanceCompany.setCompanyEDRPOU(Long.valueOf(request.getParameter("companyEDRPOU")));
     	instanceCompany.setCompanyRegisteredOffice(request.getParameter("companyRegOffice"));
     	
-		String strForFiling = "Company Name: "
+		String strForFiling = new String(("Company Name: "
 				+ request.getParameter("companyName") + "   companyCEO: "
 				+ request.getParameter("companyCEO")
 				+ "   companyCurrentAccount: "
 				+ request.getParameter("companyCurrAcc") + "   companyEDRPOU: "
 				+ request.getParameter("companyEDRPOU")
 				+ "   companyRegisteredOffice: "
-				+ request.getParameter("companyRegOffice");
+				+ request.getParameter("companyRegOffice")));
 		try {
 			MyUtil.replacementStrInFile(strForFiling,
 					"src/main/resources/CompanyData.cdt", "Company Name:");
