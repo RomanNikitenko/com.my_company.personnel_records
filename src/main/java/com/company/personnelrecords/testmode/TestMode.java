@@ -64,7 +64,7 @@ public class TestMode {
 			companyData [0] = "Company Name: " + companyName +  "   companyCEO: " +  companyCEO +
 							 "   companyCurrentAccount: " +  companyCurrentAccount +  "   companyEDRPOU: " + companyEDRPOU +
 							 "   companyRegisteredOffice: " + zipCompanyRegisteredOffice + ", " + cityCompanyRegisteredOffice +
-							 ", " + streetCompanyRegisteredOffice + " " + numHouseCompanyRegisteredOffice + ", ��. " + numApprtmentCompanyRegisteredOffice;
+							 ", " + streetCompanyRegisteredOffice + " " + numHouseCompanyRegisteredOffice + ", " + numApprtmentCompanyRegisteredOffice;
 			
 			companyData [1] = "Departments: " + arrDepartment[0] + ", " + arrDepartment[1] + ", " + arrDepartment[2] + ", "
 								+ arrDepartment[3] + ", " + arrDepartment[4];
@@ -164,7 +164,7 @@ public class TestMode {
 				arrEmployeeData[i] = "Personal Number: " + arrRandomDataPersonalNum[i] +  "   surname/Name/Middlename: " +  arrSurnameNameMiddlename[i] +
 						 "   department: " +  arrRandomDataDepartment[i] +  "   post: " + arrRandomDataPost[i] +  "   averageSalary: " +  arrRandomDataAverageSalary[i] +
 						 "   monthlyPayment: " + arrRandomDataMonthlyPayment[i] + "   taxIdentifNum: " + arrRandomDataTaxIdentifNum[i] + 
-						 "   Education: " + arrRandomDataEducation[i] + "   Passport: " + arrRandomDataNumPassport[i] + ", issued" + arrRandomDataDatePassport[i] + ", " +
+						 "   Education: " + arrRandomDataEducation[i] + "   Passport: " + arrRandomDataNumPassport[i] + ", issued " + arrRandomDataDatePassport[i] + ", " +
 						 arrRandomDataOffPassport[i] + " " + arrRandomDataCityPassport[i] + "   Residance: " + arrRandomDataZip[i] + ", " + arrRandomDataCityResidence[i] +
 						 ", " + arrRandomDataStreet[i] + " " + arrRandomDataNumHouse[i] + ", Apt. " + arrRandomDataNumApprtment[i];
 			}//for
@@ -176,7 +176,7 @@ public class TestMode {
 				arrEmployeeData[i] = "Personal Number: " + arrRandomDataPersonalNum[i] +  "   surname/Name/Middlename: " +  arrSurnameNameMiddlename[i] +
 						 "   department: " +  arrRandomDataDepartment[i] +  "   post: " + arrRandomDataPost[i] +  "   averageSalary: " +  arrRandomDataAverageSalary[i] +
 						 "   hourlyRate: " + arrRandomDataHourlyRate [i] + "   taxIdentifNum: " + arrRandomDataTaxIdentifNum[i] + 
-						 "   Education: " + arrRandomDataEducation[i] + "   Passport: " + arrRandomDataNumPassport[i] + ", issued" + arrRandomDataDatePassport[i] + ", " +
+						 "   Education: " + arrRandomDataEducation[i] + "   Passport: " + arrRandomDataNumPassport[i] + ", issued " + arrRandomDataDatePassport[i] + ", " +
 						 arrRandomDataOffPassport[i] + " " + arrRandomDataCityPassport[i] + "   Residance: " + arrRandomDataZip[i] + ", " + arrRandomDataCityResidence[i] +
 						 ", " + arrRandomDataStreet[i] + " " + arrRandomDataNumHouse[i] + ", Apt. " + arrRandomDataNumApprtment[i];
 			}//for
