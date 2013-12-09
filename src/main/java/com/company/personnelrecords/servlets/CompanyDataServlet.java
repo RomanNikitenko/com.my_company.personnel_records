@@ -30,7 +30,6 @@ public class CompanyDataServlet extends HttpServlet {
     	if (!(request.getParameter("companyName") == null)) {
     		saveEditedCompanyData(request);
     	}//if
-    	
     	request.setAttribute("companyName", instanceCompany.getCompanyName());
     	request.setAttribute("companyCEO", instanceCompany.getCompanyCEO());
     	request.setAttribute("companyCurAcc", instanceCompany.getCompanyCurrentAccount());

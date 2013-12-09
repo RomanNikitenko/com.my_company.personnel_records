@@ -19,7 +19,49 @@ import java.util.StringTokenizer;
 
 import javax.swing.JOptionPane;
 
+import com.company.personnelrecords.company.Company;
+import com.company.personnelrecords.company.Employee;
+import com.company.personnelrecords.company.EmployeeFixedSalary;
+import com.company.personnelrecords.company.EmployeeHourlyWages;
+
 public class MyUtil {
+	
+	public static void saveEmployeeDataInFile(String pathFileOut) throws Exception {
+		ArrayList<Employee> arrListEmployeeData = Company.getInstance().getArrListObjAllEmployee();
+		String [] arrResult = new String[arrListEmployeeData.size()];
+		
+		if (pathFileOut.indexOf("EmployeesFixedSalary") != (-1)) {
+			
+			for (int i = 0; i < arrListEmployeeData.size(); i++) {
+				arrResult[i] = "Personal Number: " + arrListEmployeeData.get(i).getPersonalNumber() +  
+						"   surname/Name/Middlename: " +  arrListEmployeeData.get(i).getSurnameNameMiddlename() +
+						 "   department: " +  arrListEmployeeData.get(i).getDepartment() +  
+						 "   post: " + arrListEmployeeData.get(i).getPost() +  
+						 "   averageSalary: " +  arrListEmployeeData.get(i).getAverageSalary() +
+						 "   monthlyPayment: " + ((EmployeeFixedSalary) arrListEmployeeData.get(i)).getMonthlyPayment() + 
+						 "   taxIdentifNum: " + arrListEmployeeData.get(i).getTaxIdentifNum() + 
+						 "   Education: " + arrListEmployeeData.get(i).getEducation() + 
+						 "   Passport: " + arrListEmployeeData.get(i).getPassport() + 
+						 "   Residance: " + arrListEmployeeData.get(i).getResidence();
+			}//for
+		}//
+		else if (pathFileOut.indexOf("EmployeesHourlyWages") != (-1)) {
+		
+			for (int i = 0; i < arrListEmployeeData.size(); i++) {
+				arrResult[i] = "Personal Number: " + arrListEmployeeData.get(i).getPersonalNumber() +  
+						"   surname/Name/Middlename: " +  arrListEmployeeData.get(i).getSurnameNameMiddlename() +
+						 "   department: " +  arrListEmployeeData.get(i).getDepartment() +  
+						 "   post: " + arrListEmployeeData.get(i).getPost() +  
+						 "   averageSalary: " +  arrListEmployeeData.get(i).getAverageSalary() +
+						 "   hourlyRate: " + ((EmployeeHourlyWages) arrListEmployeeData.get(i)).getHourlyRate() + 
+						 "   taxIdentifNum: " + arrListEmployeeData.get(i).getTaxIdentifNum() + 
+						 "   Education: " + arrListEmployeeData.get(i).getEducation() + 
+						 "   Passport: " + arrListEmployeeData.get(i).getPassport() + 
+						 "   Residance: " + arrListEmployeeData.get(i).getResidence();
+			}//for
+		}//
+		MyUtil.recMassStr(pathFileOut, arrResult);
+	}//saveEmployeeDataInFile
 
 	/**
 	 * ����� �������� � ����� ������, ���������� �������� �����, �� ������,

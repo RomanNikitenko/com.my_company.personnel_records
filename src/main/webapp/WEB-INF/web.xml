@@ -50,5 +50,9 @@ com/xml/ns/javaee/web-app_3_0.xsd"
 	<error-page>
 		<exception-type>java.lang.IndexOutOfBoundsException</exception-type>
 		<location>/error/errorIndexOutOfBoundsException.jsp</location>
-	</error-page>  
+	</error-page>
+	<error-page>
+		<exception-type> com.company.personnelrecords.exception.StringDigitIncludeException</exception-type>
+		<location>/error/errorStringDigitIncludeEception.jsp</location>
+	</error-page>
 </web-app>
