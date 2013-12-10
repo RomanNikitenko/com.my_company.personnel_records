@@ -40,7 +40,7 @@ public class EmplFixSalDataServlet extends HttpServlet {
 			generationEmployee(request);
 		}
 		else {
-			saveEditedemplFixSalData(request, response);
+			saveEditedEmplFixSalData(request, response);
 		}
 			request.getSession().setAttribute("calend", Calendar.getInstance());
 			request.setAttribute("arrColumnNames", columnNames);
@@ -58,9 +58,9 @@ public class EmplFixSalDataServlet extends HttpServlet {
 			HttpServletResponse response) throws ServletException, IOException {
 	}
 	//******************************************************************************************
-	public  ArrayList<Employee> generationEmployee (HttpServletRequest request) {
+	public  ArrayList<Employee> generationEmployee (HttpServletRequest request) throws Exception {
 		
-		try {
+		
 			int amountEmpl = Integer.valueOf(request
 					.getParameter("quanityEmplFixSal"));
 
@@ -72,12 +72,9 @@ public class EmplFixSalDataServlet extends HttpServlet {
 					.createArrayListObjEmplFixSalFromFile(pathFileOut);
 
 			return arrObjEmpl;
-		} catch (Exception e) {
-			return null;
-		}
 	}//generationEmployee()
 	//*******************************************************************************************
-	public void saveEditedemplFixSalData(HttpServletRequest request, HttpServletResponse response) throws Exception {
+	public void saveEditedEmplFixSalData(HttpServletRequest request, HttpServletResponse response) throws Exception {
 			
 		try {
 			for (int i = 0; i < arrObjEmpl.size(); i++) {
