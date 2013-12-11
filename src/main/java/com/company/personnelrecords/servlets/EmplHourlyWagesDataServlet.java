@@ -37,8 +37,14 @@ public class EmplHourlyWagesDataServlet extends HttpServlet {
 		try {
 			if (arrObjEmpl == null) {
 				generationEmployee(request);
-			} else {
-				saveEditedEmplHourlyWagesData(request, response);
+			}
+			else if (request.getParameter("surnameNameMiddlename"
+					+ arrObjEmpl.get(0).getPersonalNumber()) != null) {
+				
+				saveEditedEmplHourlyWagesDataFromForm(request, response);
+			}
+			else {
+				saveEmplHourlyWagesDataAfterAddEmpl();
 			}
 			request.getSession().setAttribute("calend", Calendar.getInstance());
 			request.setAttribute("arrColumnNames", columnNames);
@@ -56,7 +62,7 @@ public class EmplHourlyWagesDataServlet extends HttpServlet {
 			HttpServletResponse response) throws ServletException, IOException {
 	}
 	//******************************************************************************************
-	public  ArrayList<Employee> generationEmployee (HttpServletRequest request) throws Exception {
+	public void generationEmployee (HttpServletRequest request) throws Exception {
 		
 			int amountEmpl = Integer.valueOf(request
 					.getParameter("quanityEmplHourlyWages"));
@@ -65,13 +71,13 @@ public class EmplHourlyWagesDataServlet extends HttpServlet {
 
 			TestMode.generationEmployeeDataAndFiling(amountEmpl, pathFileOut);
 
-			arrObjEmpl = instanceCompany
+			instanceCompany
 					.createArrayListObjEmplHourlyWagesFromFile(pathFileOut);
-			return arrObjEmpl;
+			arrObjEmpl = instanceCompany.getArrListObjAllEmployee();
 	}//generationEmployee()
 		// *******************************************************************************************
 
-	public void saveEditedEmplHourlyWagesData(HttpServletRequest request,
+	public void saveEditedEmplHourlyWagesDataFromForm (HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
 
 		try {
@@ -121,4 +127,11 @@ public class EmplHourlyWagesDataServlet extends HttpServlet {
 			e.printStackTrace();
 		}
 	}// saveEditedEmplHourlyWagesData
+//*********************************************************************************************************
+	public void saveEmplHourlyWagesDataAfterAddEmpl() throws Exception {
+		
+		arrObjEmpl = instanceCompany.getArrListObjAllEmployee();
+		MyUtil.saveEmployeeDataInFile("src/main/resources/EmployeesHourlyWages.ehw");
+	}
+
 }

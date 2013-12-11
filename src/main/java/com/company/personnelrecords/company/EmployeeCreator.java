@@ -21,8 +21,19 @@ public class EmployeeCreator {
 		instanceCompany.getArrListObjAllEmployee().add(0, emplFixSal);
 		return emplFixSal;
 	}
-	
-	
+//****************************************************************************************************
+	public EmployeeHourlyWages addEmplHourlyWages(int personalNumber,
+			String surnameNameMiddlename, String department, String post,
+			BigDecimal averageSalary, long taxIdentifNum, String education,
+			String passport, String residence, BigDecimal hourlyRate)
+			throws StringDigitIncludeException {
+		EmployeeHourlyWages emplHourlyWages = new EmployeeHourlyWages(
+				personalNumber, surnameNameMiddlename, department, post,
+				averageSalary, taxIdentifNum, education, passport, residence,
+				hourlyRate);
+		instanceCompany.getArrListObjAllEmployee().add(0, emplHourlyWages);
+		return emplHourlyWages;
+	}
 	//***********************************************************************************************
 		public EmployeeFixedSalary createNewEmplFixSal()
 			throws StringDigitIncludeException {

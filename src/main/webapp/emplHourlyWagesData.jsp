@@ -18,13 +18,27 @@ textarea {
 
 <html>
 
-<body style="padding-top: 20px;">
-	<Form action="index.jsp">
-		<p align="left">
-			<INPUT type="submit" value="<= Back to Home page"
-				style="height: 45px">
-		</p>
-	</Form>
+<body>
+	<table width="100%">
+		<tr>
+			<td align="left">
+				<Form action="index.jsp">
+					<INPUT type="submit" value="<= Back to Home page"
+						style="height: 45px">
+				</Form>
+			</td>
+			<td align="right">
+				<Form action="addEmplHourlyWagesData.jsp">
+					<INPUT type="submit" value="Add Employee"
+						style="width: 150px; height: 45px">
+				</Form>
+				<Form action="delEmplHourlyWages">
+					<INPUT type="submit" value="Delete Employee"
+						style="width: 150px; height: 45px">
+				</Form>
+			</td>
+		</tr>
+	</table>
 
 	<h2 align="center">Employee with Hourly Wages Data</h2>
 	<Form name="emplHourlyWagesData" action="EmplHourlyWagesData" method="POST">
