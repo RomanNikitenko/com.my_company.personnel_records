@@ -47,6 +47,15 @@ com/xml/ns/javaee/web-app_3_0.xsd"
 		<servlet-name>ServlEmplHourlyWagesData</servlet-name>
 		<url-pattern>/EmplHourlyWagesData</url-pattern>
 	</servlet-mapping>
+	<servlet>
+		<servlet-name>AddEmplFixSalServlet</servlet-name>
+		<servlet-class>com.company.personnelrecords.servlets.AddEmplFixSalServlet
+		</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>AddEmplFixSalServlet</servlet-name>
+		<url-pattern>/AddEmplFixSal</url-pattern>
+	</servlet-mapping>
 	<error-page>
 		<exception-type>java.lang.IndexOutOfBoundsException</exception-type>
 		<location>/error/errorIndexOutOfBoundsException.jsp</location>

@@ -27,7 +27,6 @@ public class EmplFixSalDataServlet extends HttpServlet {
 	
 	public void init() throws ServletException {
 		instanceCompany = Company.getInstance();
-		
 	}// init
 	//****************************************************************************************
 	@Override
@@ -39,8 +38,13 @@ public class EmplFixSalDataServlet extends HttpServlet {
 		if (arrObjEmpl == null) {
 			generationEmployee(request);
 		}
+		else if (request.getParameter("surnameNameMiddlename"
+				+ arrObjEmpl.get(0).getPersonalNumber()) != null) {
+			
+			saveEditedEmplFixSalDataFromForm(request, response);
+		}
 		else {
-			saveEditedEmplFixSalData(request, response);
+			saveEmplFixSalDataAfterAddEmpl();
 		}
 			request.getSession().setAttribute("calend", Calendar.getInstance());
 			request.setAttribute("arrColumnNames", columnNames);
@@ -58,24 +62,21 @@ public class EmplFixSalDataServlet extends HttpServlet {
 			HttpServletResponse response) throws ServletException, IOException {
 	}
 	//******************************************************************************************
-	public  ArrayList<Employee> generationEmployee (HttpServletRequest request) throws Exception {
+	public void generationEmployee (HttpServletRequest request) throws Exception {
+
+		int amountEmpl = Integer.valueOf(request
+				.getParameter("quanityEmplFixSal"));
+
+		String pathFileOut = "src/main/resources/EmployeesFixedSalary.efs";
+
+		TestMode.generationEmployeeDataAndFiling(amountEmpl, pathFileOut);
+
+		instanceCompany.createArrayListObjEmplFixSalFromFile(pathFileOut);
 		
-		
-			int amountEmpl = Integer.valueOf(request
-					.getParameter("quanityEmplFixSal"));
-
-			String pathFileOut = "src/main/resources/EmployeesFixedSalary.efs";
-
-			TestMode.generationEmployeeDataAndFiling(amountEmpl, pathFileOut);
-
-			arrObjEmpl = instanceCompany
-					.createArrayListObjEmplFixSalFromFile(pathFileOut);
-
-			return arrObjEmpl;
+		arrObjEmpl = instanceCompany.getArrListObjAllEmployee();
 	}//generationEmployee()
 	//*******************************************************************************************
-	public void saveEditedEmplFixSalData(HttpServletRequest request, HttpServletResponse response) throws Exception {
-			
+	public void saveEditedEmplFixSalDataFromForm(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		try {
 			for (int i = 0; i < arrObjEmpl.size(); i++) {
 
@@ -83,7 +84,6 @@ public class EmplFixSalDataServlet extends HttpServlet {
 				arrObjEmpl.get(i).setSurnameNameMiddlename(
 						request.getParameter("surnameNameMiddlename"
 								+ arrObjEmpl.get(i).getPersonalNumber()));
-
 				arrObjEmpl.get(i).setDepartment(
 						request.getParameter("department"
 								+ arrObjEmpl.get(i).getPersonalNumber()));
@@ -123,4 +123,10 @@ public class EmplFixSalDataServlet extends HttpServlet {
 				e.printStackTrace();
 			}
 	}//saveEditedemplFixSalData
+
+	public void saveEmplFixSalDataAfterAddEmpl() throws Exception {
+	
+		arrObjEmpl = instanceCompany.getArrListObjAllEmployee();
+		MyUtil.saveEmployeeDataInFile("src/main/resources/EmployeesFixedSalary.efs");
+	}
 }
