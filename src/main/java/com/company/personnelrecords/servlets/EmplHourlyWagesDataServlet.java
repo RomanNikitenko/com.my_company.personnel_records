@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.company.personnelrecords.company.Company;
 import com.company.personnelrecords.company.Employee;
+import com.company.personnelrecords.company.EmployeeCreator;
 import com.company.personnelrecords.company.EmployeeFixedSalary;
 import com.company.personnelrecords.company.EmployeeHourlyWages;
 import com.company.personnelrecords.exception.StringDigitIncludeException;
@@ -35,17 +36,21 @@ public class EmplHourlyWagesDataServlet extends HttpServlet {
 			HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		try {
-			if (arrObjEmpl == null) {
+			
+			switch (request.getParameter("HIDDEN")) {
+			case "generateEmplHourlyWagesData":
 				generationEmployee(request);
-			}
-			else if (request.getParameter("surnameNameMiddlename"
-					+ arrObjEmpl.get(0).getPersonalNumber()) != null) {
-				
+				break;
+
+			case "saveEmplHourlyWagesData": 
 				saveEditedEmplHourlyWagesDataFromForm(request, response);
-			}
-			else {
-				saveEmplHourlyWagesDataAfterAddEmpl();
-			}
+				break;
+		
+			case "addEmplHourlyWages": 
+				saveEmplHourlyWagesDataAfterAddEmpl(request);
+				break;
+			}//switch
+
 			request.getSession().setAttribute("calend", Calendar.getInstance());
 			request.setAttribute("arrColumnNames", columnNames);
 			request.setAttribute("arrObjEmpl",
@@ -128,10 +133,33 @@ public class EmplHourlyWagesDataServlet extends HttpServlet {
 		}
 	}// saveEditedEmplHourlyWagesData
 //*********************************************************************************************************
-	public void saveEmplHourlyWagesDataAfterAddEmpl() throws Exception {
-		
-		arrObjEmpl = instanceCompany.getArrListObjAllEmployee();
-		MyUtil.saveEmployeeDataInFile("src/main/resources/EmployeesHourlyWages.ehw");
-	}
+	public void saveEmplHourlyWagesDataAfterAddEmpl(HttpServletRequest request) throws Exception {
 
+		try {
+			String personalNumber = request.getParameter("personalNumber");
+			String surnameNameMiddlename = request
+					.getParameter("surnameNameMiddlename");
+			String department = request.getParameter("department");
+			String post = request.getParameter("post");
+			String averageSalary = request.getParameter("averageSalary");
+			String hourlyRate = request.getParameter("hourlyRate");
+			String taxIdentifNum = request.getParameter("taxIdentifNum");
+			String education = request.getParameter("education");
+			String passport = request.getParameter("passport");
+			String residence = request.getParameter("residence");
+
+			new EmployeeCreator().addEmplHourlyWages(
+					Integer.valueOf(personalNumber), surnameNameMiddlename,
+					department, post,
+					BigDecimal.valueOf(Long.valueOf(averageSalary)),
+					Long.valueOf(taxIdentifNum), education, passport,
+					residence, BigDecimal.valueOf(Long.valueOf(hourlyRate)));
+
+			arrObjEmpl = instanceCompany.getArrListObjAllEmployee();
+			MyUtil.saveEmployeeDataInFile("src/main/resources/EmployeesHourlyWages.ehw");
+
+		} catch (NumberFormatException | StringDigitIncludeException e) {
+			e.printStackTrace();
+		}
+	}
 }

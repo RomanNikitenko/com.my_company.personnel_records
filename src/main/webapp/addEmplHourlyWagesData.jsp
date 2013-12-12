@@ -28,8 +28,8 @@ textarea {
 
 	<h2 align="center"> Add Employee with Hourly Wages </h2>
 
-	<Form name="addEmplHourlyWages" action="AddEmplHourlyWages" method="POST">
-
+	<Form name="addEmplHourlyWages" action="EmplHourlyWagesData" method="POST">
+	<INPUT TYPE="HIDDEN" NAME="HIDDEN" value="addEmplHourlyWages">
 		<table border="1" align="center">
 			<tr align="center">
 				<td><Strong>Personal Number:</Strong></td>

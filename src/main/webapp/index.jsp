@@ -40,6 +40,7 @@ td {
 			<tr>
 				<td>
 					<Form action="EmplHourlyWagesData" method="POST">
+						<INPUT TYPE="HIDDEN" NAME="HIDDEN" value="generateEmplHourlyWagesData">
 						<INPUT type="submit" value="Generate Employee with hourly wages"
 							style="width: 250px; height: 45px"> <input type="text"
 							value="50" name="quanityEmplHourlyWages" size="1" maxlength="3">

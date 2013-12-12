@@ -44,6 +44,7 @@ textarea {
 	<Form name="emplHourlyWagesData" action="EmplHourlyWagesData" method="POST">
 
 		<p align="center">
+			<INPUT TYPE="HIDDEN" NAME="HIDDEN" value="saveEmplHourlyWagesData">
 			<INPUT type="submit" value="Save" style="width: 150px; height: 45px">
 		</p>
 		<p align="center"><label>(to save the edited cell press <strong>Enter</strong> or <strong>Save</strong>)</label></p>
