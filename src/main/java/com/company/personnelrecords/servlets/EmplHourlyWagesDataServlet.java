@@ -36,7 +36,7 @@ public class EmplHourlyWagesDataServlet extends HttpServlet {
 			HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		try {
-			
+
 			switch (request.getParameter("HIDDEN")) {
 			case "generateEmplHourlyWagesData":
 				generationEmployee(request);
@@ -47,7 +47,11 @@ public class EmplHourlyWagesDataServlet extends HttpServlet {
 				break;
 		
 			case "addEmplHourlyWages": 
-				saveEmplHourlyWagesDataAfterAddEmpl(request);
+				addEmplHourlyWages(request);
+				break;
+			
+			case "delEmplHourlyWages": 
+				deleteEmplHourlyWages(request);
 				break;
 			}//switch
 
@@ -133,7 +137,7 @@ public class EmplHourlyWagesDataServlet extends HttpServlet {
 		}
 	}// saveEditedEmplHourlyWagesData
 //*********************************************************************************************************
-	public void saveEmplHourlyWagesDataAfterAddEmpl(HttpServletRequest request) throws Exception {
+	public void addEmplHourlyWages(HttpServletRequest request) throws Exception {
 
 		try {
 			String personalNumber = request.getParameter("personalNumber");
@@ -161,5 +165,13 @@ public class EmplHourlyWagesDataServlet extends HttpServlet {
 		} catch (NumberFormatException | StringDigitIncludeException e) {
 			e.printStackTrace();
 		}
-	}
+	}//addEmplHourlyWages
+	//*******************************************************************************************************
+	public void deleteEmplHourlyWages(HttpServletRequest request) throws Exception{
+		int persNumberEmplForDelete = Integer.valueOf(request
+				.getParameter("persNumberEmplForDelete"));
+		instanceCompany.deleteEmployeeByPersNumber(persNumberEmplForDelete);
+		arrObjEmpl = instanceCompany.getArrListObjAllEmployee();
+		MyUtil.saveEmployeeDataInFile("src/main/resources/EmployeesHourlyWages.ehw");
+	}//delEmplHourlyWages
 }
