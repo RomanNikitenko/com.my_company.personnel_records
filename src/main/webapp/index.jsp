@@ -30,6 +30,7 @@ td {
 			<tr>
 				<td>
 					<Form action="EmplFixSalData" method="POST">
+						<INPUT TYPE="HIDDEN" NAME="HIDDEN" value="generateEmplFixSalData">
 						<INPUT type="submit" value="Generate Employee with fix salary"
 							style="width: 250px; height: 45px"> <input type="text"
 							value="50" name="quanityEmplFixSal" size="1" maxlength="3">

@@ -28,8 +28,8 @@ textarea {
 
 	<h2 align="center"> Add Employee with Fixsal Salary</h2>
 
-	<Form name="addEmplFixSal" action="AddEmplFixSal" method="POST">
-
+	<Form name="addEmplFixSal" action="EmplFixSalData" method="POST">
+	<INPUT TYPE="HIDDEN" NAME="HIDDEN" value="addEmplFixSal">
 		<table border="1" align="center">
 			<tr align="center">
 				<td><Strong>Personal Number:</Strong></td>

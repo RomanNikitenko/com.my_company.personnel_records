@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.company.personnelrecords.company.Company;
 import com.company.personnelrecords.company.Employee;
+import com.company.personnelrecords.company.EmployeeCreator;
 import com.company.personnelrecords.company.EmployeeFixedSalary;
 import com.company.personnelrecords.exception.StringDigitIncludeException;
 import com.company.personnelrecords.testmode.TestMode;
@@ -35,17 +36,20 @@ public class EmplFixSalDataServlet extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		try {
 			
-		if (arrObjEmpl == null) {
-			generationEmployee(request);
-		}
-		else if (request.getParameter("surnameNameMiddlename"
-				+ arrObjEmpl.get(0).getPersonalNumber()) != null) {
+			switch (request.getParameter("HIDDEN")) {
+			case "generateEmplFixSalData":
+				generationEmployee(request);
+				break;
+
+			case "saveEmplFixSalData": 
+				saveEditedEmplFixSalDataFromForm(request, response);
+				break;
+		
+			case "addEmplFixSal": 
+				saveEmplFixSalDataAfterAddEmpl(request);
+				break;
+			}//switch
 			
-			saveEditedEmplFixSalDataFromForm(request, response);
-		}
-		else {
-			saveEmplFixSalDataAfterAddEmpl();
-		}
 			request.getSession().setAttribute("calend", Calendar.getInstance());
 			request.setAttribute("arrColumnNames", columnNames);
 			request.setAttribute("arrObjEmpl",
@@ -123,10 +127,31 @@ public class EmplFixSalDataServlet extends HttpServlet {
 				e.printStackTrace();
 			}
 	}//saveEditedemplFixSalData
-
-	public void saveEmplFixSalDataAfterAddEmpl() throws Exception {
+//**************************************************************************************************************
+	public void saveEmplFixSalDataAfterAddEmpl(HttpServletRequest request) throws Exception {
+		
+		String personalNumber = 		request.getParameter("personalNumber");
+		String surnameNameMiddlename = 	request
+				.getParameter("surnameNameMiddlename");
+		String department = 			request.getParameter("department");
+		String post = 					request.getParameter("post");
+		String averageSalary = 			request.getParameter("averageSalary");
+		String monthlyPayment = 		request.getParameter("monthlyPayment");
+		String taxIdentifNum = 			request.getParameter("taxIdentifNum");
+		String education = 				request.getParameter("education");
+		String passport = 				request.getParameter("passport");
+		String residence = 				request.getParameter("residence");
+		
+		try {
+			new EmployeeCreator().addEmplFixSal(Integer.valueOf(personalNumber),
+					surnameNameMiddlename, department, post, BigDecimal.valueOf(Long.valueOf(averageSalary)),
+					Long.valueOf(taxIdentifNum), education, passport, residence, BigDecimal.valueOf(Long.valueOf(monthlyPayment)));
 	
 		arrObjEmpl = instanceCompany.getArrListObjAllEmployee();
 		MyUtil.saveEmployeeDataInFile("src/main/resources/EmployeesFixedSalary.efs");
+
+		} catch (NumberFormatException | StringDigitIncludeException e) {
+			e.printStackTrace();
+		}
 	}
 }
