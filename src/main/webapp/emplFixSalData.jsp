@@ -32,9 +32,14 @@ textarea {
 					<INPUT type="submit" value="Add Employee"
 						style="width: 150px; height: 45px">
 				</Form>
-				<Form action="delEmplFixSal">
-					<INPUT type="submit" value="Delete Employee"
+			</td>
+			<td>
+				<Form action="EmplFixSalData" method="POST">
+					<INPUT type="HIDDEN" NAME="HIDDEN" value="delEmplFixSal">
+					 <INPUT	type="submit" value="Delete Employee"
 						style="width: 150px; height: 45px">
+						<input type="text" name="persNumberEmplForDelete"
+						placeholder="persNumber Empl for Del" style="text-align: center">
 				</Form>
 			</td>
 		</tr>

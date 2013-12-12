@@ -123,13 +123,13 @@ public class Company {
 
 	//***********************************************************
 	/**
-	 * Метод создания ArrayList объектов AllEmployee:
-	 * <p>* Создает ArrayList объектов EmployeeFixedSalary ДЛЯ ВСЕХ сотрудников, данные про которых есть в файле</p>
-	 * <p>* Создает ArrayList объектов EmployeeHourlyWages ДЛЯ ВСЕХ сотрудников, данные про которых есть в файле</p>
-	 * <p>* Соединяет полученные объекты в один ArrayList</p> 
-	 * @param pathFileInEmplFixSal String - путь к файлу с данными по Сотрудникам EmployeeFixedSalary
-	 * @param pathFileInEmplHourlyWages String - путь к файлу с данными по Сотрудникам EmployeeHourlyWages
-	 * @return ArrayList<Employee> - объекты Сотрудников
+	 * пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ ArrayList пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ AllEmployee:
+	 * <p>* пїЅпїЅпїЅпїЅпїЅпїЅпїЅ ArrayList пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ EmployeeFixedSalary пїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅ</p>
+	 * <p>* пїЅпїЅпїЅпїЅпїЅпїЅпїЅ ArrayList пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ EmployeeHourlyWages пїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅ</p>
+	 * <p>* пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅ ArrayList</p> 
+	 * @param pathFileInEmplFixSal String - пїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ EmployeeFixedSalary
+	 * @param pathFileInEmplHourlyWages String - пїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ EmployeeHourlyWages
+	 * @return ArrayList<Employee> - пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 	 * @throws Exception
 	 */
 	public ArrayList<Employee> createArrayListObjAllEmplFromFile (String pathFileInEmplFixSal, String pathFileInEmplHourlyWages)
@@ -142,16 +142,16 @@ public class Company {
 	}//createArrayListObjEmplFixSalFromFile
 	//***********************************************************************************************
 	/**
-	 * Метод создания ArrayList объектов EmployeeFixedSalary:
-	 * <p> * вызывает MyUtil.readDataEmployeeFromFile(pathFileIn), который считывает
-	 * данные </p>
-	 * <p>* Получает из этого файла ArrayList данных по сотрудникам * </p>
-	 * <p>* Создает ArrayList объектов EmployeeFixedSalary ДЛЯ ВСЕХ сотрудников,
-	 * данные про которых есть в файле * </p>
+	 * пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ ArrayList пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ EmployeeFixedSalary:
+	 * <p> * пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ MyUtil.readDataEmployeeFromFile(pathFileIn), пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+	 * пїЅпїЅпїЅпїЅпїЅпїЅ </p>
+	 * <p>* пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ ArrayList пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ * </p>
+	 * <p>* пїЅпїЅпїЅпїЅпїЅпїЅпїЅ ArrayList пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ EmployeeFixedSalary пїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ,
+	 * пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅ * </p>
 	 * 
 	 * @param pathFileIn
-	 *            String - путь к файлу с данными по Сотрудникам
-	 * @return ArrayList<EmployeeFixedSalary> - объекты Сотрудников
+	 *            String - пїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+	 * @return ArrayList<EmployeeFixedSalary> - пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 	 * @throws Exception
 	 */
 	public ArrayList<Employee> createArrayListObjEmplFixSalFromFile(
@@ -184,12 +184,12 @@ public class Company {
 	}// createArrayListObjEmplFixSalFromFile
 	// **************************************************************************************************
 	/**
-	 * Метод создания ArrayList объектов EmployeeHourlyWages:
-	 * <p>* вызывает MyUtil.readDataEmployeeFromFile(pathFileIn), который считывает данные </p>
-	 * <p>* Получает из этого файла ArrayList данных по сотрудникам</p> 
-	 * <p>* Создает ArrayList объектов EmployeeHourlyWages ДЛЯ ВСЕХ сотрудников, данные про которых есть в файле</p> 
-	 * @param pathFileIn String - путь к файлу с данными по Сотрудникам
-	 * @return ArrayList<EmployeeHourlyWages> - объекты Сотрудников
+	 * пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ ArrayList пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ EmployeeHourlyWages:
+	 * <p>* пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ MyUtil.readDataEmployeeFromFile(pathFileIn), пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ </p>
+	 * <p>* пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ ArrayList пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ</p> 
+	 * <p>* пїЅпїЅпїЅпїЅпїЅпїЅпїЅ ArrayList пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ EmployeeHourlyWages пїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅ</p> 
+	 * @param pathFileIn String - пїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+	 * @return ArrayList<EmployeeHourlyWages> - пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 	 * @throws Exception
 	 */
 	public ArrayList<Employee> createArrayListObjEmplHourlyWagesFromFile(
@@ -251,5 +251,13 @@ public class Company {
 					"Error", JOptionPane.ERROR_MESSAGE);
 		}
 	}//deleteEmployee
+	//****************************************************************************************************
+	public void deleteEmployeeByPersNumber(int persNumber) {
+		for (int i = 0; i < arrListObjAllEmployee.size(); i++) {
+			if (arrListObjAllEmployee.get(i).getPersonalNumber() == persNumber) {
+				deleteEmployee(i);
+			}//if
+		}//for
+	}//deleteEmployeeByPersNumber
 
 }//class

@@ -10,6 +10,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.omg.CosNaming.IstringHelper;
+
 import com.company.personnelrecords.company.Company;
 import com.company.personnelrecords.company.Employee;
 import com.company.personnelrecords.company.EmployeeCreator;
@@ -46,8 +48,13 @@ public class EmplFixSalDataServlet extends HttpServlet {
 				break;
 		
 			case "addEmplFixSal": 
-				saveEmplFixSalDataAfterAddEmpl(request);
+				addEmplFixSal(request);
 				break;
+
+			case "delEmplFixSal": 
+				deleteEmplFixSal(request);
+				break;
+
 			}//switch
 			
 			request.getSession().setAttribute("calend", Calendar.getInstance());
@@ -128,7 +135,7 @@ public class EmplFixSalDataServlet extends HttpServlet {
 			}
 	}//saveEditedemplFixSalData
 //**************************************************************************************************************
-	public void saveEmplFixSalDataAfterAddEmpl(HttpServletRequest request) throws Exception {
+	public void addEmplFixSal(HttpServletRequest request) throws Exception {
 		
 		String personalNumber = 		request.getParameter("personalNumber");
 		String surnameNameMiddlename = 	request
@@ -153,5 +160,13 @@ public class EmplFixSalDataServlet extends HttpServlet {
 		} catch (NumberFormatException | StringDigitIncludeException e) {
 			e.printStackTrace();
 		}
-	}
+	}//saveEmplFixSalDataAfterAddEmpl
+	//*************************************************************************************************************
+	public void deleteEmplFixSal(HttpServletRequest request) throws Exception{
+		int persNumberEmplForDelete = Integer.valueOf(request
+				.getParameter("persNumberEmplForDelete"));
+		instanceCompany.deleteEmployeeByPersNumber(persNumberEmplForDelete);
+		arrObjEmpl = instanceCompany.getArrListObjAllEmployee();
+		MyUtil.saveEmployeeDataInFile("src/main/resources/EmployeesFixedSalary.efs");
+	}//updateEmplFixSalDataAfterDeleteEmpl
 }
