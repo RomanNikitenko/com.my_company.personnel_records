@@ -6,7 +6,7 @@ import com.company.personnelrecords.exception.StringDigitIncludeException;
 public class EmployeeFixedSalary extends Employee{
 	
 	
-	private BigDecimal monthlyPayment; //мес€чный оклад
+	private BigDecimal monthlyPayment; 
 
 	//*********************************************************************************************
 	public EmployeeFixedSalary (int personalNumber,
@@ -18,7 +18,7 @@ public class EmployeeFixedSalary extends Employee{
 				taxIdentifNum, education, passport, residence);
 		
 		this.setMonthlyPayment(monthlyPayment);
-	}//конструктор
+	}
 	
 //**********************************************************************************************
 		
@@ -29,6 +29,4 @@ public class EmployeeFixedSalary extends Employee{
 		this.monthlyPayment = monthlyPayment;
 	}
 //************************************************************************************************
-	
-
 }//class

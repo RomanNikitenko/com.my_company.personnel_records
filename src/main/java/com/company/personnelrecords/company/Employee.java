@@ -7,19 +7,19 @@ import com.company.personnelrecords.exception.StringDigitIncludeException;
 
 public class Employee {
 	
-	protected int 	 personalNumber;			//табельный номер сотрудника
-	protected String surnameNameMiddlename,     //фамилия, имя, отчество сотрудника
-//					 name,						//имя 
-//					 middleName,  				//Отчество
-					department,  				// отдел
-					post; 						// должность
+	protected int 	 personalNumber;
+	protected String surnameNameMiddlename,
+//					 name,					 
+//					 middleName,  			
+					department,  			
+					post; 					
 	protected BigDecimal 
-					averageSalary; 				//зарплата
-	protected long taxIdentifNum;   			//идентиф номер налогоплатильщика
-	protected String education,					//образование 
-					 passport,   				//все данные по паспорту
+					averageSalary; 			
+	protected long taxIdentifNum;   		
+	protected String education,				 
+					 passport,   			
 				     
-					 residence;					//местожительства - адресс
+					 residence;				
 	
 	
 	
@@ -37,9 +37,7 @@ public class Employee {
 		this.setResidence(residence);
 		this.setTaxIdentifNum(taxIdentifNum);
 		this.setAverageSalary(averageSalary);
-	}//конструктор
-
-//*******Блок гетеров/сеттеров
+	}
 
 	public int getPersonalNumber() {
 		return personalNumber;

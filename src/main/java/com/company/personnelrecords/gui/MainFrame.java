@@ -41,44 +41,43 @@ public class MainFrame extends JFrame implements ActionListener {
 	private static JPanel panelEmplTable;
 	private EmployeeCreator emplCreator;
 	
-//*******Конструктор******************************
+//*************************************
 	public MainFrame () throws Exception {
 		
 		MenuBar.setMainFrame(this);
 
-		//получаем размер экрана
 		screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		
-//*******//главная панель//*******
-        mainPanel = new JPanel(); //создаем главную панель, задаем менеджер размещения
-		mainPanel.setPreferredSize(new Dimension(screenSize.width, screenSize.height-25));//устанавливаем размер
-		mainPanel.setBorder(BorderFactory.createRaisedBevelBorder());//устанавливаем бордюр
+//*******////*******
+        mainPanel = new JPanel(); 
+		mainPanel.setPreferredSize(new Dimension(screenSize.width, screenSize.height-25));
+		mainPanel.setBorder(BorderFactory.createRaisedBevelBorder());
 		
-//*******//настройки окна//*******
-		add(mainPanel);//добавляем главную панель к фрейму
-		this.setJMenuBar(MenuBar.getPersRecMenuBar()); //устанавливаем меню
-		setTitle("PersonnelRecord"); //устанавливаем заголовок окна
-		setDefaultCloseOperation(this.DISPOSE_ON_CLOSE);//завершение работы приложения по закрытию главного окна
-//		setLocationRelativeTo(null); //расположение окна - левый верхний угол по центру экрана
+//*******////*******
+		add(mainPanel);
+		this.setJMenuBar(MenuBar.getPersRecMenuBar()); 
+		setTitle("PersonnelRecord"); 
+		setDefaultCloseOperation(this.DISPOSE_ON_CLOSE);
+//		setLocationRelativeTo(null); 
 		setSize(new Dimension(screenSize.width, screenSize.height-25));
 		setLocation((screenSize.width - getWidth()) / 2,
 		                (screenSize.height - getHeight()) / 3);
-		setVisible(true); // отображать окно
-		setExtendedState(MAXIMIZED_BOTH);//окно на весь экран
+		setVisible(true); 
+		setExtendedState(MAXIMIZED_BOTH);
 		
-//*******//Панель Employees//*******
+//*******//Employees//*******
 		panelEmployees = new JPanel(new BorderLayout());
 		panelEmployees.setPreferredSize(new Dimension (mainPanel.getWidth()-10, mainPanel.getHeight()-10));
 		panelEmployees.setBorder(BorderFactory.createTitledBorder(BorderFactory.createRaisedBevelBorder(), "Employees",
 				TitledBorder.CENTER, TitledBorder.TOP));
 		
-//*******//панель для кнопок EDIT
+//*******//
 		panelButEdit = new JPanel(new GridLayout(7, 1, 0, 10));
 //		panelButEdit.setLayout(new BoxLayout(panelButEdit, BoxLayout.Y_AXIS));
 		panelButEdit.setPreferredSize(new Dimension (100, mainPanel.getHeight()-10));
 		panelButEdit.setBorder(BorderFactory.createTitledBorder(BorderFactory.createRaisedBevelBorder(), "Buttons Edit"));
 		
-//*******//кнопоки EDIT
+//*******//
 		
 		butAddEmplFixSal = new JButton("<html><center> Add Employee <br> Fix Salary");
 		butAddEmplFixSal.addActionListener(this);
@@ -93,18 +92,16 @@ public class MainFrame extends JFrame implements ActionListener {
 		butDelete.addActionListener(this);
 		
 
-//*******//панель для таблицы 
+//*******// 
 		panelEmplTable = new JPanel(new BorderLayout());
 		panelEmplTable.setPreferredSize(new Dimension (mainPanel.getWidth()-panelButEdit.getWidth()-10, mainPanel.getHeight()-10));
 
 		mainPanel.add(panelEmployees, BorderLayout.CENTER);
 			
-	}//конструктор
+	}
 //***********************************************************
 	public JTable displayTable (final AbstractTableModel tableModel) {
 		
-		//*******//создаем таблицу на основе нашей модели,
-		//переданной в параметре
 		dataTable = new JTable(tableModel);
 		dataTable.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 		dataTable.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
@@ -134,11 +131,9 @@ public class MainFrame extends JFrame implements ActionListener {
 			     } 
 			      return super.getComparator(column);
 			}
-			
 		};
 		dataTable.setRowSorter(sorter);
 		
-		// Задаем размер столбцов
 		dataTable.getColumnModel().getColumn(0).setPreferredWidth(55);
 		dataTable.getColumnModel().getColumn(1).setPreferredWidth(200);
 		dataTable.getColumnModel().getColumn(2).setPreferredWidth(150);
@@ -158,13 +153,13 @@ public class MainFrame extends JFrame implements ActionListener {
 			dataTable.getColumnModel().getColumn(8).setPreferredWidth(220);
 			dataTable.getColumnModel().getColumn(9).setPreferredWidth(300);
 		}//else
-		// Создаем панель прокрутки и включаем в ее состав нашу таблицу
+
 		jscrlp = new JScrollPane(dataTable,
 						ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS,
 						ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
 		panelEmplTable.removeAll();
 
-		//Добавляем на панель jscrlp вместе с таблицей
+
 		panelEmplTable.add(jscrlp);
 		panelButEdit.removeAll();
 				
@@ -185,7 +180,6 @@ public class MainFrame extends JFrame implements ActionListener {
 				panelButEdit.add(butAddEmplHourlyWages, 1);
 		}//else
 		
-		//Добавляем панели
 		panelButEdit.add(butDelete);
 		panelButEdit.add(butClean);
 		panelEmployees.add(panelButEdit, BorderLayout.WEST);

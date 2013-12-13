@@ -62,21 +62,6 @@ public class MyUtil {
 		}//
 		MyUtil.recMassStr(pathFileOut, arrResult);
 	}//saveEmployeeDataInFile
-
-	/**
-	 * ����� �������� � ����� ������, ���������� �������� �����, �� ������,
-	 * ���������� � ���������.
-	 * 
-	 * @param strForFiling
-	 *            String - ������ ��� ���������� � �����
-	 * @param pathFileIn
-	 *            String - ���� � �����
-	 * @param keyword
-	 *            String - �������� ����� ��� ������ ���������������� ������
-	 * @return void
-	 * @throws IOException
-	 */
-
 	// ****************************************************************************
 	public static void replacementStrInFile (String strForFiling, String pathFileIn, String keyword) throws IOException {
 		
@@ -98,18 +83,7 @@ public class MyUtil {
 		
     Files.move(Paths.get(pathFileOut), Paths.get(pathFileIn), StandardCopyOption.REPLACE_EXISTING);
 	}//filingCompanyData
-
 	// ***************************************************************************
-	/**
-	 * ����� ������ ������ ��� ���� "Company Data" � ������� �
-	 * ArrayList<ArrayList<String>>. ������ ������ �������� �� ���������� ����,
-	 * ������� ���� ����� ��������� �����
-	 * 
-	 * @param pathFileIn
-	 *            String - ���� � �����
-	 * @return ArrayList<ArrayList<String>> - ��������� ������
-	 * @throws Exception
-	 */
 	public static ArrayList<ArrayList<String>> readCompanyDataFromFile(
 			String pathFileIn) {
 		try {
@@ -173,16 +147,6 @@ public class MyUtil {
 	}// readCompanyDataFromFile()
 
 	// ***************************************************************************
-	/**
-	 * ����� ������ ������ �� ����������� �� ����� � ������� �
-	 * ArrayList<ArrayList<String>>. ������ ������ �������� �� ���������� ����,
-	 * ������� ���� ����� ��������� �����
-	 * 
-	 * @param pathFileIn
-	 *            String - ���� � �����
-	 * @return ArrayList<ArrayList<String>> - ��������� ������
-	 * @throws Exception
-	 */
 	public static ArrayList<ArrayList<String>> readDataEmployeeFromFile(
 			String pathFileIn) throws Exception {
 
@@ -232,19 +196,6 @@ public class MyUtil {
 		return arrListDataEmployees;
 	}// readDataEmployeeFromFile()
 		// *****************************************************************************************************
-
-	/**
-	 * ����� ��������� ���� ����� ��������� �������
-	 * 
-	 * @param strForAnalysis
-	 *            String - ������ ��� �������
-	 * @param keyWord1
-	 *            String - ������ �������� �����
-	 * @param keyWord2
-	 *            String - ������ �������� �����
-	 * 
-	 * @return String - ���������, ������� ��������� ����� �������� ����
-	 */
 	public static String returnStrBetweenKeyWords(String strForAnalysis,
 			String keyWord1, String keyWord2) {
 
@@ -255,18 +206,6 @@ public class MyUtil {
 		return result;
 	}// returnStrBetweenKeyWords
 		// *****************************************************************************************************
-
-	/**
-	 * ����� ��������� ����, ������� ����� ����� ��������� ����� �� ����� ������
-	 * 
-	 * @param strForAnalysis
-	 *            String - ������ ��� �������
-	 * @param keyWord1
-	 *            String - ������ �������� �����
-	 * @param keyWord2
-	 *            String - ������ �������� �����
-	 * @return String - ���������, ������� ��������� ����� �������� ����
-	 */
 	public static String returnStrAfterKeyWord(String strForAnalysis,
 			String keyWord) {
 
@@ -277,17 +216,6 @@ public class MyUtil {
 	}// returnStrAfterKeyWord
 
 	// ******************************************************
-	/**
-	 * ����� ��������� ���������, ������� ����� ����� ��������� �����, �� ������
-	 * � ���������� �� � ���� �������
-	 * 
-	 * @param strForAnalysis
-	 *            String - ������ ��� �������
-	 * @param keyWord
-	 *            String - �������� �����
-	 * @return String[] - ������ �������, ���������� �� ���������, ������� �����
-	 *         ����� ��������� �����.
-	 */
 	public static String[] returnArrTokenAfterKeyWord(String strForAnalysis,
 			String keyWord) {
 
@@ -305,18 +233,6 @@ public class MyUtil {
 	}// returnStrAfterKeyWord()
 
 	// *******************************************************
-	/**
-	 * ����� ��������� �� ���� ������ String [] � ���������� ���������.
-	 * ���������� ������ arrResult.length = amountGeneration, ������ ������
-	 * �������� = random-������ �������, ����������� � ���������
-	 * 
-	 * @param arr
-	 *            String [] - �������� ������ ��� ��������� random-������
-	 * @param amountGeneration
-	 *            int - ���������� ����������� ��������� random-����� =
-	 *            arrResult.length ������� ����������
-	 * @return String [] - ������ ������� ����������
-	 */
 	public static String[] generationRandomCellsOfArray(String[] arr,
 			int amountGeneration) {
 		// ���������� ������ random-������� �������, ����������� � ���������
@@ -331,18 +247,6 @@ public class MyUtil {
 	}// generationRandomCellsOfArray ()
 
 	// ******************************************************************************************
-	/**
-	 * ����� ���������� �������� � ��������� ���������� ��������� ����� �
-	 * ������� ���������
-	 * 
-	 * @param quantityNum
-	 *            int - ���������� ��������� ��������� �����
-	 * @param num1
-	 *            long - ������ ������� ���������
-	 * @param num2
-	 *            long - ������� ������� ���������
-	 * @return long [] - ������ ��������� ����� � �������� ���������
-	 */
 	public static long[] createArrRandomNum(int quantityNum, long num1,
 			long num2) {
 
@@ -356,23 +260,11 @@ public class MyUtil {
 		}// if
 		else
 			System.out
-					.println("������ ������������ �������� ��������: ��������2 ������ ���������1");
+					.println("");
 
 		return arrRandomNum;
 	}// ArrRandomNum
 		// ***********************************************************************************************************************************
-
-	/**
-	 * ����� ���������� ������ ����� � ����, ���� � �������� ������� � ���������
-	 * � ���������, ����������� �� ������ � ����
-	 * 
-	 * @param pathFileOut
-	 *            String - ���� � ����� ��� ������
-	 * @param massStrForRec
-	 *            String [] - ������ ����� ��� ������
-	 * @return boolean - ��� ���� ���� � ����������� �� ���������� ������ �����
-	 * @throws Exception
-	 */
 	public static boolean recMassStr(String pathFileOut, String[] massStrForRec)
 			throws Exception {
 
@@ -388,14 +280,6 @@ public class MyUtil {
 	}// recMassStr ()
 
 	// ************************************************************************************
-	/**
-	 * ����� ��������� ����������� �� ������ � ����
-	 * 
-	 * @param pathFileOut
-	 *            String - ���� � �����
-	 * @return boolean - ���, ���� raf.length() > 0, ����� ����
-	 * @throws IOException
-	 */
 	public static boolean checkRecFile(String pathFileOut) throws IOException {
 
 		boolean retVal = false;
@@ -411,16 +295,6 @@ public class MyUtil {
 	}// checkRecFile ()
 
 	// ******************************************************************************
-
-	/**
-	 * ����� ������� ������� �������� ����� � �����, ���������� � ������
-	 * 
-	 * @param pathFileIn
-	 *            String - ���� � �����
-	 * @return int [] - ������ ������� �������� ����� � �����, ���������� �
-	 *         ������
-	 * @throws Exception
-	 */
 	public static int[] countStrInFile(String pathFileIn) throws Exception {
 
 		RandomAccessFile raf = new RandomAccessFile(pathFileIn, "r");
@@ -451,18 +325,10 @@ public class MyUtil {
 	}// countStrInFile
 
 	// ******************************************************************************
-	/**
-	 * ����� ��������� ���� � ���������� ������ �����
-	 * 
-	 * @param pathFileIn
-	 *            String - ���� � ����� ��� ����������
-	 * @return String [] - ������ ��������� �����
-	 * @throws Exception
-	 */
 	public static String[] readFile(String pathFileIn) throws Exception {
 
-		int[] massPosStr = countStrInFile(pathFileIn);// ����� ������ �������
-														// �������� ����� �����
+		int[] massPosStr = countStrInFile(pathFileIn);
+														
 		String[] massStr = new String[massPosStr.length];
 
 		BufferedReader fBufReader = new BufferedReader(
@@ -478,21 +344,6 @@ public class MyUtil {
 	}// readFile
 
 	// ******************************************************
-	/**
-	 * ����� "���������" ������ ���� ���������� �������� (arr1.length =
-	 * arr2.length) ��� ������� � ��. ������������, ��� ���� ������ �����������
-	 * ����� ��������
-	 * 
-	 * @param arr1
-	 *            String [] - ������1 ��� ����������
-	 * @param numCell1
-	 *            int [] - ������ ����� �������1 ��� ����������
-	 * @param arr2
-	 *            String [] - ������2 ��� ����������
-	 * @param numCell2
-	 *            int [] - ������ ����� �������2 ��� ����������
-	 * @return String [] - ������ "���������" �����
-	 */
 	public static String[] glueCellsArrays(String[] arr1, int[] numCell1,
 			String[] arr2, int[] numCell2) {
 		String[] arrRes = new String[numCell1.length];
@@ -502,21 +353,6 @@ public class MyUtil {
 		return arrRes;
 	}// glueCellsArrays ()
 		// ******************************************************
-
-	/**
-	 * ����� "���������" ������ ���� ���������� �������� (arr1.length =
-	 * arr2.length = arr3.length) � ������������ (����������� � ���������)
-	 * 
-	 * @param arr1
-	 *            String [] - ������1 ��� ����������
-	 * @param arr2
-	 *            String [] - ������2 ��� ����������
-	 * @param arr3
-	 *            String [] - ������3 ��� ����������
-	 * @param delim
-	 *            String - �����������
-	 * @return String [] - ������ "���������" �����
-	 */
 	public static String[] glueCellsArrays(String[] arr1, String[] arr2,
 			String[] arr3, String delim) {
 		String[] arrResult = new String[arr1.length];
@@ -525,20 +361,7 @@ public class MyUtil {
 		}// for
 		return arrResult;
 	}// glueCellsArrays ()
-		// *********************************************************
-
-	/**
-	 * ����� "���������" ������ ���� ���������� �������� (arr1.length =
-	 * arr2.length) ��� ���� ��������� ����������� (delim)
-	 * 
-	 * @param arr1
-	 *            String [] - ������1 ��� ����������
-	 * @param arr2
-	 *            String [] - ������2 ��� ����������
-	 * @param delim
-	 *            - �����������
-	 * @return String [] - ������ "���������" �����
-	 */
+ // *********************************************************
 	public static String[] glueCellsArrays(String[] arr1, String[] arr2,
 			String delim) {
 
@@ -551,20 +374,6 @@ public class MyUtil {
 		return arrRes;
 	}// glueCellsArrays
 		// ******************************************************************************
-
-	/**
-	 * ����� ���������� ������ ��������� ����� � �������� ���������
-	 * 
-	 * @param quantityNum
-	 *            int - ���������� ���������
-	 * @param num1
-	 *            int - ������ ������� ���������
-	 * @param num2
-	 *            int - ������� ������� ���������
-	 * @return int[] - ������ ��������� �����
-	 * @throws Exception
-	 */
-
 	public static int[] createArrRandomNum(int quantityNum, int num1, int num2) {
 
 		Random rndm = new Random();
@@ -577,22 +386,12 @@ public class MyUtil {
 		}// if
 		else
 			System.out
-					.println("������ ������������ �������� ��������: ��������2 ������ ���������1");
+					.println("");
 
 		return arrRandomNum;
 	}// ArrRandomNum
 
 	// ******************************************************
-	/**
-	 * ����� ���������� ��������� ����� � �������� ���������
-	 * 
-	 * @param num1
-	 *            long - ������ ������� ���������
-	 * @param num2
-	 *            long - ������� ������� ���������
-	 * @return int[] - ������ ��������� �����
-	 * @throws Exception
-	 */
 	public static long generateRandomNum(long num1, long num2) {
 
 		Random rndm = new Random();
@@ -603,20 +402,11 @@ public class MyUtil {
 		}// if
 		else
 			System.out
-					.println("������ ������������ �������� ��������: ��������2 ������ ���������1");
+					.println("");
 
 		return random;
 	}// randomNum
 		// ******************************************************
-
-	/**
-	 * ����� ���������� �������� ����� ������� ��������� (����� ���� - ���
-	 * ��������)
-	 * 
-	 * @param amountGeneration
-	 *            int - ���������� ���������
-	 * @return String [] - ������ ������� ���������
-	 */
 	public static String[] generateRandomNumPass(int amountGeneration) {
 
 		Random rndm = new Random();
@@ -629,14 +419,6 @@ public class MyUtil {
 		return arrNumPass;
 	}// generateRandomNumPass
 		// ******************************************************
-
-	/**
-	 * ����� ���������� �������� ����� ��� ������ ���������
-	 * 
-	 * @param amountGeneration
-	 *            int - ���������� ���������
-	 * @return String [] - ������ ��� ������ ���������
-	 */
 	public static String[] generateRandomDatePassport(int amountGeneration) {
 
 		Random rndm = new Random();

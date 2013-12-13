@@ -68,50 +68,44 @@ public class MenuBar extends JFrame{
 		
 		instanceCompany = Company.getInstance();
 		
-		//создаем панель меню - JMenuBar
 	   setPersRecMenuBar(new JMenuBar());
 	 
-	   //получаем размер экрана
 	   screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 
 //*******Company*******//
 	   
-	   //создаем подменю Company
 	   menuCompany = new JMenu("<HTML><CENTER>Company</CENTER</HTML>");
 	   menuCompany.setBorder(new BevelBorder(BevelBorder.RAISED));
 	   
-	   //добав. пункт "Company Data"
 	   submenuCompanyData = new JMenuItem("Company Data");
 	   submenuCompanyData.setAccelerator
 	   (KeyStroke.getKeyStroke(KeyEvent.VK_C, ActionEvent.SHIFT_MASK));
 	   menuCompany.add(submenuCompanyData);
 	   submenuCompanyData.addActionListener(new CompanyDataListener());
 	   
-	   //добав. пункт меню - "Open List 'All Employee'"   
+	   //"Open List 'All Employee'"   
 	   submenuCompanyData = new JMenuItem("Open List 'All Employee'");
 	   submenuCompanyData.setAccelerator
 	   (KeyStroke.getKeyStroke(KeyEvent.VK_O, ActionEvent.SHIFT_MASK));
 	   menuCompany.add(submenuCompanyData);
 	   submenuCompanyData.addActionListener(new CompanyDataListener());
 
-	   //добав. пункт меню - "List of Departments"   
+	   //"List of Departments"   
 	   submenuCompanyData = new JMenuItem("List of Departments");
 	   submenuCompanyData.setAccelerator
 	   (KeyStroke.getKeyStroke(KeyEvent.VK_D, ActionEvent.SHIFT_MASK));
 	   menuCompany.add(submenuCompanyData);
 	   submenuCompanyData.addActionListener(new CompanyDataListener());
 
-	   //добав. пункт меню - "List of Departments"   
+	   //"List of Departments"   
 	   submenuCompanyData = new JMenuItem("List of Posts");
 	   submenuCompanyData.setAccelerator
 	   (KeyStroke.getKeyStroke(KeyEvent.VK_P, ActionEvent.SHIFT_MASK));
 	   menuCompany.add(submenuCompanyData);
 	   submenuCompanyData.addActionListener(new CompanyDataListener());
 
-	   //добав. разделитель меню
 	   menuCompany.add(new JSeparator());
 	   
-	   //добав. меню выход
 	   submenuCompanyData = new JMenuItem("Exit");
 	   submenuCompanyData.setAccelerator
 	   (KeyStroke.getKeyStroke(KeyEvent.VK_E, ActionEvent.SHIFT_MASK));
@@ -122,78 +116,74 @@ public class MenuBar extends JFrame{
 			   System.exit(0);
 		   }
 	   });
-	   //подменю добав к основному меню
 	   getPersRecMenuBar().add(menuCompany);
 	   
 //*******Employee With Fix Salary*******//
 	   
-	   //создаем подменю Employee With Fix Salary
+	   //Employee With Fix Salary
 	   menuEmployeeFixSal = new JMenu("<html><center>Employee With <br> Fix Salary");
 	   menuEmployeeFixSal.setPreferredSize(new Dimension(100, 40));
 	   menuEmployeeFixSal.setBorder(new BevelBorder(BevelBorder.RAISED));
 	   
-	   //добав. пункт "New"
+	   // "New"
 	   submenuEmplFixSal = new JMenuItem("New");
 	   submenuEmplFixSal.setAccelerator
 	   (KeyStroke.getKeyStroke(KeyEvent.VK_N, ActionEvent.CTRL_MASK));
 	   menuEmployeeFixSal.add(submenuEmplFixSal);
 	   submenuEmplFixSal.addActionListener(new EmployeeFixSalListener());
 	   
-	   //добав. пункт меню - "Open List Employee"   
+	   //"Open List Employee"   
 	   submenuEmplFixSal = new JMenuItem("Open List Employees");
 	   submenuEmplFixSal.setAccelerator
 	   (KeyStroke.getKeyStroke(KeyEvent.VK_O, ActionEvent.CTRL_MASK));
 	   menuEmployeeFixSal.add(submenuEmplFixSal);
 	   submenuEmplFixSal.addActionListener(new EmployeeFixSalListener());
 
-	   //подменю добав к основному меню
 	   getPersRecMenuBar().add(menuEmployeeFixSal);
 	   
 //*******Employee with hourly wages*******//
 	 
-	   //создаем подменю Employee With hourly wages
+	   // Employee With hourly wages
 	   menuEmployeeHourlyWages = new JMenu("<html><center>Employee With <br> Hourly Wages");
 	   menuEmployeeHourlyWages.setPreferredSize(new Dimension(100, 40));
 	   menuEmployeeHourlyWages.setBorder(new BevelBorder(BevelBorder.RAISED));
 	   
-	   //добав. пункт "New"
+	   //"New"
 	   submenuEmplHourlyWages = new JMenuItem("New");
 	   submenuEmplHourlyWages.setAccelerator
 	   (KeyStroke.getKeyStroke(KeyEvent.VK_N, ActionEvent.ALT_MASK));
 	   menuEmployeeHourlyWages.add(submenuEmplHourlyWages);
 	   submenuEmplHourlyWages.addActionListener(new EmployeeHourlyWagesListener());
 	   
-	   //добав. пункт меню - "Open List Employee"   
+	   //"Open List Employee"   
 	   submenuEmplHourlyWages = new JMenuItem("Open List Employees");
 	   submenuEmplHourlyWages.setAccelerator
 	   (KeyStroke.getKeyStroke(KeyEvent.VK_O, ActionEvent.ALT_MASK));
 	   menuEmployeeHourlyWages.add(submenuEmplHourlyWages);
 	   submenuEmplHourlyWages.addActionListener(new EmployeeHourlyWagesListener());
 	   
-	   //добав. разделитель меню
 	   menuEmployeeHourlyWages.add(new JSeparator());
 	   
-	   //подменю добав к основному меню
 	   getPersRecMenuBar().add(menuEmployeeHourlyWages);
 
 //*******Test Mode*******//
 		 
-	   //создаем подменю Test Mode
+	   // Test Mode
 	   menuTestMode = new JMenu("Test Mode");
 //	   menuTestMode.setPreferredSize(new Dimension(80, 40));
 	   menuTestMode.setBorder(new BevelBorder(BevelBorder.RAISED));
 	   
-	   //добав. пункт "Generate Company"
+	   // "Generate Company"
 	   submenuGenerateCompany = new JMenuItem ("Generate Company");
 	   submenuGenerateCompany.addActionListener(new TestModeListener());
 	   menuTestMode.add(submenuGenerateCompany);
 	   
 	   
-	   //добав. пункт "Generate Employees"
+	   //"Generate Employees"
 	   submenuGenerateEmpl = new JMenu("Generate Employees");
 	   
 	   
-	 //добав. радио-меню "Generation Employee with fix salary"
+	 //"Generation Employee with fix salary"
 	   radioMenuGenerEmplFixSal = 
 			   new JRadioButtonMenuItem("Generation Employee with fix salary");
 	   submenuGenerateEmpl.add(radioMenuGenerEmplFixSal);
@@ -201,7 +191,7 @@ public class MenuBar extends JFrame{
 	   radioMenuGenerEmplFixSal.setAccelerator
 	   (KeyStroke.getKeyStroke(KeyEvent.VK_G, ActionEvent.CTRL_MASK));
 	   
-	 //добав. радио-меню "Generation Employee with hourly wages"
+	 //"Generation Employee with hourly wages"
 	   radioMenuGenerEmplHourlyWages = 
 			   new JRadioButtonMenuItem("Generation Employee with hourly wages");
 	   submenuGenerateEmpl.add(radioMenuGenerEmplHourlyWages);
@@ -209,17 +199,15 @@ public class MenuBar extends JFrame{
 	   radioMenuGenerEmplHourlyWages.setAccelerator
 	   (KeyStroke.getKeyStroke(KeyEvent.VK_G, ActionEvent.ALT_MASK));
 	   
-	   //добав радио батоны в Ѕаттон√рупп
 	   rbGroup = new ButtonGroup();
 	   rbGroup.add(radioMenuGenerEmplFixSal);
 	   rbGroup.add(radioMenuGenerEmplHourlyWages);
 	   
 	   menuTestMode.add(submenuGenerateEmpl);
 	   
-	   //подменю добав к основному меню
 	   getPersRecMenuBar().add(menuTestMode);
 	   
-	}//конструктор
+	}
 	
 
 	//*******//get/set//*********************************************************
@@ -329,7 +317,7 @@ public class MenuBar extends JFrame{
 		fileOpen.setDialogType(JFileChooser.OPEN_DIALOG);
 		
 		FileNameExtensionFilter filter = new FileNameExtensionFilter
-				("“екстовые файлы *.ehw *.efs *.txt *.in *.doc"  , "ehw", "efs", "txt", "in", "doc");
+				("*.ehw *.efs *.txt *.in *.doc"  , "ehw", "efs", "txt", "in", "doc");
 		fileOpen.addChoosableFileFilter(filter);
 		fileOpen.setMultiSelectionEnabled(true);
 		
@@ -356,20 +344,16 @@ public class MenuBar extends JFrame{
 		EmployeeCreator emplCreator = new EmployeeCreator();
 		if (mark.equals("FixSal")) {
 
-			// создаем модель
 			EmplFixSalTableModel emplFixSalTableModel = new EmplFixSalTableModel(
 					emplCreator.createArrListWithNewEmplFixSal());
 
-			// вызываем метод отображени€ таблицы
 			getMainFrame().displayTable(emplFixSalTableModel);
 		}// if
 		else if (mark.equals("HourlyWages")) {
 
-			// создаем модель
 			EmplHourlyWagesTableModel emplHourlyWagesTableModel = new EmplHourlyWagesTableModel(
 					emplCreator.createArrListWithNewEmplHourlyWages());
 
-			// вызываем метод отображени€ таблицы
 			getMainFrame().displayTable(emplHourlyWagesTableModel);
 		}//else if
 	}//createNewTable()
@@ -379,26 +363,20 @@ public class MenuBar extends JFrame{
 		
 		if (pathFileIn.indexOf(".efs") != (-1)) {
 			
-			//создаем объекты сотрудников
 			instanceCompany.createArrayListObjEmplFixSalFromFile(pathFileIn);
 		
-			//создаем модель
 			EmplFixSalTableModel emplFixSalTableModel = 
 					new EmplFixSalTableModel (instanceCompany.getArrListObjAllEmployee());
 
-			//вызываем метод отображени€ таблицы
 			getMainFrame().displayTable(emplFixSalTableModel);
 		}//if
 		else if (pathFileIn.indexOf(".ehw") != (-1)) {
 			
-			//создаем объекты сотрудников
 			instanceCompany.createArrayListObjEmplHourlyWagesFromFile(pathFileIn);
 		
-			//создаем модель
 			EmplHourlyWagesTableModel emplHourlyWagesTableModel =
 					new EmplHourlyWagesTableModel(instanceCompany.getArrListObjAllEmployee());
 
-			//вызываем метод отображени€ таблицы
 			getMainFrame().displayTable(emplHourlyWagesTableModel);
 		}//else if
 	}//createTableFromDataFile
@@ -414,7 +392,6 @@ public class MenuBar extends JFrame{
 			JOptionPane.showMessageDialog(null,
 					"Field 'amount Employees' requires an integer value",
 					"Error", JOptionPane.ERROR_MESSAGE);
-
 			return 0;
 	}
 	}//showInputDialog ()
@@ -425,12 +402,12 @@ public class MenuBar extends JFrame{
 		companyDataFrame.getContentPane().setLayout(new GridBagLayout());
 
 		GridBagConstraints constraints = new GridBagConstraints();
-		constraints.anchor = GridBagConstraints.WEST;//выравнивание компонента внутри отведенного дл€ него пространства
-		constraints.fill   = GridBagConstraints.NONE; //раст€гивание компонента - NONE  - не мен€ет свой размер
-		constraints.insets = new Insets(15, 10, 10, 10);//отступ сверху, слева, снизу, справа
+		constraints.anchor = GridBagConstraints.WEST;
+		constraints.fill   = GridBagConstraints.NONE; 
+		constraints.insets = new Insets(15, 10, 10, 10);
 		
-		constraints.gridx = 0;//номер столбца, куда будет помещен компонент 
-		constraints.gridy = 0;//номер строки, куда будет помещен компонент
+		constraints.gridx = 0; 
+		constraints.gridy = 0;
 		JLabel labelCompanyName = new JLabel("<html><b>Company Name: </b></html>");
 		companyDataFrame.getContentPane().add(labelCompanyName, constraints);
 		
@@ -515,7 +492,7 @@ public class MenuBar extends JFrame{
 		companyDataFrame.setLocation((screenSize.width - companyDataFrame.getWidth()) / 2,
 		                (screenSize.height - companyDataFrame.getHeight()) / 3);
 		companyDataFrame.setDefaultCloseOperation(companyDataFrame.DISPOSE_ON_CLOSE);
-		companyDataFrame.setVisible(true); // отображать окно
+		companyDataFrame.setVisible(true); 
 	}//showCompanyDataFrame
 	//*******************************************************************************
 	public static void saveEditedCompanyData () {
@@ -685,22 +662,16 @@ class TestModeListener implements ActionListener {
 			}//if
 			else if (event.getActionCommand().equals(MenuBar.getRadioMenuGenerEmplFixSal().getActionCommand())) {
 			
-				//получаем из диалогового окна количество генерируемых сотрудников
 				int amountEmployee = MenuBar.showInputDialog();
 								
-				//генерируем random-data по сотрудникам в файл "EmployeesFixedSalary.efs"
-				//расширение .efs от EmployeesFixedSalary - это поможет мне распознать файл при считывании
 				TestMode.generationEmployeeDataAndFiling(amountEmployee, "src/main/resources/EmployeesFixedSalary.efs");
 				
 				MenuBar.createTableFromDataFile("src/main/resources/EmployeesFixedSalary.efs");				
 			}//if
 			else if (event.getActionCommand().equals(MenuBar.getRadioMenuGenerEmplHourlyWages().getActionCommand())) {
 			
-				//получаем из диалогового окна количество генерируемых сотрудников
 				int amountEmployee = MenuBar.showInputDialog();
 				
-				//генерируем random-data по сотрудникам в файл "EmployeesHourlyWages.ehw"
-				//расширение .ehw - от EmployeesHourlyWages - это поможет мне распознать файл при считывании
 				TestMode.generationEmployeeDataAndFiling(amountEmployee, "src/main/resources/EmployeesHourlyWages.ehw");
 				
 				MenuBar.createTableFromDataFile("src/main/resources/EmployeesHourlyWages.ehw");

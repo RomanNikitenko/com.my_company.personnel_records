@@ -122,16 +122,6 @@ public class Company {
 	}
 
 	//***********************************************************
-	/**
-	 * ����� �������� ArrayList �������� AllEmployee:
-	 * <p>* ������� ArrayList �������� EmployeeFixedSalary ��� ���� �����������, ������ ��� ������� ���� � �����</p>
-	 * <p>* ������� ArrayList �������� EmployeeHourlyWages ��� ���� �����������, ������ ��� ������� ���� � �����</p>
-	 * <p>* ��������� ���������� ������� � ���� ArrayList</p> 
-	 * @param pathFileInEmplFixSal String - ���� � ����� � ������� �� ����������� EmployeeFixedSalary
-	 * @param pathFileInEmplHourlyWages String - ���� � ����� � ������� �� ����������� EmployeeHourlyWages
-	 * @return ArrayList<Employee> - ������� �����������
-	 * @throws Exception
-	 */
 	public ArrayList<Employee> createArrayListObjAllEmplFromFile (String pathFileInEmplFixSal, String pathFileInEmplHourlyWages)
 			throws Exception {
 		ArrayList<Employee> arrListObjEmplFixSal = new ArrayList<Employee>();
@@ -141,19 +131,6 @@ public class Company {
 		return arrListObjAllEmployee;
 	}//createArrayListObjEmplFixSalFromFile
 	//***********************************************************************************************
-	/**
-	 * ����� �������� ArrayList �������� EmployeeFixedSalary:
-	 * <p> * �������� MyUtil.readDataEmployeeFromFile(pathFileIn), ������� ���������
-	 * ������ </p>
-	 * <p>* �������� �� ����� ����� ArrayList ������ �� ����������� * </p>
-	 * <p>* ������� ArrayList �������� EmployeeFixedSalary ��� ���� �����������,
-	 * ������ ��� ������� ���� � ����� * </p>
-	 * 
-	 * @param pathFileIn
-	 *            String - ���� � ����� � ������� �� �����������
-	 * @return ArrayList<EmployeeFixedSalary> - ������� �����������
-	 * @throws Exception
-	 */
 	public ArrayList<Employee> createArrayListObjEmplFixSalFromFile(
 			String pathFileIn) throws Exception {
 
@@ -183,15 +160,6 @@ public class Company {
 		return arrListObjAllEmployee;
 	}// createArrayListObjEmplFixSalFromFile
 	// **************************************************************************************************
-	/**
-	 * ����� �������� ArrayList �������� EmployeeHourlyWages:
-	 * <p>* �������� MyUtil.readDataEmployeeFromFile(pathFileIn), ������� ��������� ������ </p>
-	 * <p>* �������� �� ����� ����� ArrayList ������ �� �����������</p> 
-	 * <p>* ������� ArrayList �������� EmployeeHourlyWages ��� ���� �����������, ������ ��� ������� ���� � �����</p> 
-	 * @param pathFileIn String - ���� � ����� � ������� �� �����������
-	 * @return ArrayList<EmployeeHourlyWages> - ������� �����������
-	 * @throws Exception
-	 */
 	public ArrayList<Employee> createArrayListObjEmplHourlyWagesFromFile(
 			String pathFileIn) throws Exception {
 
@@ -259,5 +227,4 @@ public class Company {
 			}//if
 		}//for
 	}//deleteEmployeeByPersNumber
-
 }//class

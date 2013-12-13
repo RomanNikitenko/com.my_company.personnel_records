@@ -6,7 +6,7 @@ import com.company.personnelrecords.exception.StringDigitIncludeException;
 
 public class EmployeeHourlyWages extends Employee{
 	
-	private BigDecimal hourlyRate;	//ставка в час
+	private BigDecimal hourlyRate;	
 	
 	
 
@@ -20,7 +20,7 @@ public class EmployeeHourlyWages extends Employee{
 				taxIdentifNum, education, passport, residence);
 		
 		this.setHourlyRate(hourlyRate); 
-	}//конструктор
+	}
 //*********************************************************************************************
 	
 	public BigDecimal getHourlyRate() {
@@ -30,5 +30,4 @@ public class EmployeeHourlyWages extends Employee{
 		this.hourlyRate = hourlyRate;
 	}
 //***********************************************************************************************
-	
 }//class

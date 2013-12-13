@@ -15,7 +15,6 @@ com/xml/ns/javaee/web-app_3_0.xsd"
 			<param-value>UTF-8</param-value>
 		</init-param>
 	</filter>
-
 	<filter-mapping>
 		<filter-name>EncodingFilter</filter-name>
 		<url-pattern>/*</url-pattern>

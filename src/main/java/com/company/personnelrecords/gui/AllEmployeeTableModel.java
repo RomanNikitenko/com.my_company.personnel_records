@@ -87,7 +87,6 @@ public class AllEmployeeTableModel extends AbstractTableModel{
 	@Override
 	public void setValueAt(Object aValue, int row, int column) {
 		
-			
 		switch (column) {
 		case 0:
 			try {
