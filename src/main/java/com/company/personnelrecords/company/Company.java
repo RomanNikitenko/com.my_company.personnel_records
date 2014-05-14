@@ -32,7 +32,7 @@ public class Company {
 		this.companyCurrentAccount = companyCurrentAccount;
 		this.companyEDRPOU = companyEDRPOU;
 	}
-	//**********************************************************
+	
 	
 	public static Company getInstance() {
 		if (INSTANCECOMPANY == null) {
