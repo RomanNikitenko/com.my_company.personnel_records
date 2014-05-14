@@ -31,7 +31,7 @@ public class Company {
 		this.companyRegisteredOffice = companyRegisteredOffice;
 		this.companyCurrentAccount = companyCurrentAccount;
 		this.companyEDRPOU = companyEDRPOU;
-	}//constructor
+	}
 	//**********************************************************
 	
 	public static Company getInstance() {
