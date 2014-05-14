@@ -23,7 +23,7 @@ public class Company {
 	long 	companyCurrentAccount,
 			companyEDRPOU;
 
-	//*******constructor**************************************
+	//*******constructor**********************************
 	private Company(String companyName, String companyCEO, 
 			long companyCurrentAccount, long companyEDRPOU, String companyRegisteredOffice){
 		this.companyName = companyName;
@@ -32,7 +32,7 @@ public class Company {
 		this.companyCurrentAccount = companyCurrentAccount;
 		this.companyEDRPOU = companyEDRPOU;
 	}
-	
+	//**********************************************************
 	
 	public static Company getInstance() {
 		if (INSTANCECOMPANY == null) {
