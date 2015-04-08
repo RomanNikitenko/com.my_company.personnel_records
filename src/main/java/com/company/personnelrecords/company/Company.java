@@ -23,7 +23,7 @@ public class Company {
 	long 	companyCurrentAccount,
 			companyEDRPOU;
 
-	//*******constructor*********sdfdfsdfsdfdfsdfsdfdsfsdfsd*************************
+	//*******constructor*********sdfdfsdfsdfsdfsd*************************
 	private Company(String companyName, String companyCEO, 
 			long companyCurrentAccount, long companyEDRPOU, String companyRegisteredOffice){
 		this.companyName = companyName;
