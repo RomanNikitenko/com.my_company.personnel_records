@@ -24,7 +24,7 @@ public class Employee {
 	
 	
 	
-//**********************************************************************************
+//*******************************************************************************
 	public Employee(int personalNumber, String surnameNameMiddlename,
 			String department, String post, BigDecimal averageSalary, long taxIdentifNum,
 			String education, String passport, String residence) throws StringDigitIncludeException {
