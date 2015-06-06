@@ -8,7 +8,7 @@ import com.company.personnelrecords.exception.StringDigitIncludeException;
 public class EmployeeCreator {
 	private Company instanceCompany = Company.getInstance();
 	
-	//***********************************************************************************************
+	//********************************************************************************************
 	public EmployeeFixedSalary addEmplFixSal(int personalNumber,
 			String surnameNameMiddlename, String department, String post,
 			BigDecimal averageSalary, long taxIdentifNum, String education,
