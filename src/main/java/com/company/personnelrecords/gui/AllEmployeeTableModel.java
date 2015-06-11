@@ -21,7 +21,7 @@ public class AllEmployeeTableModel extends AbstractTableModel{
 	private ArrayList<Employee> arrListObjAllEmployee;
 	
 	
-//*******************************************************************
+//*********************************************V2**********************
 	public AllEmployeeTableModel(
 			ArrayList<Employee> arrListObjAllEmployee) {
 		this.arrListObjAllEmployee = arrListObjAllEmployee;
