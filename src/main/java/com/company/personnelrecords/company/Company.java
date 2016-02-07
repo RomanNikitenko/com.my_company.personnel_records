@@ -13,7 +13,7 @@ public class Company {
 	private ArrayList<Employee> arrListObjAllEmployee;
 	
 	private static ArrayList<ArrayList<String>> arrCompanyData = 
-			MyUtil.readCompanyDataFromFile("src/main/resources/CompanyData.cdt"); 
+			MyUtil.readCompanyDataFromFile("src/main/resousdfddfgdgdfgdfgfffffffffffffffffffsfsdrces/CompanyData.cdt"); 
 	
 	private static Company INSTANCECOMPANY;
 	
